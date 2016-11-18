@@ -44,7 +44,7 @@ public class Day implements Serializable {
 	/**
 	 * This is for the second auction made.
 	 */
-	public Auction myAuction2;
+	private Auction myAuction2;
 	
 	/**
 	 * This is used to fill out default information shared by
