@@ -39,7 +39,7 @@ public class StaffUI {
 		
 		displayStaffInfo();
 		System.out.print("\nNovember 1, 2016. ");
-		System.out.println("Total number of upcoming auctions: " + myCalendar.myAuctionsTotal);
+		System.out.println("Total number of upcoming auctions: " + myCalendar.getAuctionsTotal());
 		
 		System.out.println("\nWhat would you like to do? (enter a number)");
 		System.out.println("1. View Calendar of upcoming auctions");
@@ -61,7 +61,7 @@ public class StaffUI {
 	private void displayCalendar(){
 		displayStaffInfo();
 		System.out.print("\nNovember 1, 2016. ");
-		System.out.println("Total number of upcoming auctions: " + myCalendar.myAuctionsTotal);
+		System.out.println("Total number of upcoming auctions: " + myCalendar.getAuctionsTotal());
 		
 		StringBuilder b = new StringBuilder(); 
 		b.append("\n     Su          M          T          W         Th          F          S\n");
@@ -70,28 +70,28 @@ public class StaffUI {
 		b.append("                            [November]                    \n");
 		b.append("|          |       ");
 		for(int i = 1; i < 6; i++) {
-			b.append("   |    " + i + ":" + myCalendar.myCalendar.get(i -1).getNumAuctions());
+			b.append("   |    " + i + ":" + myCalendar.getCalendar().get(i -1).getNumAuctions());
 		}
 		b.append("   |\n");
 		b.append("|    ");
 		for(int i = 6; i < 10; i++) {			
-			b.append(i + ":" + myCalendar.myCalendar.get(i -1).getNumAuctions() +"   |    ");
+			b.append(i + ":" + myCalendar.getCalendar().get(i -1).getNumAuctions() +"   |    ");
 		}
 		
-		b.append(10 + ":" + myCalendar.myCalendar.get(10-1).getNumAuctions() +"  |   ");
-		b.append(11 + ":" + myCalendar.myCalendar.get(11-1).getNumAuctions() +"   |   ");
-		b.append(12 + ":" + myCalendar.myCalendar.get(12-1).getNumAuctions() +"   |   ");
+		b.append(10 + ":" + myCalendar.getCalendar().get(10-1).getNumAuctions() +"  |   ");
+		b.append(11 + ":" + myCalendar.getCalendar().get(11-1).getNumAuctions() +"   |   ");
+		b.append(12 + ":" + myCalendar.getCalendar().get(12-1).getNumAuctions() +"   |   ");
 		b.append("\n|   ");
 		for(int i = 13; i < 20; i++) {
-			b.append(i + ":" + myCalendar.myCalendar.get(i -1).getNumAuctions() +"   |   ");
+			b.append(i + ":" + myCalendar.getCalendar().get(i -1).getNumAuctions() +"   |   ");
 		}
 		b.append("\n|   ");
 		for(int i = 20; i < 27; i++) {
-			b.append(i + ":" + myCalendar.myCalendar.get(i -1).getNumAuctions() +"   |   ");
+			b.append(i + ":" + myCalendar.getCalendar().get(i -1).getNumAuctions() +"   |   ");
 		}
 		b.append("\n|   ");
 		for(int i = 27; i < 31; i++) {
-			b.append(i + ":" + myCalendar.myCalendar.get(i -1).getNumAuctions() +"   |   ");
+			b.append(i + ":" + myCalendar.getCalendar().get(i -1).getNumAuctions() +"   |   ");
 		}
 		b.append("       |          |          |");
 		b.append("\n\n");

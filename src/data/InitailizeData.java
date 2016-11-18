@@ -79,7 +79,7 @@ public class InitailizeData {
 		
 		for(int i = 0; i < 75; i++) {
 			if(i == 45) {
-				myCalendar.myCalendar.get(i).addAuction(new AuctionRequest(new Date(5, "January", 2016), new Time(7, 0, "PM"), "Steve Jobs"));
+				myCalendar.getCalendar().get(i).addAuction(new AuctionRequest(new Date(5, "January", 2016), new Time(7, 0, "PM"), "Steve Jobs"));
 			}
 			
 		}

@@ -56,9 +56,9 @@ public class CalendarTest {
 		Day day1 = c1.getCurrentDay();
 		assertEquals("test case current day fails! -calendar", day1.getDay(), 1);
 		assertEquals("test case current month fails! -calendar", day1.getMonth(), "November");
-		assertEquals("test case amount of days fails! -calendar", c1.myCalendar.size(), 390);
-		assertFalse("test case wrong year -calendar", c1.myCalendar.get(380).getYear() == 2015);
-		assertTrue("test case right year -calendar", c1.myCalendar.get(375).getYear() == 2016);
+		assertEquals("test case amount of days fails! -calendar", c1.getCalendar().size(), 390);
+		assertFalse("test case wrong year -calendar", c1.getCalendar().get(380).getYear() == 2015);
+		assertTrue("test case right year -calendar", c1.getCalendar().get(375).getYear() == 2016);
 	}
 
 	@Test
@@ -88,7 +88,7 @@ public class CalendarTest {
 		assertTrue("test case no auction in last year", c2.checkLastYear(myRequest.getNonProfitName()));
 		for(int i = 0; i < 75; i++) {
 			if(i == 45) {
-				c2.myCalendar.get(i).addAuction(myRequestPast);
+				c2.getCalendar().get(i).addAuction(myRequestPast);
 			}
 			
 		}
@@ -97,9 +97,9 @@ public class CalendarTest {
 
 	@Test
 	public void testCheckTotalAuctions() {
-		c2.myAuctionsTotal = 24;
+		c2.setAuctionsTotal(24);
 		assertTrue("test case 24 auctions add one more", c2.checkTotalAuctions());
-		c2.myAuctionsTotal = 25;
+		c2.setAuctionsTotal(25);
 		assertFalse("test case 25 auctions add one more", c2.checkTotalAuctions());
 		
 	}

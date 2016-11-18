@@ -30,32 +30,31 @@ public class Calendar implements Serializable {
 	 * Used to keep track of all of the days in the calendar.
 	 * the current month plus the next three months
 	 */
-	public List<Day> myCalendar;
+	private List<Day> myCalendar;
 	
    /**
 	 * Used to store the current month of the Calendar
 	 */	
-	public String myMonth;
-	
+	private String myMonth;
    /**
 	 * Used to store the current year of the Calendar
 	 */
-	public int myYear;
+	private int myYear;
 	
    /**
 	 *  Used to store the current day of the Calendar
 	 */
-	public Day myCurrentDay;
+	private Day myCurrentDay;
 	
 	/**
 	 * Used to keep number of auctions under 26.
 	 */
-	public int myAuctionsTotal;
+	private int myAuctionsTotal;
 	
 	/**
 	 * List of all non-profits that currently have auctions in the calendar. 
 	 */
-	public List<Auction> myAuctions;
+	private List<Auction> myAuctions;
 	
 	/**
 	 * This is a constructor used to set up the whole class
@@ -79,6 +78,15 @@ public class Calendar implements Serializable {
 	 */
 	public List<Day> getCalendar() {
 		return myCalendar;
+	}
+	
+	public int getAuctionsTotal() {
+		return myAuctionsTotal;
+		
+	}
+	
+	public void setAuctionsTotal(int theTotal) {
+		myAuctionsTotal = theTotal;
 	}
 	
    /**
