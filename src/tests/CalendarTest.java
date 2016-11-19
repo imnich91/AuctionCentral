@@ -52,28 +52,48 @@ public class CalendarTest {
 	}
 
 	@Test
-	public void testMakeCalendar() {
+	public void Verify_calendar_returns_correct_day() {
 		Day day1 = c1.getCurrentDay();
 		assertEquals("test case current day fails! -calendar", day1.getDay(), 1);
+	}
+	
+	@Test
+	public void Verify_calendar_returns_correct_month() {
+		Day day1 = c1.getCurrentDay();
 		assertEquals("test case current month fails! -calendar", day1.getMonth(), "November");
+	}
+	
+	@Test
+	public void Verify_calendar_returns_correct_amount_of_days() {
 		assertEquals("test case amount of days fails! -calendar", c1.getCalendar().size(), 390);
+	}
+	
+	@Test
+	public void Verify_calendar_returns_right_year() {
 		assertFalse("test case wrong year -calendar", c1.getCalendar().get(380).getYear() == 2015);
-		assertTrue("test case right year -calendar", c1.getCalendar().get(375).getYear() == 2016);
+	}
+	
+	@Test
+	public void Verify_check_month_year_passes_same_month_year() {
+		assertTrue("test case same month", c2.checkMonthYear(myRequest.getDate().getMonth(), myRequest.getDate().getYear()));
+	}
+	
+	@Test
+	public void Verify_check_month_year_fails_wrong_month_year() {
+		assertFalse("test case wrong month", c2.checkMonthYear("January", 2013));
 	}
 
 	@Test
-	public void testCheckMonthYear() {
-		assertTrue("test case same month", myRequest.getDate().getMonth().equals("November"));
-		assertFalse("test case wrong month", myRequest.getDate().getMonth().equals("February"));
-		assertTrue("test case same year", myRequest.getDate().getYear() == 2016);
-		assertFalse("test case wrong year", myRequest.getDate().getYear() == 2015);
+	public void Verify_day_in_month_passes() {
+		assertTrue("test case valid day", c2.checkDay(myRequest.getDate().getDay(), myRequest));
 	}
-
+	
 	@Test
-	public void testCheckDay() {
-		assertTrue("test case valid day", myRequest.getDate().getDay() >= 1 && myRequest.getDate().getDay() <= 30);
-		assertFalse("test case invalid day", myRequestBadDay.getDate().getDay() >= 1 && myRequestBadDay.getDate().getDay() <= 30);
+	public void Verify_day_in_month_fails() {
+		assertFalse("test case invalid day", c2.checkDay(myRequestBadDay.getDate().getDay(), myRequestBadDay));
 	}
+	
+
 
 	@Test
 	public void testCheckAuctionExist() {
