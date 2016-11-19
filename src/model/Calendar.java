@@ -10,7 +10,7 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
+//fun
 /**
  * This class is used to keep track of
  * all of the auctions in the Calendar.
