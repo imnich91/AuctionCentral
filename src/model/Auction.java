@@ -53,7 +53,7 @@ public class Auction implements Serializable{
 	 * @param theTime the time of auction
 	 */
 	public Auction(String theNonProfit, Date theDate, Time theTime) {
-		myInventory = new ArrayList<Item>();
+		myInventory = new ArrayList<Item>();	
 		myNonProfit = theNonProfit;
 		myDate = theDate;
 		myTime = theTime;

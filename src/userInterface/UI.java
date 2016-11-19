@@ -7,6 +7,7 @@
 
 package userInterface;
 
+import java.util.Date;
 /**
  * The UI Class.
  * @author Dmitriy Onishchenko
@@ -37,6 +38,10 @@ public class UI {
 	private NonProfitUI  myNonProfitUI;
 	private Scanner myInput;
 	private Calendar myCalendar;
+	
+
+	
+	
 	
 	public UI(List<User> theUsers, HashMap<String, String> theUsersLogin, Calendar theCalendar) {
 		

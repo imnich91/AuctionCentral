@@ -17,15 +17,15 @@ import java.io.Serializable;
 public class Bid implements Serializable{
 	
 	/**
-	 * 
+	 * The serializable ID.
 	 */
 	private static final long serialVersionUID = 1L;
 
 	/**  the string that holds the name of the bidder */
-	public String myBidder;
+	private String myBidder;
 	
 	/** the double that stores the price of the bid that the bidder has bid on */
-	public int myBidPrice;
+	private int myBidPrice;
 	
 	
 	/**
