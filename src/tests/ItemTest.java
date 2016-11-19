@@ -62,61 +62,61 @@ public class ItemTest {
 	
 	
 	@Test
-	public void testMakeBidBidderNotPreviouslyBid() {		
+	public void Verify_bidder_has_not_previously_bid() {		
 		assertTrue(myitem2.makeBid(myBidder2, 200));	
 		
 	}
 	
 	@Test
-	public void testMakeBidBidderPreviouslyBid() {
+	public void Verify_bidder_has_previously_bid() {
 		
 		assertFalse(myitem2.makeBid(myBidder1, 200));	
 		
 	}
 	
 	@Test
-	public void testMakeBidUnregisteredBidder() {		
+	public void Verify_unregistered_bidder_cannot_bid() {		
 		assertFalse(myitem2.makeBid(myUnregisterBidder, 200));	
 		
 	}
 	
 	@Test
-	public void testMakeBidRegisteredBidder() {		
+	public void Verify_registered_bidder_can_bid() {		
 		assertTrue(myitem2.makeBid(myBidder2, 200));			
 	}
 	
 	@Test
-	public void testMakeBidAsStaffMember() {		
+	public void Verify_staff_cannot_bid() {		
 		assertFalse(myitem2.makeBid(myStaff1, 200));			
 	}
 	
 	@Test
-	public void testMakeBidAsNonProfit() {		
+	public void Verify_nonprofit_cannot_bid() {		
 		assertFalse(myitem2.makeBid(myNonProfit1, 200));			
 	}
 	
 	@Test
-	public void testIsValidBidPriceOnNegativeBid(){
+	public void Verify_the_bid_price_is_not_negative(){
 		assertEquals(false, myItem.isValidBidPrice(-1));
 	}
 	
 	@Test
-	public void testIsValidBidPriceOnZeroBid(){
+	public void Verify_the_bid_price_is_not_zero(){
 		assertEquals(false, myItem.isValidBidPrice(0));
 	}
 	
 	@Test
-	public void testIsValidBidPriceOnLessThanMinBid(){
+	public void Verify_cannot_bid_less_than_minimum_bid(){
 		assertEquals(false, myItem.isValidBidPrice(25));
 	}
 	
 	@Test
-	public void testIsValidBidPriceOnEqualToMinBid(){
+	public void Verify_can_bid_equal_to_minimum_bid(){
 		assertEquals(true, myItem.isValidBidPrice(50));
 	}
 	
 	@Test
-	public void testIsValidBidPriceOnGreaterThanMinBid(){
+	public void Verify_can_bid_greater_than_minimum_bid(){
 		assertEquals(true, myItem.isValidBidPrice(75));
 	}
 	
