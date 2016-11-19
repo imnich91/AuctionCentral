@@ -354,4 +354,16 @@ public class Calendar implements Serializable {
 		
 		return theAuction;
 	}
+	
+	/*
+	 	public boolean setAuctionNumber(final int theNum) {
+	 		boolean flag = true;
+	 		myAuctionNum = theNum;
+	 		return flag;
+	 	}
+	 	
+	 	public int getAuctionsInAMonth() {
+	 		return myAuctionNum;
+	 	}
+	 	*/
 }
