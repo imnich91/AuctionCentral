@@ -10,7 +10,7 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
+//fun
 /**
  * This class is used to keep track of
  * all of the auctions in the Calendar.
@@ -56,6 +56,12 @@ public class Calendar implements Serializable {
 	 */
 	private List<Auction> myAuctions;
 	
+	
+	/**
+	 * Used to keep track of auctions in a month.
+	 */
+	private int myAuctionNum;
+	
 	/**
 	 * This is a constructor used to set up the whole class
 	 * by initializing the fields of the Calendar.
@@ -68,6 +74,7 @@ public class Calendar implements Serializable {
 		myCurrentDay = new Day("November", 1, 2016);
 		myMonth = "November";
 		myYear = 2016;
+		myAuctionNum = 25;
 		
 	}
 	
@@ -354,4 +361,16 @@ public class Calendar implements Serializable {
 		
 		return theAuction;
 	}
+	
+	/*
+	public boolean setAuctionNumber(final int theNum) {
+		boolean flag = true;
+		myAuctionNum = theNum;
+		return flag;
+	}
+	
+	public int getAuctionsInAMonth() {
+		return myAuctionNum;
+	}
+	*/
 }
