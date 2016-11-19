@@ -16,7 +16,7 @@ import model.Item;
 import model.NonProfit;
 import model.Time;
 import model.Auction;
-
+//hi
 /**
  * Test class for Auction class.
  * @author Dmitriy Onishchenko, Colin Casey 
