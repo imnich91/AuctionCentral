@@ -23,7 +23,7 @@ import model.Staff;
  *
  */
 
-//HI
+
 public class ItemTest {	
 	
 	private Item myItem;
