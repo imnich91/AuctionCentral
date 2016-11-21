@@ -130,11 +130,8 @@ public class Item implements Serializable{
 	
 		boolean validBid = isValidBidPrice(theBidPrice);		
 	
-		if (theUser.getUserName().equals("") || theUser.getPassword().equals("") ||
-				theUser instanceof Staff || theUser instanceof NonProfit) {			
-			validBid = false;	
-			
-		} else {
+	
+		if (isValidBidder(theUser)) {		
 			
 			for(int i=0; i < theBunchObids.size(); i++) {
 				
@@ -149,9 +146,63 @@ public class Item implements Serializable{
 			if(validBid){
 				theBunchObids.add(new Bid(theUser.getName(), theBidPrice));
 			}			
-		}		
+		} else 
+			validBid = false;
+		
 		return validBid;
 	}
+	
+	
+	
+	/**
+	 * Cancels a bid for the specified user.
+	 * 
+	 * @param theUser the bidder that wants to cancel a bid
+	 * @param theAuctionDate the auction start date
+	 * @param theCurrentDate the current date
+	 * @return true if bid has been successfully canceled otherwise false.
+	 */
+	public boolean cancelBid(User theUser, Date theAuctionDate, Date theCurrentDate) {
+		
+		// make sure not canceling less than 2 days prior to auciton date
+		boolean canceled = theAuctionDate.getYear() <= theCurrentDate.getYear() && 
+				theAuctionDate.getMonthAsNumber() <= theCurrentDate.getMonthAsNumber() &&
+						theAuctionDate.getDay() <= theCurrentDate.getDay() - 2;
+				
+	
+		if (canceled && isValidBidder(theUser)) {			
+			
+			boolean found = false;
+			for(int i=0; i < theBunchObids.size(); i++) {
+				Bid currBid = ((ArrayList<Bid>)theBunchObids).get(i);
+				
+				if (currBid.getBidder().equals(theUser.getName())) {
+					theBunchObids.remove(currBid);
+					found = true;
+				}							
+			}			
+			canceled = found;			
+		} 
+		else  {
+			canceled = false;
+		}
+		
+		return canceled;
+	}
+	
+	
+	/**
+	 * Checks to see if current user is a registered bidder.
+	 * @param theUser the current user of the system. 
+	 * @return returns true if user is a registered bidder otherwise returns false.
+	 */
+	public boolean isValidBidder(User theUser) {
+		
+		return !(theUser.getUserName().equals("") || theUser.getPassword().equals("") ||
+				theUser instanceof Staff || theUser instanceof NonProfit);			
+	}
+	
+	
 	
 	/**
 	 * @return item's auction inventory number

@@ -9,6 +9,9 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
+import model.Date;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,21 +30,36 @@ import model.Staff;
 public class ItemTest {	
 	
 	private Item myItem;
-	private Item myitem2;	
+	private Item myItem2;	
 	private Bidder myBidder1;
 	private Bidder myBidder2;
 	private Bidder myUnregisterBidder;
 	private Staff myStaff1;
 	private NonProfit myNonProfit1;
+	
+	private LocalDate myLocalDate;	
+	private Date myCurrDate;
+	private Date myDateMoreThan2Days;
+	private Date myDateEqualTo2Days;
+	private Date myDateLessThan2Days;
 
 	@Before
 	public void setup() {
+		
+		myLocalDate = LocalDate.now();		
+		myCurrDate = new Date(myLocalDate.getDayOfMonth(), myLocalDate.getMonth().toString(), myLocalDate.getYear());
+		
+		myDateMoreThan2Days = new Date(myCurrDate.getDay() - 5, myCurrDate.getMonth(), myCurrDate.getYear());
+		myDateEqualTo2Days = new Date(myCurrDate.getDay() - 2, myCurrDate.getMonth(), myCurrDate.getYear());
+		myDateLessThan2Days = new Date(myCurrDate.getDay() - 1, myCurrDate.getMonth(), myCurrDate.getYear());
+		
+	
 		
 		myItem = new Item("Autographed Sounders Jersey", "Good", "medium",
 				50, "Seattle Sounders", "Game worn jersy signed by Brad Evan.",
 				"CenturyLink Field front office has the jersey");
 		
-		myitem2 = new Item("Football", "good", "small", 100, "Bill and Melinda Gates", 
+		myItem2 = new Item("Football", "good", "small", 100, "Bill and Melinda Gates", 
 						"Really cool football", "hello");		
 		
 		myNonProfit1 = new NonProfit("Bill Gates", "billy", "1234",
@@ -58,68 +76,132 @@ public class ItemTest {
 		myUnregisterBidder = new Bidder("George Bush", "", "", 
 				"d@gmail.com", "1111 11th st San Diego", "111-111-1111");		
 		
-		myitem2.makeBid(myBidder1, 300);
+		myItem2.makeBid(myBidder1, 300);
 		
 	}
 	
 	
 	@Test
-	public void Verify_bidder_has_not_previously_bid() {		
-		assertTrue(myitem2.makeBid(myBidder2, 200));	
+	public void testMakeBidOnBidderWhoHasNotPreviouslyBid() {
 		
+		assertTrue(myItem2.makeBid(myBidder2, 200));			
 	}
 	
 	@Test
-	public void Verify_bidder_has_previously_bid() {
+	public void testMakeBidOnBidderWhoHasPreviouslyBid() {
 		
-		assertFalse(myitem2.makeBid(myBidder1, 200));	
-		
+		assertFalse(myItem2.makeBid(myBidder1, 200));		
 	}
 	
 	@Test
-	public void Verify_unregistered_bidder_cannot_bid() {		
-		assertFalse(myitem2.makeBid(myUnregisterBidder, 200));	
-		
+	public void testMakeBidOnUnregisterdBidder() {		
+		assertFalse(myItem2.makeBid(myUnregisterBidder, 200));		
 	}
 	
 	@Test
-	public void Verify_registered_bidder_can_bid() {		
-		assertTrue(myitem2.makeBid(myBidder2, 200));			
+	public void testMakeBidOnRegisteredBidder() {		
+		assertTrue(myItem2.makeBid(myBidder2, 200));			
 	}
 	
 	@Test
-	public void Verify_staff_cannot_bid() {		
-		assertFalse(myitem2.makeBid(myStaff1, 200));			
+	public void testMakeBidOnStaffUser() {		
+		assertFalse(myItem2.makeBid(myStaff1, 200));			
 	}
 	
 	@Test
-	public void Verify_nonprofit_cannot_bid() {		
-		assertFalse(myitem2.makeBid(myNonProfit1, 200));			
+	public void testMakeBidderOnNonProfitUser() {		
+		assertFalse(myItem2.makeBid(myNonProfit1, 200));			
 	}
 	
 	@Test
-	public void Verify_the_bid_price_is_not_negative(){
+	public void testValidBidPriceOnNegativeBidAmount(){
 		assertEquals(false, myItem.isValidBidPrice(-1));
 	}
 	
 	@Test
-	public void Verify_the_bid_price_is_not_zero(){
+	public void testValidBidPriceOnZeroBidAmount(){
 		assertEquals(false, myItem.isValidBidPrice(0));
 	}
 	
 	@Test
-	public void Verify_cannot_bid_less_than_minimum_bid(){
+	public void testValidBidPriceOnLessThanMinimumBidAmount(){
 		assertEquals(false, myItem.isValidBidPrice(25));
 	}
 	
 	@Test
-	public void Verify_can_bid_equal_to_minimum_bid(){
+	public void testValidBidPriceOnEqualToMinimumBidAmount(){
 		assertEquals(true, myItem.isValidBidPrice(50));
 	}
 	
 	@Test
-	public void Verify_can_bid_greater_than_minimum_bid(){
+	public void testValidBidPriceOnGreaterThanMinimumBidAmount(){
 		assertEquals(true, myItem.isValidBidPrice(75));
 	}
+	
+	@Test
+	public void testIsValidBidderOnNonProfit() {
+		
+		assertFalse(myItem.isValidBidder(myNonProfit1));	
+	}
+	
+	@Test
+	public void testIsValidBidderOnStaff() {
+		
+		assertFalse(myItem.isValidBidder(myStaff1));	
+	}
+	
+	@Test
+	public void testIsValidBidderOnRegisteredBidder() {
+		
+		assertTrue(myItem.isValidBidder(myBidder1));	
+	}
+	
+	@Test
+	public void testIsValidBidderOnUnRegisteredBidder() {
+		
+		assertFalse(myItem.isValidBidder(myUnregisterBidder));	
+	}
+	
+	
+	@Test
+	public void testCancelBidOnUserIsStaffMember() {		
+	
+		assertFalse(myItem.cancelBid(myStaff1, myDateMoreThan2Days, myCurrDate));		
+	}
+	
+	@Test
+	public void testCancelBidOnUserIsNonProfit() {		
+	
+		assertFalse(myItem.cancelBid(myNonProfit1, myDateMoreThan2Days, myCurrDate));		
+	}
+	
+	@Test
+	public void testCancelBidOnUserIsBidderMoreThanTwoDaysBeforeAuciton() {		
+		
+		assertTrue(myItem2.cancelBid(myBidder1, myDateMoreThan2Days, myCurrDate));		
+	}
+	
+	@Test
+	public void testCancelBidOnUserIsBidderAtTwoDaysBeforeAuction() {
+		
+		assertTrue(myItem2.cancelBid(myBidder1, myDateEqualTo2Days, myCurrDate));		
+	}
+	
+	@Test
+	public void testCancelBidOnUserIsBidderLessThanTwoDaysBeforeAuction() {
+		
+		assertFalse(myItem2.cancelBid(myBidder1, myDateLessThan2Days, myCurrDate));	
+	}
+	
+	@Test
+	public void testCancelBidOnUserIsBidderWhoDoesntHaveABid() {
+		
+		assertFalse(myItem.cancelBid(myBidder1, myDateMoreThan2Days, myCurrDate));	
+	}
+	
+	
+	
+	
+	
 	
 }
