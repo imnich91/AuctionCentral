@@ -8,6 +8,7 @@ package model;
 
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,12 +63,10 @@ public class Calendar implements Serializable {
 	 */
 	public Calendar() {
 		myCalendar = new ArrayList<Day>();
-		makeCalendar();
 		myAuctionsTotal = 0;
 		myAuctions = new ArrayList<Auction>();
-		myCurrentDay = new Day("November", 1, 2016);
-		myMonth = "November";
-		myYear = 2016;
+		makeCalendar();
+		
 		
 	}
 	
@@ -107,53 +106,22 @@ public class Calendar implements Serializable {
 	 * Assuming each month contains 30 days.
 	 */
     
-	public void makeCalendar() {
-		int day = 1;
-		for(int i = 0; i < 13; i++) {
-			for(int j = 0; j < 30; j++) {
-				if(i < 12) {
-					myCalendar.add(new Day(getMonth(i), day+j, 2015));
-				} else {
-					myCalendar.add(new Day(getMonth(i), day+j, 2016));
-				}
-			}
+	private void makeCalendar() {
+		LocalDate theDate = LocalDate.now();
+		myMonth = theDate.getMonth().toString().toLowerCase();
+		myYear = theDate.getYear();
+			
+		LocalDate thePrevious = LocalDate.now().minusYears(1);
+		
+		while(!theDate.equals(thePrevious)) {
+		    myCalendar.add(new Day(thePrevious.getMonth().toString(), thePrevious.getDayOfMonth(), thePrevious.getYear()));
+		    thePrevious = thePrevious.plusDays(1);
 		}
-	}
-	
-   /**
-	 * Used to get month
-	 * 
-	 * @param theIndex month name of the calendar
-	 * @return month the current month of the calendar.
-	 */
-	private String getMonth(int index) {
-		switch(index) {
-			case 0:
-				return "November";
-			case 1:
-				return "December";
-			case 2:
-				return "January";
-			case 3:
-				return "February";
-			case 4:
-				return "March";
-			case 5:
-				return "April";
-			case 6:
-				return "May";
-			case 7:
-				return "June";
-			case 8:
-				return "July";
-			case 9:
-				return "August";
-			case 10:
-				return "September";
-			case 11:
-				return "October";				
-			default:
-				return "November";
+		myCurrentDay = new Day(thePrevious.getMonth().toString(), thePrevious.getDayOfMonth(), thePrevious.getYear());
+		myCalendar.add(myCurrentDay);
+		for(int i = 1; i < 30; i++) {
+			myCalendar.add(new Day(thePrevious.getMonth().toString(), thePrevious.getDayOfMonth(), thePrevious.getYear()));
+		    thePrevious = thePrevious.plusDays(1);
 		}
 	}
 	
@@ -182,22 +150,22 @@ public class Calendar implements Serializable {
 		boolean canAdd = true;
 		
 		//Checking if right month and year.
-		canAdd= checkMonthYear(month, year);
+		canAdd = canAdd && checkMonthYear(month, year);
 		
 		//Checking if day is valid.
-		canAdd = checkDay(day, theRequest);
+		canAdd = canAdd && checkDay(day, theRequest);
 		
 		//Checking if already have existing auction in future.
-		canAdd = checkAuctionExist(name);
+		canAdd = canAdd && checkAuctionExist(name);
 		
 		//Checks if auction in previous year
-		canAdd = checkLastYear(name);
+		canAdd = canAdd && checkLastYear(name);
 		
-		//Checks if the total auctions is no more than 25
-		canAdd = checkTotalAuctions();
+		//Checks if the total auctions are no more than 25
+		canAdd = canAdd && checkTotalAuctions();
 
 		//Checks if the auction date is at least one week from the day
-		canAdd = checkWeek(day);
+		canAdd = canAdd && checkWeek(day);
 		
 		return canAdd;
 	}
@@ -228,7 +196,7 @@ public class Calendar implements Serializable {
 	 * @return true if the day of the auction request is valid
 	 */
 	public boolean checkDay(int day, AuctionRequest theRequest) {
-		if(1 > day || day > theRequest.getDate().getDaysInMonth()){
+		if(1 > day || day > LocalDate.now().lengthOfMonth()){
 			return false;
 		} else 
 			return true;
@@ -260,7 +228,7 @@ public class Calendar implements Serializable {
 	 * @return true if there is no auction for that non-profit in previous year
 	 */
 	public boolean checkLastYear(String name) {
-		for(int i = 0; i < 360; i++) {
+		for(int i = 0; i < myCalendar.size()-30; i++) {
 			if(myCalendar.get(i).getNumAuctions() == 1) {
 				if(myCalendar.get(i).getAuction().getName().equals(name)) {
 					return false;
@@ -313,24 +281,24 @@ public class Calendar implements Serializable {
 	public boolean addAuction(AuctionRequest theRequest) {		
 		boolean added = false;
 		
-		for (int i = 0; i < myAuctions.size(); i++) {			
-			// check to see if they already have an auction scheduled
-			if (((ArrayList<Auction>)myAuctions).get(i).getName().equals(theRequest.getNonProfitName())) {
-				added = false;
-				return added;
-				
-			}	
-		}		
+//		for (int i = 0; i < myAuctions.size(); i++) {			
+//			// check to see if they already have an auction scheduled
+//			if (((ArrayList<Auction>)myAuctions).get(i).getName().equals(theRequest.getNonProfitName())) {
+//				added = false;
+//				return added;
+//				
+//			}	
+//		}		
 		
-			Auction temp;
-				if(canAddAuction(theRequest)) {				
-				
-					temp = new Auction(theRequest.getNonProfitName(), theRequest.getDate(), theRequest.getTime());
-					myCalendar.get(theRequest.getDate().getDay()-1).addAuction(theRequest);									
-					myAuctions.add(temp);
-					added = true;
-					myAuctionsTotal++;					
-				}		
+		Auction temp;
+		if(canAddAuction(theRequest)) {				
+		
+			temp = new Auction(theRequest.getNonProfitName(), theRequest.getDate(), theRequest.getTime());
+			myCalendar.get(theRequest.getDate().getDay()-1).addAuction(theRequest);									
+			myAuctions.add(temp);
+			added = true;
+			myAuctionsTotal++;					
+		}		
 				
 		return added;
 	}
@@ -346,10 +314,9 @@ public class Calendar implements Serializable {
 		Auction theAuction = null;
 		
 		for (int i = 0; i < myAuctions.size(); i++) {			
-			
-				if (myAuctions.get(i).getName().equals(theNonProfit.getOrgName())) {				
-					theAuction = myAuctions.get(i);
-				}			
+			if (myAuctions.get(i).getName().equals(theNonProfit.getOrgName())) {				
+				theAuction = myAuctions.get(i);
+			}			
 		}			
 		
 		return theAuction;

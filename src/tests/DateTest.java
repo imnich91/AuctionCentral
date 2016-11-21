@@ -26,14 +26,14 @@ public class DateTest {
 	@Before
 	public void setup() {
 		
-		myDate = new Date(12, "December", 2016);
+		myDate = new Date(12, "december", 2016);
 		
 	}
 	
 	@Test
 	public void testToString() {
 		
-		assertEquals("December 12, 2016", myDate.toString());
+		assertEquals("december 12, 2016", myDate.toString());
 		
 	}
 

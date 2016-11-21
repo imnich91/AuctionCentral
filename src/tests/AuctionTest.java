@@ -162,7 +162,7 @@ public class AuctionTest {
 	@Test
 	public void testToString() {
 
-		assertEquals(NONPROFITNAME + ", December 12, 2016, 2:00 PM", myAuction.toString());
+		assertEquals(NONPROFITNAME + ", december 12, 2016, 2:00 PM", myAuction.toString());
 		
 	}
 }

@@ -38,7 +38,7 @@ public class Date  implements Serializable{
 	 */
 	public Date(int theDay, String theMonth, int theYear) {
 		this.myDay = theDay;
-		this.myMonth = theMonth;
+		this.myMonth = theMonth.toLowerCase();
 		this.myYear = theYear;
 	}
 	
@@ -52,7 +52,7 @@ public class Date  implements Serializable{
 	 */
 	public void setDate(int theDay, String theMonth, int theYear) {
 		this.myDay = theDay;
-		this.myMonth = theMonth;
+		this.myMonth = theMonth.toLowerCase();
 		this.myYear = theYear;
 	}
 	

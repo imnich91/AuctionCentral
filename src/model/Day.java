@@ -57,7 +57,7 @@ public class Day implements Serializable {
 	 * @param theYear int
 	 */
 	public Day(final String theMonth, final int theDay, final int theYear) {
-		myMonth = theMonth;
+		myMonth = theMonth.toLowerCase();
 		myDay = theDay;
 		myYear = theYear;
 		myNumAuctions = 0;
