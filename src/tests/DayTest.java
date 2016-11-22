@@ -37,7 +37,7 @@ public class DayTest {
 	}
 
 	@Test
-	public void testCanAddAuction() {
+	public void testCanAddAuctionAlreadyAtCapacity() {
 		d.addAuction(myRequest);
 		d.addAuction(myRequest3);
 		
@@ -46,14 +46,18 @@ public class DayTest {
 	}
 
 	@Test
-	public void testAddAuction() {
-		assertTrue("test can add auction num auctions is 0", d.getNumAuctions() == 0);
+	public void testAddAuctionAddedOne() {
 		d.addAuction(myRequest);
-		assertTrue("test can add auctions num auctions is 1", d.getNumAuctions() == 1);
-		d.addAuction(myRequest5);
-		assertTrue("test can add auctions num auctions is 2", d.getNumAuctions() == 2);
+		assertTrue("test can add auctions num auctions is 1", d.getNumAuctions() == 1);	
+	}
+	
+	@Test
+	public void testAddAuctionAtCapacity() {
+		d.addAuction(myRequest);
+		d.addAuction(myRequest2);
 		d.addAuction(myRequest3);
 		assertFalse("test can add auctions num auctions is 3", d.getNumAuctions() == 3);
-		
 	}
+	
+	
 }
