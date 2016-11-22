@@ -29,7 +29,7 @@ public class CalendarTest {
 	Time t3 = new Time(7, 40, "pm");
 	Date d4 = new Date(5, "january", 2015);
 	Time t4 = new Time(7, 40, "pm");
-	Date d5 = new Date(25, "november", 2016);
+	Date d5 = new Date(1, "december", 2016);
 	Time t5 = new Time(7, 40, "pm");
 	Date d6 = new Date(26, "november", 2016);
 	Time t6 = new Time(7, 40, "pm");
@@ -50,82 +50,86 @@ public class CalendarTest {
 		c2 = new Calendar();
 		d.addAuction(myRequestPast);
 	}
-
-	@Test
-	public void Verify_calendar_returns_correct_day() {
-		Day day1 = c1.getCurrentDay();
-		assertEquals("test case current day fails! -calendar", day1.getDay(), 20);
-	}
 	
 	@Test
-	public void Verify_calendar_returns_correct_month() {
-		Day day1 = c1.getCurrentDay();
-		assertEquals("test case current month fails! -calendar", day1.getMonth(), "november");
-	}
-	
-	@Test
-	public void Verify_calendar_returns_right_year() {
-		assertFalse("test case wrong year -calendar", c1.getCalendar().get(380).getYear() == 2015);
-	}
-	
-	@Test
-	public void Verify_check_month_year_passes_same_month_year() {
+	public void testCheckMonthYearOnSameMonthYear() {
 		assertTrue("test case same month", c2.checkMonthYear(myRequest.getDate().getMonth(), myRequest.getDate().getYear()));
 	}
 	
 	@Test
-	public void Verify_check_month_year_fails_wrong_month_year() {
+	public void testCheckMonthYearOnWrongMonthYear() {
 		assertFalse("test case wrong month", c2.checkMonthYear("January", 2013));
 	}
 
 	@Test
-	public void Verify_day_in_month_passes() {
+	public void testCheckDayValidDay() {
 		assertTrue("test case valid day", c2.checkDay(myRequest.getDate().getDay(), myRequest));
 	}
 	
 	@Test
-	public void Verify_day_in_month_fails() {
+	public void testCheckDayInvalidDay() {
 		assertFalse("test case invalid day", c2.checkDay(myRequestBadDay.getDate().getDay(), myRequestBadDay));
 	}
 	
-
-
 	@Test
-	public void Verify_check_auction_exist_passes_no_auctions() {
+	public void testCheckAuctionExistOnNonProfitWithNoAuctions() {
 		assertTrue("test case no other auctions", c2.checkAuctionExist(myRequest.getNonProfitName()));
 	}
 
 	@Test
-	public void testCheckLastYear() {
+	public void testCheckLastYearWithNoAuctionInPastYear() {
 		assertTrue("test case no auction in last year", c2.checkLastYear(myRequest.getNonProfitName()));
+	}
+
+	@Test
+	public void testCheckLastYearWithAnAuctionInPastYear() {
 		for(int i = 0; i < 75; i++) {
 			if(i == 45) {
 				c2.getCalendar().get(i).addAuction(myRequestPast);
 			}
-			
 		}
 		assertFalse("test case auction in last year already", c2.checkLastYear(myRequest.getNonProfitName()));
 	}
-
+	
+	
 	@Test
-	public void testCheckTotalAuctions() {
-		c2.setAuctionsTotal(24);
-		assertTrue("test case 24 auctions add one more", c2.checkTotalAuctions());
-		c2.setAuctionsTotal(25);
-		assertFalse("test case 25 auctions add one more", c2.checkTotalAuctions());
-		
+	public void testCheckTotalAuctionsForLessThanAuctionLimit() {
+		c2.setAuctionsAllowed(31);
+		c2.setAuctionsTotal(30);
+		assertTrue("test auction amount less than Auctions allowed passes", c2.checkTotalAuctions());		
 	}
-
+	
 	@Test
-	public void testCheckWeek() {
-		assertTrue("test case check week true", c2.checkWeek(28));
+	public void testCheckTotalAuctionsForGreaterThanAuctionLimit() {
+		c2.setAuctionsAllowed(20);
+		c2.setAuctionsTotal(25);
+		assertFalse("test auction amount greater than Auctions allowed fails", c2.checkTotalAuctions());		
+	}
+	
+	@Test
+	public void testCheckWeekOutsideOfSevenDays() {
+		assertTrue("test case check week true", c2.checkWeek(30));
+	}
+	
+	@Test
+	public void testCheckWeekInsideOfSevenDays() {
 		assertFalse("test case check week false", c2.checkWeek(21));
 	}
 	
 	@Test
+	public void testAddAuctionForValidRequest() {
+		assertTrue("test case add auction valid request", c2.addAuction(myRequestValid));
+	}
+	
+	@Test
+	public void testAddAuctionForInvalidRequest() {
+		assertFalse("test case add auction valid request", c2.addAuction(myRequestPast));
+	}
+		
+	@Test
 	public void testGetAuctionForOrganizationExist() {	
 		Calendar c = new Calendar();
-		AuctionRequest myRequest = new AuctionRequest(new Date(28, "November", 2016), new Time(2, 40, "PM"), "Bill");
+		AuctionRequest myRequest = new AuctionRequest(new Date(30, "November", 2016), new Time(2, 40, "PM"), "Bill");
 		
 		c.addAuction(myRequest);		
 
