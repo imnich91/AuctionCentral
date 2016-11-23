@@ -245,6 +245,9 @@ public class Calendar implements Serializable {
 					return false;
 				}
 			} else if (myCalendar.get(i).getNumAuctions() == 2) {
+				if(myCalendar.get(i).getAuction().getName().equals(name)) {
+					return false;
+				}
 				if(myCalendar.get(i).getAuction2().getName().equals(name)) {
 					return false;
 				}
