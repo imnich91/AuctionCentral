@@ -3,7 +3,6 @@
  * Auction Central Project
  * Group 6 
  */
-//testing github
 
 package tests;
 
