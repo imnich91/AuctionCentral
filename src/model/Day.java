@@ -116,6 +116,10 @@ public class Day implements Serializable {
 		}
 	}
 	
+	/**
+	 * Adds the auction request to the day. 
+	 * @param theRequest
+	 */
 	public void addAuction(AuctionRequest theRequest) {
 		Date date = theRequest.getDate();
 		Time time = theRequest.getTime();
