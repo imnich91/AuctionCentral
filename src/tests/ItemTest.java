@@ -4,7 +4,6 @@
  * Group 6 
  */
 
-
 package tests;
 
 import static org.junit.Assert.*;
