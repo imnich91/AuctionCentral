@@ -27,7 +27,6 @@ import javax.swing.SwingConstants;
  * Used to build the login JPanel.
  * 
  * @author Colin Casey
- *
  */
 public class Login extends JPanel {
 
@@ -36,6 +35,9 @@ public class Login extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Used to tell users that they need to login.
+	 */
 	private JPanel myTextPanel;
 
 	/**
@@ -100,7 +102,7 @@ public class Login extends JPanel {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
 				//Make JPanels
-				JPanel holder = new JPanel(new BorderLayout(5, 5));
+				JPanel holder = new JPanel(new BorderLayout(10, 10));
 				JPanel question = new JPanel(new GridLayout(0, 1, 2, 2));
 				//Fill questions
 				question.add(new JLabel("Username", SwingConstants.RIGHT));
