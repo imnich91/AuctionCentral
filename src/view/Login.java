@@ -6,12 +6,17 @@
 
 package view;
 
+
+import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+
+import javafx.scene.layout.Border;
 
 /**
  * Used to build the login JPanel.
@@ -21,6 +26,11 @@ import javax.swing.JPanel;
  */
 public class Login extends JPanel {
 	
+	/**
+	 * Used to keep track of data
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * Used to give button access to whole class.
 	 */
@@ -34,14 +44,22 @@ public class Login extends JPanel {
 	/**
 	 * Used to make panel.
 	 */
-	public void Login() {
+	public Login() {
 		makeButtonLogin();
 		makeButtonExit();
-		
+		makeJTextFrame();
+		//setPreferredSize(new Dimension(220, 40));
+		setBackground(Color.BLUE);
+		//setLayout();
 		add(myExit);
 		add(myLogin);
 	}
 	
+	private void makeJTextFrame() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	/**
 	 * Used to make exit button.
 	 */
