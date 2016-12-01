@@ -7,16 +7,21 @@
 package view;
 
 
+import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
-import javax.swing.JMenuItem;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
-import javafx.scene.layout.Border;
 
 /**
  * Used to build the login JPanel.
@@ -25,39 +30,52 @@ import javafx.scene.layout.Border;
  *
  */
 public class Login extends JPanel {
-	
+
 	/**
 	 * Used to keep track of data
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private JPanel myTextPanel;
+
+	/**
+	 * Frame that all panels are put in.
+	 */
+	private final JFrame myFrame;
+
 	/**
 	 * Used to give button access to whole class.
 	 */
 	private JButton myLogin;
-	
+
 	/**
 	 * Used to give button access to whole class.
 	 */
 	private JButton myExit;
-	
+
 	/**
 	 * Used to make panel.
+	 * @param theFrame
 	 */
-	public Login() {
+	public Login(JFrame theFrame) {
+		myFrame = theFrame;
 		makeButtonLogin();
 		makeButtonExit();
-		makeJTextFrame();
-		//setPreferredSize(new Dimension(220, 40));
+		makeTextPanel();
 		setBackground(Color.BLUE);
-		//setLayout();
-		add(myExit);
-		add(myLogin);
+		setLayout(new BorderLayout());
+		add(myTextPanel, BorderLayout.NORTH);
+		add(myExit, BorderLayout.WEST);
+		add(myLogin, BorderLayout.EAST);
 	}
-	
-	private void makeJTextFrame() {
-		// TODO Auto-generated method stub
-		
+
+	/**
+	 * Used to make a login message.
+	 */
+	private void makeTextPanel() {
+		myTextPanel = new JPanel();
+		JLabel Jlabel = new JLabel("Welcome to Auction Central");
+		myTextPanel.add(Jlabel);
 	}
 
 	/**
@@ -65,24 +83,50 @@ public class Login extends JPanel {
 	 */
 	private void makeButtonExit() {
 		myExit = new JButton("Exit");
-	    myExit.addActionListener(new ActionListener() {
-	    	@Override
-	        public void actionPerformed(final ActionEvent theEvent) {
-	    		System.exit(1);
-	        }
-	    });
-		
+		myExit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent theEvent) {
+				System.exit(1);
+			}
+		});
 	}
 
 	/**
 	 * Used to make login button.
 	 */
 	private void makeButtonLogin() {
-		   myLogin = new JButton("Login");
-	       myLogin.addActionListener(new ActionListener() {
-	            @Override
-	            public void actionPerformed(final ActionEvent theEvent) {
-	            }
-	        });
+		myLogin = new JButton("Login");
+		myLogin.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent theEvent) {
+				//Make JPanels
+				JPanel holder = new JPanel(new BorderLayout(5, 5));
+				JPanel question = new JPanel(new GridLayout(0, 1, 2, 2));
+				//Fill questions
+				question.add(new JLabel("Username", SwingConstants.RIGHT));
+				question.add(new JLabel("Password", SwingConstants.RIGHT));
+				//Fill Holder
+				holder.add(question, BorderLayout.WEST);
+				//Make panel/textField
+				JPanel controls = new JPanel(new GridLayout(0, 1, 2, 2));
+				JTextField username = new JTextField();
+				//Fill fields
+				controls.add(username);
+				JPasswordField password = new JPasswordField();
+				controls.add(password);
+				holder.add(controls, BorderLayout.CENTER);
+				//The pop up
+				JOptionPane.showMessageDialog(myFrame, holder, "Login To Auction Central", 
+						JOptionPane.QUESTION_MESSAGE);
+				
+				//Could not get cancel to work.
+				//JOptionPane.showMessageDialog(myFrame, holder, "Login", JOptionPane.OK_CANCEL_OPTION);
+				final String currentUser = username.getText();
+				final String currentPassword = new String(password.getPassword());
+				
+				//System.out.println(currentUser);
+				//System.out.println(currentPassword);
+			}
+		});
 	}
 }

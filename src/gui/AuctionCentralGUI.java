@@ -37,7 +37,7 @@ public class AuctionCentralGUI implements Observer {
     /**
      * Used to keep track of Login panel.
      */
-	private final Login myLoginPanel = new Login();
+	private Login myLoginPanel;
     
     /**
      * The method that runs this class.
@@ -52,6 +52,7 @@ public class AuctionCentralGUI implements Observer {
         
         
         //add frame to panel
+        myLoginPanel = new Login(myFrame);
         myFrame.add(myLoginPanel, BorderLayout.CENTER);
         
         myFrame.setVisible(true);
