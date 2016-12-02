@@ -4,7 +4,7 @@
  * Group 6 
  */
 
-package gui;
+package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -13,8 +13,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
-
-import view.Login;
 
 /**
  * This class is the driver of the

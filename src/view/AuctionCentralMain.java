@@ -4,7 +4,7 @@
  * Group 6 
  */
 
-package gui;
+package view;
 
 /**
  * This is the main class of this
