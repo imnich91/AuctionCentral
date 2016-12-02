@@ -54,13 +54,17 @@ public class AuctionCentralGUI implements Observer {
         myFrame.add(myLoginPanel, BorderLayout.CENTER);
         
         myFrame.setVisible(true);
-
+        addListeners();
     }
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void addListeners() {
+		//addPropertyChangeListener();
 	}
 
 }
