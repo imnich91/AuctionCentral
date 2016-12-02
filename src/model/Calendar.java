@@ -28,43 +28,41 @@ public class Calendar implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * Used to keep track of all of the days in the calendar.
-	 * the current month plus the next three months
+	 * List of days in the calendar. 
 	 */
 	private List<Day> myCalendar;
 	
    /**
-	 * Used to store the current month of the Calendar
+	 * The current month.
 	 */	
 	private String myMonth;
    /**
-	 * Used to store the current year of the Calendar
+	 * The current year.
 	 */
 	private int myYear;
 	
    /**
-	 *  Used to store the current day of the Calendar
+	 * The current day. 
 	 */
 	private Day myCurrentDay;
 	
 	/**
-	 * Holds current number of auctions.
+	 * The number of auctions registered.
 	 */
 	private int myAuctionsTotal;
 	
 	/**
-	 * List of all non-profits that currently have auctions in the calendar. 
+	 * List of auctions registered. 
 	 */
 	private List<Auction> myAuctions;
 	
 	/**
-	 * Holds the number of auctions allowed in a month. 
+	 * The number of registered auctions allowed.  
 	 */
 	private int myAuctionsAllowed;
 		
 	/**
-	 * This is a constructor used to set up the whole class
-	 * by initializing the fields of the Calendar.
+	 * Constructs the calendar. 
 	 */
 	public Calendar() {
 		myCalendar = new ArrayList<Day>();
@@ -75,56 +73,8 @@ public class Calendar implements Serializable {
 	}
 	
 	/**
-	 * Used to give calendar to UI.
-	 * 
-	 * @return calendar
-	 */
-	public List<Day> getCalendar() {
-		return myCalendar;
-	}
-	
-	public int getAuctionsTotal() {
-		return myAuctionsTotal;
-		
-	}
-	
-	public void setAuctionsTotal(int theTotal) {
-		myAuctionsTotal = theTotal;
-	}
-	
- 	public void setAuctionsAllowed(final int theNum) {
- 		myAuctionsAllowed = theNum;
- 	}
- 	
- 	public int getAuctionsAllowed() {
- 		return myAuctionsAllowed;
- 	}
- 	
-	
-   /**
-	 * Used to get all auctions in the
-	 * calendar.
-	 * 
-	 * @return a list of all auctions in calendar
-	 */
-	public List<Auction> getAuctions() {
-		return myAuctions;
-	}
-	
-	/**
-	* Used to get the current day.
-	* 
-	* @return Current day
-	*/
-	public Day getCurrentDay() {
-		return myCurrentDay;
-	}
-	
-	/**
-	 * This is used to construct the calendar.
-	 * The calendar generated contains the previous 
-	 * year up to the current day, and then an additional
-	 * 30 days for the current year. 
+	 * Helper method to construct the calendar.
+	 * Range from one year in the past to thirty days in the future.
 	 */    
 	private void makeCalendar() {
 		LocalDate theDate = LocalDate.now();
@@ -144,9 +94,59 @@ public class Calendar implements Serializable {
 		    thePrevious = thePrevious.plusDays(1);
 		}
 	}
+	
+	/**
+	 * @return list of days in the calendar. 
+	 */
+	public List<Day> getCalendar() {
+		return myCalendar;
+	}
+	
+	/**
+	 * @return the number of upcoming auctions. 
+	 */
+	public int getAuctionsTotal() {
+		return myAuctionsTotal;
+	}
+	
+	/**
+	 * @param theTotal number of auctions to set. 
+	 */
+	public void setAuctionsTotal(int theTotal) {
+		myAuctionsTotal = theTotal;
+	}
+	
+	/**
+	 * @param theNum of auctions allowed to set. 
+	 */
+ 	public void setAuctionsAllowed(final int theNum) {
+ 		myAuctionsAllowed = theNum;
+ 	}
+ 	
+ 	/**
+ 	 * @return the number of auctions allowed.
+ 	 */
+ 	public int getAuctionsAllowed() {
+ 		return myAuctionsAllowed;
+ 	}
+ 	
+	
+   /**
+	 * @return a list of auctions in the calendar. 
+	 */
+	public List<Auction> getAuctions() {
+		return myAuctions;
+	}
+	
+	/**
+	 * @return the current day. 
+	 */
+	public Day getCurrentDay() {
+		return myCurrentDay;
+	}
 
    /**
-	 * This method takes an auction request object and returns
+	 * Takes an auction request object and returns
 	 * whether the auction request is allowed or not
 	 * by checking all the business rules.
 	 * 
@@ -181,9 +181,8 @@ public class Calendar implements Serializable {
 		return canAdd;
 	}
 	
-	//Checking if right month and year.
 	/**
-	 * This method checks to see if the calendar is 
+	 * Checks to see if the calendar is 
 	 * currently on the same month and year
 	 * as the month and year of the auction request.
 	 * 
@@ -198,10 +197,8 @@ public class Calendar implements Serializable {
 			return true;
 	}
 	
-	//Checking if day is valid.
 	/**
-	 * This method checks if the day of the auction request is valid
-	 * that is if the day of the request is between 1 and 30.
+	 * Checks if the day of the auction request is valid.
 	 * @param theDay the day of the auction request
 	 * @param theRequest the auction request that need to be checked
 	 * @return true if the day of the auction request is valid
@@ -213,10 +210,9 @@ public class Calendar implements Serializable {
 			return true;
 	}
 	
-	//Checking if already have existing auction in future.
 	/**
-	 * This method checks if the non-profit already has an auction
-	 * by checking the name of the non-profit in the Calendar
+	 * Checks if the non-profit already has an auction
+	 * by checking the name of the non-profit in the Calendar.
 	 * 
 	 * @param theName  the name of the non-profit that needs to be checked
 	 * @return true if the non-profit name is not found in the future
@@ -231,9 +227,8 @@ public class Calendar implements Serializable {
 		return check;
 	}
 	
-	//Checks if auction in previous year
 	/**
-	 * This method check if the non-profit had an auction last year
+	 * Checks if the non-profit had an auction in the last year.
 	 * 
 	 * @param theName the name of the non-profit that need to be checked
 	 * @return true if there is no auction for that non-profit in previous year
@@ -255,12 +250,11 @@ public class Calendar implements Serializable {
 		}
 		return true;
 	}
-	
-	//Checks if the total auctions is no more than 25
+
 	/**
-	 * This method checks if the total auction in the Calendar is no more than 25 before adding
+	 * Checks if the total auction in the Calendar is no more than the max allowed.
 	 * 
-	 * @return true if the calendar has no more than 25 auctions
+	 * @return true if the calendar has no more than the max auctions allowed.
 	 */
 	public boolean checkTotalAuctions() {
 		if(myAuctionsTotal >= myAuctionsAllowed) {
@@ -270,23 +264,25 @@ public class Calendar implements Serializable {
 		}
 	}
 	
-	//Checks if the auction date is at least one week from the day
 	/**
-	 * This method checks if the auction that is being added is
-	 * at lease one week from the current day
+	 * Checks if the auction that is being added is
+	 * at lease one week from the current day.
 	 * 
 	 * @param theDay the day of the auction request that need to be checked
 	 * @return true if the day of the auction being added is at least one week from today
 	 */
 	public boolean checkWeek(int day) {
-		if(day >= myCurrentDay.getDay() && day - myCurrentDay.getDay() <= 7) {
+		
+		if(day > myCurrentDay.getDay() && day - myCurrentDay.getDay() <= 7) {
+			return false;
+		} else if(day <= myCurrentDay.getDay() && LocalDate.now().plusDays(day).getDayOfMonth() < 7) {
 			return false;
 		}
 		return true;
 	}
    
 	/**
-	 * This method adds the auction to the auction list in the Calendar
+	 * Adds the auction to the auction list in the Calendar
 	 * using the information from the auction request and return true if it has been added
 	 * 
 	 * @param theRequest the auction request to be added
@@ -307,7 +303,7 @@ public class Calendar implements Serializable {
 	}
 	
    /**
-    *  This method return the auction that the given Non-profit currently has.
+    *  Returns the auction that the given Non-profit currently has.
     *  
     * @param theNonProfit the name of the non-profit to be looked for
     * @return an auction that the given non-profit has in the calendar
