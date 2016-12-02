@@ -160,6 +160,7 @@ public class Login extends JPanel {
 			outPut += " username";
 		}
 		outPut += " failed.";
-		JOptionPane.showMessageDialog(myFrame, outPut);
+		JOptionPane.showMessageDialog(myFrame, outPut, "Login Error",
+			    JOptionPane.ERROR_MESSAGE);
 	}
 }
