@@ -99,6 +99,7 @@ public class Login extends JPanel {
 		myExit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
+				//firePropertyChange("LOGGEDIN", "STAFF PANEL", "LOGIN PANEL");
 				System.exit(1);
 			}
 		});
