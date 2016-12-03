@@ -127,9 +127,41 @@ public class Login extends JPanel {
 				final String currentUser = username.getText();
 				final String currentPassword = new String(password.getPassword());
 				
+				boolean flag = false;
+				if(flag) {
+					popupPass();
+				} else {
+					popupFail(true, true);
+				}
 				//System.out.println(currentUser);
 				//System.out.println(currentPassword);
 			}
 		});
+	}
+	
+	/**
+	 * Used to tell user if the failed or passed
+	 */
+	private void popupPass() {
+		JOptionPane.showMessageDialog(myFrame, "You are now login");
+	}
+	
+	/**
+	 * Used to tell user why they failed.
+	 * @param thePassword if password is wrong
+	 * @param theUsername if username is wrong
+	 */
+	private void popupFail(boolean thePassword, boolean theUsername) {
+		String outPut = "Your";
+		if (thePassword) {
+			outPut += " password";
+		} if (theUsername && thePassword) {
+			outPut += " and";
+		} if (theUsername) {
+			outPut += " username";
+		}
+		outPut += " failed.";
+		JOptionPane.showMessageDialog(myFrame, outPut, "Login Error",
+			    JOptionPane.ERROR_MESSAGE);
 	}
 }
