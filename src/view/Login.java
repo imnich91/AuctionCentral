@@ -46,6 +46,11 @@ public class Login extends JPanel {
 	 * Used to tell users that they need to login.
 	 */
 	private JPanel myTextPanel;
+	
+	/**
+	 * Used to hold all Buttons.
+	 */
+	private JPanel myButtons;
 
 	/**
 	 * Frame that all panels are put in.
@@ -63,7 +68,14 @@ public class Login extends JPanel {
 	private JButton myExit;
 	
 	
+	/**
+	 * Is a list of all of the users.
+	 */
 	private List<User> myUsers;
+	
+	/**
+	 * Is used to gain access  to user passwords.
+	 */
 	private HashMap<String, String> myUsersLogins;
 
 	/**
@@ -78,11 +90,16 @@ public class Login extends JPanel {
 		makeButtonLogin();
 		makeButtonExit();
 		makeTextPanel();
-		setBackground(Color.BLUE);
+		makeButtonPanel();
 		setLayout(new BorderLayout());
-		add(myTextPanel, BorderLayout.NORTH);
-		add(myExit, BorderLayout.WEST);
-		add(myLogin, BorderLayout.EAST);
+		add(myTextPanel, BorderLayout.CENTER);
+		add(myButtons, BorderLayout.SOUTH);
+	}
+
+	private void makeButtonPanel() {
+		myButtons = new JPanel();
+		myButtons.add(myExit);
+		myButtons.add(myLogin);
 	}
 
 	/**
@@ -155,7 +172,13 @@ public class Login extends JPanel {
 	}
 	
 	
-	
+	/**
+	 * Checks if user is able to login.
+	 * 
+	 * @param username person username
+	 * @param password person password
+	 * @return if it happen
+	 */
 	private User login(String username, String password) {
 		
 		User theUser = null;
@@ -174,6 +197,7 @@ public class Login extends JPanel {
 		
 		
 	}
+	
 	/**
 	 * Used to tell user if the failed or passed
 	 */

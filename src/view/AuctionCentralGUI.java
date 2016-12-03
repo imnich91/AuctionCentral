@@ -41,27 +41,27 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
     private final JFrame myFrame = new JFrame("Auction Central");
     
     /**
-     * 
+     * Used to load different panels into main frame.
      */
     private JPanel myCards;
     
     /**
-     * 
+     * Used to keep track of staff panel.
      */
     private final static String STAFFPANEL = "STAFF PANEL";
     
     /**
-     * 
+     * Used to keep track of Non-Profit panel.
      */
     private final static String NONPROFITPANEL = "NONPROFIT PANEL";
     
     /**
-     * 
+     * Used to keep track of Bidder panel.
      */
     private final static String BIDDERPANEL = "BIDDER PANEL";
     
     /**
-     * 
+     * Used to keep track of Login panel.
      */
     private final static String LOGINPANEL = "LOGIN PANEL";
     
@@ -76,19 +76,37 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
     private StaffPanel myStaffPanel;
 	
     /**
-     * 
+     * Auction Central non-Profit Panel.
      */
     private NonProfitPanel myNonProfitPanel;
     
     /**
-     * 
+     * Auction Central Bidder Panel.
      */
     private BidderPanel myBidderPanel;
     
+    /**
+     * A list of all users.
+     */
 	private List<User> myUsers;
+	
+	/**
+	 * A collection of all user logins.
+	 */
 	private HashMap<String, String> myUsersLogins;
+	
+	/**
+	 * Gives access to calendar object to the rest of the class.
+	 */
 	private Calendar myCalendar;
 	
+	/**
+	 * Sets up class.
+	 * 
+	 * @param theUsers list of all users
+	 * @param theLogins collection of all logins
+	 * @param theCalendar Calendar
+	 */
 	public AuctionCentralGUI(List<User> theUsers, HashMap<String, String> theLogins, Calendar theCalendar) {
 		
 		myUsers = theUsers;
@@ -129,6 +147,9 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
         myFrame.setVisible(true);
     }
     
+    /**
+     * Used to add a property change listener to the Login panel
+     */
     private void setupListeners(){
     	myLoginPanel.addPropertyChangeListener(this);
     }
@@ -140,6 +161,10 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
 	}
 	
 
+	/**
+	 * This method is used to change the JPanel currently in the
+	 * frame.
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent theEvent) {
 		if(theEvent.getPropertyName().equals("Staff")) {
