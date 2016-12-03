@@ -6,15 +6,17 @@
 
 package tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDate;
-import model.Date;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import model.Bidder;
+import model.Date;
 import model.Item;
 import model.NonProfit;
 import model.Staff;
@@ -197,10 +199,5 @@ public class ItemTest {
 		
 		assertFalse(myItem.cancelBid(myBidder1, myDateMoreThan2Days, myCurrDate));	
 	}
-	
-	
-	
-	
-	
 	
 }

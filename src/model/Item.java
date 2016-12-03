@@ -165,10 +165,8 @@ public class Item implements Serializable{
 	public boolean cancelBid(User theUser, Date theAuctionDate, Date theCurrentDate) {
 		
 		// make sure not canceling less than 2 days prior to auciton date
-		boolean canceled = theAuctionDate.getYear() <= theCurrentDate.getYear() && 
-				theAuctionDate.getMonthAsNumber() <= theCurrentDate.getMonthAsNumber() &&
-						theAuctionDate.getDay() <= theCurrentDate.getDay() - 2;
-				
+		boolean canceled = Calendar.isMoreThanTwoDays(theAuctionDate, theCurrentDate);
+			
 	
 		if (canceled && isValidBidder(theUser)) {			
 			
@@ -202,8 +200,7 @@ public class Item implements Serializable{
 				theUser instanceof Staff || theUser instanceof NonProfit);			
 	}
 	
-	
-	
+		
 	/**
 	 * @return item's auction inventory number
 	 */

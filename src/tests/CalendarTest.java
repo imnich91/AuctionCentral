@@ -2,6 +2,8 @@ package tests;
 
 
 
+import  org.junit.Assert.*;
+
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
@@ -55,6 +57,13 @@ public class CalendarTest {
 					   LocalDate.now().minusMonths(12).getYear());
 	
 	
+	private LocalDate myLocalDate;	
+	private Date myCurrDate;
+	private Date myDateMoreThan2Days;
+	private Date myDateEqualTo2Days;
+	private Date myDateLessThan2Days;
+	
+	
 	@Before
 	public void setup() {
 		c1 = new Calendar();
@@ -62,6 +71,16 @@ public class CalendarTest {
 		day1.addAuction(myRequestPast1);
 		day1.addAuction(myRequestPast2);
 		oneYearAgoToday.addAuction(myRequestValid2);
+		
+		
+		myLocalDate = LocalDate.now();		
+		myCurrDate = new Date(myLocalDate.getDayOfMonth(), myLocalDate.getMonth().toString(), myLocalDate.getYear());
+		
+		myDateMoreThan2Days = new Date(myCurrDate.getDay() - 5, myCurrDate.getMonth(), myCurrDate.getYear());
+		myDateEqualTo2Days = new Date(myCurrDate.getDay() - 2, myCurrDate.getMonth(), myCurrDate.getYear());
+		myDateLessThan2Days = new Date(myCurrDate.getDay() - 1, myCurrDate.getMonth(), myCurrDate.getYear());
+		
+		
 	}
 	
 	@Test
@@ -177,5 +196,21 @@ public class CalendarTest {
 		assertEquals(testAuction.getName(), c.getAuctionForOrganization(myNonProfit).getName());
 		
 	}
+	
+	@Test 
+	public void testIsMoreThanTwoDaysOnMoreThan2Days() {
+		
+		assertTrue(c1.isMoreThanTwoDays(myDateMoreThan2Days, myCurrDate));	
+		
+	}
+	
+	@Test 
+	public void testIsMoreThanTwoDaysOnEqualTo2Days() {
+		
+		assertTrue(c1.isMoreThanTwoDays(myDateEqualTo2Days, myCurrDate));	
+		
+	}
+	
+	
 
 }

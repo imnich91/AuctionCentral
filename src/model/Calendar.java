@@ -28,6 +28,11 @@ public class Calendar implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	/**
+	 * Number of days before we can cancel auction.
+	 */
+	private static final int DAYS_BEFORE = 2;
+
+	/**
 	 * List of days in the calendar. 
 	 */
 	private List<Day> myCalendar;
@@ -319,6 +324,24 @@ public class Calendar implements Serializable {
 		}			
 		
 		return theAuction;
+	}
+	
+	
+	
+	/**
+	 * @author Dmitriy Onishchenko 
+	 * Method that checks to see if the current date is more that two days before the 
+	 * auction date. 
+	 * @param theAuctionDate the auction date
+	 * @param theCurrentDate current day
+	 * @return true if current date 2 or more days before the auciton date
+	 * false otherwise
+	 */
+	public static boolean isMoreThanTwoDays(Date theAuctionDate, Date theCurrentDate) {
+		
+		return theAuctionDate.getYear() <= theCurrentDate.getYear() && 
+				theAuctionDate.getMonthAsNumber() <= theCurrentDate.getMonthAsNumber() &&
+						theAuctionDate.getDay() <= theCurrentDate.getDay() - DAYS_BEFORE;
 	}
 	
 	
