@@ -78,6 +78,12 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
     /**
      * 
      */
+    private NonProfitPanel myNonProfitPanel;
+    
+    /**
+     * 
+     */
+    private BidderPanel myBidderPanel;
     
 	private List<User> myUsers;
 	private HashMap<String, String> myUsersLogins;
@@ -108,12 +114,16 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
         myLoginPanel = new Login(myFrame, myUsers, myUsersLogins);
         myFrame.add(myLoginPanel, BorderLayout.CENTER);
         myStaffPanel = new StaffPanel(myFrame);
+        myNonProfitPanel = new NonProfitPanel(myFrame);
+        myBidderPanel = new BidderPanel(myFrame);
         //myFrame.add(myLoginPanel, BorderLayout.CENTER);
         setupListeners();
         myCards = new JPanel(new CardLayout());
         myCards.add(LOGINPANEL, myLoginPanel);
         myCards.add(STAFFPANEL, myStaffPanel);
-                
+        myCards.add(NONPROFITPANEL, myNonProfitPanel);
+        myCards.add(BIDDERPANEL, myBidderPanel);
+        
         myFrame.add(myCards, BorderLayout.CENTER);
 
         myFrame.setVisible(true);
@@ -132,11 +142,18 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
 
 	@Override
 	public void propertyChange(PropertyChangeEvent theEvent) {
-		if(theEvent.getPropertyName().equals("LOGGEDIN")) {
+		if(theEvent.getPropertyName().equals("Staff")) {
 			CardLayout c1 = (CardLayout)(myCards.getLayout());
 			c1.show(myCards, STAFFPANEL);
 		}
-		
+		if(theEvent.getPropertyName().equals("Bidder")) {
+			CardLayout c1 = (CardLayout)(myCards.getLayout());
+			c1.show(myCards, BIDDERPANEL);
+		}
+		if(theEvent.getPropertyName().equals("NonProfit")) {
+			CardLayout c1 = (CardLayout)(myCards.getLayout());
+			c1.show(myCards, NONPROFITPANEL);
+		}
 	}
 
 

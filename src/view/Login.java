@@ -24,6 +24,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import model.Bidder;
+import model.NonProfit;
+import model.Staff;
 import model.User;
 
 
@@ -99,7 +102,6 @@ public class Login extends JPanel {
 		myExit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
-				//firePropertyChange("LOGGEDIN", "STAFF PANEL", "LOGIN PANEL");
 				System.exit(1);
 			}
 		});
@@ -176,7 +178,15 @@ public class Login extends JPanel {
 	 * Used to tell user if the failed or passed
 	 */
 	private void popupPass(User theLoggedInUser) {
-		
+		if(theLoggedInUser instanceof Staff) {
+			firePropertyChange("Staff", "Staff", "Login");
+		}
+		if(theLoggedInUser instanceof Bidder) {
+			firePropertyChange("NonProfit", "Bidder", "Login");
+		}
+		if(theLoggedInUser instanceof NonProfit) {
+			firePropertyChange("Bidder", "Non Profit", "Login");
+		}
 		
 		
 		JOptionPane.showMessageDialog(myFrame, "You are now login");
