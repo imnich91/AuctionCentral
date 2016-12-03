@@ -1,7 +1,6 @@
 package tests;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,19 +9,34 @@ import model.Auction;
 import model.Date;
 import model.Item;
 import model.NonProfit;
+import model.Staff;
 import model.Time;
 public class NPOAddInventoryItemAcceptanceTest {
 
 	private static final String NONPROFITNAME = "Bill and Melinda Gates";
 
+	/** The test contact person from non profit. */
 	private NonProfit myNonProfit1;
+	
+	/** A different contact person from non profit. */
 	private NonProfit myNonProfit2;
 	
+	/** The main test item */
 	private Item myTestItem;
+	
+	/** The test item where the item's field name is empty */
 	private Item myItem1;
+	
+	/** The test item where the item's condition is empty */
 	private Item myItem2;
+	
+	/** The test item where the item's size is empty */
 	private Item myItem3;
+	
+	/** The new test item which does not exist in the auction */
 	private Item myNewItem;
+	
+	/** The test item used for checking duplicates. */
 	private Item myDuplicateItem;
 	
 	private Auction myAuction;
