@@ -7,12 +7,16 @@
 package view;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  * This class is the driver of the
@@ -20,7 +24,7 @@ import javax.swing.JFrame;
  * 
  * @author Colin Casey
  */
-public class AuctionCentralGUI implements Observer {
+public class AuctionCentralGUI implements Observer, PropertyChangeListener{
 	
     /**
      * Used to set min size of window.
@@ -33,14 +37,50 @@ public class AuctionCentralGUI implements Observer {
     private final JFrame myFrame = new JFrame("Auction Central");
     
     /**
+     * 
+     */
+    private JPanel myCards;
+    
+    /**
+     * 
+     */
+    private final static String STAFFPANEL = "STAFF PANEL";
+    
+    /**
+     * 
+     */
+    private final static String NONPROFITPANEL = "NONPROFIT PANEL";
+    
+    /**
+     * 
+     */
+    private final static String BIDDERPANEL = "BIDDER PANEL";
+    
+    /**
+     * 
+     */
+    private final static String LOGINPANEL = "LOGIN PANEL";
+    
+    /**
      * Used to keep track of Login panel.
      */
 	private Login myLoginPanel;
+	
+	/**
+	 * Auction Central staff panel.
+	 */
+    private StaffPanel myStaffPanel;
+	
+    /**
+     * 
+     */
     
     /**
      * The method that runs this class.
      */
     public void start() { 
+    	
+    	
     	//make frame
     	myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     	myFrame.setSize(MY_SIZE);
@@ -51,10 +91,24 @@ public class AuctionCentralGUI implements Observer {
         
         //add frame to panel
         myLoginPanel = new Login(myFrame);
-        myFrame.add(myLoginPanel, BorderLayout.CENTER);
+        myStaffPanel = new StaffPanel(myFrame);
+        //myFrame.add(myLoginPanel, BorderLayout.CENTER);
+        setupListeners();
+        myCards = new JPanel(new CardLayout());
         
+        myCards.add(LOGINPANEL, myLoginPanel);
+        myCards.add(STAFFPANEL, myStaffPanel);
+        
+        
+        myFrame.add(myCards, BorderLayout.CENTER);
         myFrame.setVisible(true);
+        
+       
 
+    }
+    
+    private void setupListeners(){
+    	myLoginPanel.addPropertyChangeListener(this);
     }
 
 	@Override
@@ -62,5 +116,15 @@ public class AuctionCentralGUI implements Observer {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent theEvent) {
+		if(theEvent.getPropertyName().equals("LOGGEDIN")) {
+			CardLayout c1 = (CardLayout)(myCards.getLayout());
+			c1.show(myCards, STAFFPANEL);
+		}
+		
+	}
+
 
 }
