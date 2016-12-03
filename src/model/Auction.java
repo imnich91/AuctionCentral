@@ -172,6 +172,7 @@ public class Auction implements Serializable{
 
 	}
 	
+	
 	/**
 	 * {@inheritDoc}.
 	 * A representation of the Auction.	

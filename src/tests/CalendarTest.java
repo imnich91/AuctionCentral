@@ -197,18 +197,57 @@ public class CalendarTest {
 		
 	}
 	
+	
+	@Test 
+	public void testIsMoreThanTwoDaysOnLessThan2Days() {
+		
+		assertFalse(Calendar.isMoreThanTwoDays(myDateLessThan2Days, myCurrDate));	
+		
+	}
+	
 	@Test 
 	public void testIsMoreThanTwoDaysOnMoreThan2Days() {
 		
-		assertTrue(c1.isMoreThanTwoDays(myDateMoreThan2Days, myCurrDate));	
+		assertTrue(Calendar.isMoreThanTwoDays(myDateMoreThan2Days, myCurrDate));	
 		
 	}
 	
 	@Test 
 	public void testIsMoreThanTwoDaysOnEqualTo2Days() {
 		
-		assertTrue(c1.isMoreThanTwoDays(myDateEqualTo2Days, myCurrDate));	
+		assertTrue(Calendar.isMoreThanTwoDays(myDateEqualTo2Days, myCurrDate));	
 		
+	}
+	
+	
+	public void testCancelAuctionOnAuctionExsistsForNonProfitMoreThan2Days(){
+		
+		Calendar c = new Calendar();		
+		c.addAuction(new AuctionRequest(d1, t1, myNonProfit.getOrgName()));		
+		assertTrue(c.cancelAuction(myNonProfit, myDateMoreThan2Days, myCurrDate));
+		
+	}
+	
+	
+	public void testCancelAuctionOnAuctionExsistsForNonProfitLessThan2Days(){
+		
+		Calendar c = new Calendar();		
+		c.addAuction(new AuctionRequest(d1, t1, myNonProfit.getOrgName()));		
+		assertFalse(c.cancelAuction(myNonProfit, myDateLessThan2Days, myCurrDate));
+		
+	}
+	
+	public void testCancelAuctionOnAuctionExsistsForNonProfitEqualTo2Days(){
+		
+		Calendar c = new Calendar();		
+		c.addAuction(new AuctionRequest(d1, t1, myNonProfit.getOrgName()));		
+		assertTrue(c.cancelAuction(myNonProfit, myDateEqualTo2Days, myCurrDate));
+		
+	}
+	
+	public void testCancelAuctionOnAuctionDoesntExistForNonProfit(){
+		Calendar c = new Calendar();	
+		assertFalse(c.cancelAuction(myNonProfit, myDateMoreThan2Days, myCurrDate));		
 	}
 	
 	

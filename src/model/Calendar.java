@@ -330,7 +330,7 @@ public class Calendar implements Serializable {
 	
 	/**
 	 * @author Dmitriy Onishchenko 
-	 * Method that checks to see if the current date is more that two days before the 
+	 * Method that checks to see if the current date is more than two days before the 
 	 * auction date. 
 	 * @param theAuctionDate the auction date
 	 * @param theCurrentDate current day
@@ -344,5 +344,34 @@ public class Calendar implements Serializable {
 						theAuctionDate.getDay() <= theCurrentDate.getDay() - DAYS_BEFORE;
 	}
 	
+		
 	
+	/**
+	 * Method to remove an auction from our calendar.
+	 * @param theUser the nonprofit contact person
+	 * @param theAuctionDate the auctionDate 
+	 * @param theCurrentDate
+	 * @return
+	 */
+	public boolean cancelAuction(User theUser, Date theAuctionDate, Date theCurrentDate) {
+		
+		boolean canceled = Calendar.isMoreThanTwoDays(theAuctionDate, theCurrentDate);
+		
+		if (canceled) {
+			
+			boolean found = false;
+			for(int i=0; i < myAuctions.size(); i++) {
+				Auction currAuction = ((ArrayList<Auction>)myAuctions).get(i);
+				
+				if (currAuction.getName().equals(((NonProfit)theUser).getOrgName())) {
+					myAuctions.remove(currAuction);
+					found = true;
+				}							
+			}			
+			canceled = found;				
+		} else {
+			canceled = false;
+		}
+		return canceled;
+	}
 }
