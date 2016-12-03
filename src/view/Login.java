@@ -210,7 +210,7 @@ public class Login extends JPanel {
 			firePropertyChange("Bidder", "Bidder", "Login");
 		}
 		if(theLoggedInUser instanceof NonProfit) {
-			firePropertyChange("Bidder", "Non Profit", "Login");
+			firePropertyChange("NonProfit", "Non Profit", "Login");
 		}
 		
 		
