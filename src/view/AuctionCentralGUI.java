@@ -102,13 +102,7 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
         
         myFrame.add(myCards, BorderLayout.CENTER);
         myFrame.setVisible(true);
-<<<<<<< HEAD
-        
-       
-
-=======
         addListeners();
->>>>>>> 25e1fbb54e482ee61ef46bd4fb77c27b98f9bb43
     }
     
     private void setupListeners(){
