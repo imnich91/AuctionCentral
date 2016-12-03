@@ -78,6 +78,18 @@ public class AuctionRequest implements Serializable {
 		return myTime;
 	}
 	
-
+	/**
+	 * @author Georgia Wade
+	 * this method checks if the time and date fields are null
+	 * for testing pruposes
+	 * @return false if a field is empty else true
+	 */
+	public boolean checkRequiredField(){
+		
+		if(myDate == null || myTime == null)
+			return false;
+		else
+			return true;
+	}
 
 }

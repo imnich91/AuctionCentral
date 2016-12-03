@@ -133,5 +133,14 @@ public class Day implements Serializable {
 		}
 		
 	}
+	
+	/**
+	 * @author Georgia Wade
+	 * added for acceptance test purposes
+	 * @param number of desired auctions to be set
+	 */
+	public void setMyNumAuctions(int number){
+		myNumAuctions = number;
+	}
 
 }
