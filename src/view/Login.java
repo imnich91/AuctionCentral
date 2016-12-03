@@ -12,6 +12,8 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,6 +23,8 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
+import model.User;
 
 
 /**
@@ -54,12 +58,19 @@ public class Login extends JPanel {
 	 * Used to give button access to whole class.
 	 */
 	private JButton myExit;
+	
+	
+	private List<User> myUsers;
+	private HashMap<String, String> myUsersLogins;
 
 	/**
 	 * Used to make panel.
 	 * @param theFrame
 	 */
-	public Login(JFrame theFrame) {
+	public Login(JFrame theFrame, List<User> theUsers, HashMap<String, String> theLogins) {
+		
+		myUsers = theUsers;
+		myUsersLogins = theLogins;
 		myFrame = theFrame;
 		makeButtonLogin();
 		makeButtonExit();
@@ -126,9 +137,11 @@ public class Login extends JPanel {
 				final String currentUser = username.getText();
 				final String currentPassword = new String(password.getPassword());
 				
-				boolean flag = false;
-				if(flag) {
-					popupPass();
+				User user = login(currentUser, currentPassword);	
+				
+				
+				if(user != null) {
+					popupPass(user);
 				} else {
 					popupFail(true, true);
 				}
@@ -138,10 +151,33 @@ public class Login extends JPanel {
 		});
 	}
 	
+	
+	
+	private User login(String username, String password) {
+		
+		User theUser = null;
+		
+			if (password.equals(myUsersLogins.get(username))) {
+				
+				// return the type of user
+				for (User user: myUsers) {					
+					if (user.getUserName().equals(username)) {						
+						theUser = user;
+					}	
+				}
+			}
+				
+		return theUser;		
+		
+		
+	}
 	/**
 	 * Used to tell user if the failed or passed
 	 */
-	private void popupPass() {
+	private void popupPass(User theLoggedInUser) {
+		
+		
+		
 		JOptionPane.showMessageDialog(myFrame, "You are now login");
 	}
 	

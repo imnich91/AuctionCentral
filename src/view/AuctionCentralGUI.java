@@ -9,10 +9,15 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
+
+import model.Calendar;
+import model.User;
 
 /**
  * This class is the driver of the
@@ -37,6 +42,17 @@ public class AuctionCentralGUI implements Observer {
      */
 	private Login myLoginPanel;
     
+	private List<User> myUsers;
+	private HashMap<String, String> myUsersLogins;
+	private Calendar myCalendar;
+	
+	public AuctionCentralGUI(List<User> theUsers, HashMap<String, String> theLogins, Calendar theCalendar) {
+		
+		myUsers = theUsers;
+		myUsersLogins = theLogins;
+		myCalendar = theCalendar;
+	}
+	
     /**
      * The method that runs this class.
      */
@@ -50,9 +66,11 @@ public class AuctionCentralGUI implements Observer {
         
         
         //add frame to panel
-        myLoginPanel = new Login(myFrame);
+        myLoginPanel = new Login(myFrame, myUsers, myUsersLogins);
         myFrame.add(myLoginPanel, BorderLayout.CENTER);
         
+        
+      
         myFrame.setVisible(true);
         addListeners();
     }
