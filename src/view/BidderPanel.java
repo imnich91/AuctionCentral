@@ -10,11 +10,15 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import model.Auction;
+import model.Calendar;
 
 /**
  * Used to build the bidder JPanel.
@@ -59,12 +63,24 @@ public class BidderPanel extends JPanel {
 	private JButton myPlaceBid;
 	
 	/**
+	 * Gives access to calendar object to the rest of the class.
+	 */
+	private Calendar myCalendar;
+	
+	/**
+	 * Used to gave access to list of auctions.
+	 */
+	ArrayList<Auction> myAuctions;
+	
+	/**
 	 * Used to build the JPanel.
 	 * 
 	 * @param theFrame the frame everything is loaded into
 	 */
-	public BidderPanel(final JFrame theFrame) {
+	public BidderPanel(final JFrame theFrame, final Calendar theCalendar) {
 		setLayout(new BorderLayout());
+		myCalendar = theCalendar;
+		myAuctions = (ArrayList<Auction>)myCalendar.getAuctions();
 		myMiddle = new JPanel();
 		myButtons = new JPanel();
 		upDateInfoButton();

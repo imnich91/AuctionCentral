@@ -133,7 +133,7 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
         myFrame.add(myLoginPanel, BorderLayout.CENTER);
         myStaffPanel = new StaffPanel(myFrame);
         myNonProfitPanel = new NonProfitPanel(myFrame);
-        myBidderPanel = new BidderPanel(myFrame);
+        myBidderPanel = new BidderPanel(myFrame, myCalendar);
         //myFrame.add(myLoginPanel, BorderLayout.CENTER);
         setupListeners();
         myCards = new JPanel(new CardLayout());

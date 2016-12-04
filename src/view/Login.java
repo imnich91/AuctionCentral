@@ -25,6 +25,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import model.Bidder;
+import model.Calendar;
 import model.NonProfit;
 import model.Staff;
 import model.User;
@@ -77,6 +78,11 @@ public class Login extends JPanel {
 	 * Is used to gain access  to user passwords.
 	 */
 	private HashMap<String, String> myUsersLogins;
+	
+	/**
+	 * Gives access to calendar object to the rest of the class.
+	 */
+	private Calendar myCalendar;
 
 	/**
 	 * Used to make panel.
