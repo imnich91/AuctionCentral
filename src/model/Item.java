@@ -27,7 +27,7 @@ public class Item implements Serializable{
 	/**
 	 * Used to tell items apart.
 	 */
-	private int theItemNumber = 0;
+	private int theItemNumber = -1;
 	
 	/**
 	 * Name of the item.
@@ -263,4 +263,6 @@ public class Item implements Serializable{
 	public Collection<Bid> getBunchObids(){
 		return theBunchObids;
 	}
+	
+
 }

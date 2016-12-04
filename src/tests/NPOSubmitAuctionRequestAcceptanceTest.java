@@ -197,7 +197,7 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		testDay.addAuction(dayAuction1);
 		testDay.addAuction(dayAuction2);
 		
-		testDay.setMyNumAuctions(0);
+		testDay.setMyNumAuctions(0); 
 		testDay.addAuction(dayAuction3);
 		testDay.setMyNumAuctions(2);
 		
