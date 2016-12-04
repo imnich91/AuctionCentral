@@ -83,13 +83,18 @@ public class Login extends JPanel {
 	 * Gives access to calendar object to the rest of the class.
 	 */
 	private Calendar myCalendar;
+	
+	/**
+	 * Used to give access of login user to other classes.
+	 */
+	private User myUser;
 
 	/**
 	 * Used to make panel.
 	 * @param theFrame
 	 */
 	public Login(JFrame theFrame, List<User> theUsers, HashMap<String, String> theLogins) {
-		
+		myUser = null;
 		myUsers = theUsers;
 		myUsersLogins = theLogins;
 		myFrame = theFrame;
@@ -198,7 +203,7 @@ public class Login extends JPanel {
 					}	
 				}
 			}
-				
+		setUser(theUser);
 		return theUser;		
 		
 		
@@ -240,5 +245,24 @@ public class Login extends JPanel {
 		outPut += " failed.";
 		JOptionPane.showMessageDialog(myFrame, outPut, "Login Error",
 			    JOptionPane.ERROR_MESSAGE);
+	}
+	
+	/**
+	 * Used to set login user.
+	 * 
+	 * @param theUser who is current login
+	 */
+	private void setUser(User theUser) {
+		myUser = theUser;
+	}
+	
+	/**
+	 * Used to get login user.
+	 * 
+	 * @return who is currently login 
+	 */
+	public User getUser() {
+		return myUser;
+		
 	}
 }

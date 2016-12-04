@@ -33,7 +33,7 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
     /**
      * Used to set min size of window.
      */
-    private static final Dimension MY_SIZE = new Dimension(500, 500);
+    private static final Dimension MY_SIZE = new Dimension(600, 600);
 	
     /**
      * Frame that all panels are put in.
@@ -172,6 +172,7 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
 			c1.show(myCards, STAFFPANEL);
 		}
 		if(theEvent.getPropertyName().equals("Bidder")) {
+			myBidderPanel.setUser(myLoginPanel.getUser());
 			CardLayout c1 = (CardLayout)(myCards.getLayout());
 			c1.show(myCards, BIDDERPANEL);
 		}

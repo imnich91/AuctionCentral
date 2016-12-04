@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 
 import model.Auction;
 import model.Calendar;
+import model.User;
 
 /**
  * Used to build the bidder JPanel.
@@ -73,6 +74,11 @@ public class BidderPanel extends JPanel {
 	ArrayList<Auction> myAuctions;
 	
 	/**
+	 * Used to give access of login user to other classes.
+	 */
+	private User myUser;
+	
+	/**
 	 * Used to build the JPanel.
 	 * 
 	 * @param theFrame the frame everything is loaded into
@@ -80,13 +86,13 @@ public class BidderPanel extends JPanel {
 	public BidderPanel(final JFrame theFrame, final Calendar theCalendar) {
 		setLayout(new BorderLayout());
 		myCalendar = theCalendar;
+		myUser = null;
 		myAuctions = (ArrayList<Auction>)myCalendar.getAuctions();
 		myMiddle = new JPanel();
 		myButtons = new JPanel();
 		upDateInfoButton();
 		cancelBidButton();
 		placeBidButton();
-		makeTextPanel();
 		add(myMiddle, BorderLayout.CENTER);
 		add(myButtons, BorderLayout.PAGE_END);
 	}
@@ -113,7 +119,6 @@ public class BidderPanel extends JPanel {
 		myCancelBid.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
-				//System.exit(1);
 			}
 		});
 		myButtons.add(myCancelBid);
@@ -138,8 +143,14 @@ public class BidderPanel extends JPanel {
 	 */
 	private void makeTextPanel() {
 		myTextPanel = new JPanel();
-		JLabel Jlabel = new JLabel("Login: ");
+		String name = myUser.getUserName();
+		JLabel Jlabel = new JLabel("Login as: "+ name);
 		myTextPanel.add(Jlabel);
 		add(myTextPanel, BorderLayout.PAGE_START);
+	}
+	
+	public void setUser(User theUser) {
+		myUser = theUser;
+		makeTextPanel();
 	}
 }
