@@ -11,7 +11,6 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -105,6 +104,11 @@ public class BidderPanel extends JPanel {
 	private Item myItem;
 	
 	/**
+	 * Used keep track of all people who have bid.
+	 */
+	private Collection<Bid> myBids;
+	
+	/**
 	 * Used to build the JPanel.
 	 * @param theFrame the frame everything is loaded into
 	 */
@@ -112,6 +116,7 @@ public class BidderPanel extends JPanel {
 		setLayout(new BorderLayout());
 		myFrame = theFrame;
 		myItem = null;
+		myBids = null;
 		myNonProfit = null;
 		myCalendar = theCalendar;
 		myUser = null;
@@ -201,6 +206,24 @@ public class BidderPanel extends JPanel {
 		myButtons.add(myPlaceBid);
 	}
 	
+	/**
+	 * Tells user if bid passed or failed.
+	 * @param theInt pass 1/ fail 0
+	 */
+	private void bidPassFail(int theInt) {
+		if(theInt == 0) {
+			JOptionPane.showMessageDialog(myFrame, "The bid you tried to place is an invalid"
+					+ " number"
+					, "Bid Error", JOptionPane.ERROR_MESSAGE);
+		} if (theInt == 1) {
+			JOptionPane.showMessageDialog(myFrame, "Your bid has been placed");
+		}
+	}
+	
+	/**
+	 * Used to tell the bidder that they have already placed
+	 * a bid on this item.
+	 */
 	private void popUpBidTwice() {
 		JOptionPane.showMessageDialog(myFrame, "You have already Bid on this item once"
 				, "Bid Error", JOptionPane.ERROR_MESSAGE);
@@ -214,9 +237,9 @@ public class BidderPanel extends JPanel {
 	 */
 	private boolean alreadyBid() {
 		boolean flag = true;
-		Collection<Bid> Bids = myItem.getBunchObids();
-		for(Bid a: Bids) {
-			if((a.getBidder()).equals(myUser)) {
+		myBids = myItem.getBunchObids();
+		for(Bid a: myBids) {
+			if((a.getBidder()).equals(myUser.getName())) {
 				flag = false;
 			}
 		}
@@ -229,8 +252,40 @@ public class BidderPanel extends JPanel {
 	 * @param theItem item to bid on
 	 */
 	private void askForBid() {
-		Double.parseDouble(
-	            JOptionPane.showInputDialog(this, "Type in grade:"));	
+		double Bid = Double.parseDouble(
+	            JOptionPane.showInputDialog(this, itemToString()));
+		if(!myItem.isValidBidPrice((int) Bid)) {
+			bidPassFail(0);
+		} else {
+			placeBid((int) Bid);
+			bidPassFail(1);
+		}
+	}
+	
+	/**
+	 * Used to place bid
+	 * 
+	 * @param theBid the bid amount
+	 */
+	private void placeBid(final int theBid) {
+		boolean flag = myItem.makeBid(myUser, theBid);
+		myBids = myItem.getBunchObids();
+		System.out.println(flag);
+	}
+	
+	/**
+	 * A method that turns all of the
+	 * useful information into a string.
+	 * 
+	 * @return Item info
+	 */
+	public String itemToString() {
+		String flag = "";
+		flag += "Item Name: " + myItem.getItemName()+ "\n";
+		flag += "Item Min Bid: " + myItem.getItemMinBid() + "\n";
+		flag += "Item Descrpit: " + myItem.getItemDescrpit()+ "\n";
+		flag += "\n Enter Your Bid";
+		return flag;
 	}
 	
 	/**
