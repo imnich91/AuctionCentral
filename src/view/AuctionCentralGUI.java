@@ -152,6 +152,7 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
      */
     private void setupListeners(){
     	myLoginPanel.addPropertyChangeListener(this);
+    	myBidderPanel.addPropertyChangeListener(this);
     }
 
 	@Override
@@ -179,6 +180,10 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
 		if(theEvent.getPropertyName().equals("NonProfit")) {
 			CardLayout c1 = (CardLayout)(myCards.getLayout());
 			c1.show(myCards, NONPROFITPANEL);
+		}
+		if(theEvent.getPropertyName().equals("LOGIN")) {
+			CardLayout c1 = (CardLayout)(myCards.getLayout());
+			c1.show(myCards, LOGINPANEL);
 		}
 	}
 

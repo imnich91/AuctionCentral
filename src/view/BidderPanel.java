@@ -56,6 +56,11 @@ public class BidderPanel extends JPanel {
 	/**
 	 * Used to give button access to whole class.
 	 */
+	private JButton myLogout;
+	
+	/**
+	 * Used to give button access to whole class.
+	 */
 	private JButton myCancelBid;
 	
 	/**
@@ -71,7 +76,7 @@ public class BidderPanel extends JPanel {
 	/**
 	 * Used to gave access to list of auctions.
 	 */
-	ArrayList<Auction> myAuctions;
+	private ArrayList<Auction> myAuctions;
 	
 	/**
 	 * Used to give access of login user to other classes.
@@ -93,6 +98,7 @@ public class BidderPanel extends JPanel {
 		upDateInfoButton();
 		cancelBidButton();
 		placeBidButton();
+		makeButtonLogout();
 		add(myMiddle, BorderLayout.CENTER);
 		add(myButtons, BorderLayout.PAGE_END);
 	}
@@ -109,6 +115,20 @@ public class BidderPanel extends JPanel {
 			}
 		});
 		myButtons.add(myUpDateInfo);
+	}
+	
+	/**
+	 * Used to make logout button.
+	 */
+	private void makeButtonLogout() {
+		myLogout = new JButton("Logout");
+		myLogout.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent theEvent) {
+				firePropertyChange("LOGIN", "Bidder", "Login");
+			}
+		});
+		myButtons.add(myLogout);
 	}
 	
 	/**
@@ -149,6 +169,10 @@ public class BidderPanel extends JPanel {
 		add(myTextPanel, BorderLayout.PAGE_START);
 	}
 	
+	/**
+	 * Used to set who is currently login.
+	 * @param theUser the user
+	 */
 	public void setUser(User theUser) {
 		myUser = theUser;
 		makeTextPanel();
