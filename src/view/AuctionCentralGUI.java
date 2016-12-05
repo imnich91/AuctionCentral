@@ -33,7 +33,7 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
     /**
      * Used to set min size of window.
      */
-    private static final Dimension MY_SIZE = new Dimension(500, 500);
+    private static final Dimension MY_SIZE = new Dimension(650, 600);
 	
     /**
      * Frame that all panels are put in.
@@ -133,7 +133,7 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
         myFrame.add(myLoginPanel, BorderLayout.CENTER);
         myStaffPanel = new StaffPanel(myFrame);
         myNonProfitPanel = new NonProfitPanel(myFrame);
-        myBidderPanel = new BidderPanel(myFrame);
+        myBidderPanel = new BidderPanel(myFrame, myCalendar);
         //myFrame.add(myLoginPanel, BorderLayout.CENTER);
         setupListeners();
         myCards = new JPanel(new CardLayout());
@@ -152,6 +152,8 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
      */
     private void setupListeners(){
     	myLoginPanel.addPropertyChangeListener(this);
+    	myBidderPanel.addPropertyChangeListener(this);
+    	myNonProfitPanel.addPropertyChangeListener(this);
     }
 
 	@Override
@@ -172,12 +174,17 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
 			c1.show(myCards, STAFFPANEL);
 		}
 		if(theEvent.getPropertyName().equals("Bidder")) {
+			myBidderPanel.setUser(myLoginPanel.getUser());
 			CardLayout c1 = (CardLayout)(myCards.getLayout());
 			c1.show(myCards, BIDDERPANEL);
 		}
 		if(theEvent.getPropertyName().equals("NonProfit")) {
 			CardLayout c1 = (CardLayout)(myCards.getLayout());
 			c1.show(myCards, NONPROFITPANEL);
+		}
+		if(theEvent.getPropertyName().equals("LOGIN")) {
+			CardLayout c1 = (CardLayout)(myCards.getLayout());
+			c1.show(myCards, LOGINPANEL);
 		}
 	}
 
