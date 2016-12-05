@@ -10,6 +10,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDate;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,17 +34,26 @@ public class AuctionTest {
 	private Item myItem1;
 	private Item myItem2;
 	private Item myItem3;
+	private Item myItemToRemove;
 	
 	private Auction myAuction;
+	private Auction myAuction2;
 	private NonProfit myNonProfit;
-	private NonProfit myNonProfit2;
+	private NonProfit myNonProfit2;	
+	
+	private LocalDate myLocalDate;	
+	private Date myCurrDate;
+	private Date myDateMoreThan2Days;
+	private Date myDateEqualTo2Days;
+	private Date myDateLessThan2Days;
+	
 	
 	
 	@Before
 	public void setUp() {
 		
 		myNonProfit = new NonProfit("Bill Gates", "billy", "1234",
-				"Bill and Melinda Gates", "1234 Mercer Island", "111-111-1111");
+				NONPROFITNAME, "1234 Mercer Island", "111-111-1111");
 
 		myNonProfit2 = new NonProfit("Billy Jean", "jeans", "1234",
 				"Jackson Organization", "1234 Mercer Island", "111-111-1111");
@@ -50,6 +61,8 @@ public class AuctionTest {
 		myAuction = new Auction(NONPROFITNAME, new Date(12, "December", 2016), 
 								new Time(2, 00, "PM"));
 		
+		myAuction2 = new Auction(NONPROFITNAME, new Date(12, "December", 2016), 
+				new Time(2, 00, "PM"));
 		
 		// populate Auction inventory
 		myItemTestingAgainst = new Item("Football", "good", "small", 100, NONPROFITNAME, 
@@ -65,8 +78,20 @@ public class AuctionTest {
 		
 		myItem3 = new Item("Football", "good", "", 100, NONPROFITNAME, 
 				"Really cool football", "hello");
+		
+		myItemToRemove = new Item("Baseball", "good", "small", 100, NONPROFITNAME, 
+				"Really cool football", "hello");
 
 		myAuction.addItem(myNonProfit, myItemTestingAgainst);
+		
+		
+		myLocalDate = LocalDate.now();		
+		myCurrDate = new Date(myLocalDate.getDayOfMonth(), myLocalDate.getMonth().toString(), myLocalDate.getYear());
+		
+		myDateMoreThan2Days = new Date(myCurrDate.getDay() - 5, myCurrDate.getMonth(), myCurrDate.getYear());
+		myDateEqualTo2Days = new Date(myCurrDate.getDay() - 2, myCurrDate.getMonth(), myCurrDate.getYear());
+		myDateLessThan2Days = new Date(myCurrDate.getDay() - 1, myCurrDate.getMonth(), myCurrDate.getYear());
+		
 		
 	}
 	
@@ -167,4 +192,43 @@ public class AuctionTest {
 		assertEquals(NONPROFITNAME + ", december 12, 2016, 2:00 PM", myAuction.toString());
 		
 	}
+	
+	
+	
+	
+	@Test 
+	public void testRemoveItemOnItemExsistsInInventoryMoreThanTwoDays() {
+		
+		
+		myAuction2.addItem(myNonProfit, myItemToRemove);	
+		myAuction2.addItem(myNonProfit, myItemTestingAgainst);
+			
+		assertTrue(myAuction2.removeItem(myNonProfit, myItemToRemove.getItemNumber(), myDateMoreThan2Days, myCurrDate));
+	
+	}
+	
+	
+	@Test 
+	public void testRemoveItemOnItemDoesntExsistsInInventoryMoreThanTwoDays() {
+		
+		assertFalse(myAuction.removeItem(myNonProfit, myItemToRemove.getItemNumber(), myDateMoreThan2Days, myCurrDate));
+		
+	}
+	
+	@Test 
+	public void testRemoveItemOnItemExsistsInInventoryLessThanTwoDays() {		
+		
+		myAuction2.addItem(myNonProfit, myItemToRemove);				
+		assertFalse(myAuction2.removeItem(myNonProfit, myItemToRemove.getItemNumber(), myDateLessThan2Days, myCurrDate));
+	
+	}
+	
+	@Test 
+	public void testRemoveItemOnItemExsistsInInventoryEqualToTwoDays() {		
+		
+		myAuction2.addItem(myNonProfit, myItemToRemove);				
+		assertTrue(myAuction2.removeItem(myNonProfit, myItemToRemove.getItemNumber(), myDateEqualTo2Days, myCurrDate));
+	
+	}
+	
 }

@@ -174,6 +174,49 @@ public class Auction implements Serializable{
 	
 	
 	/**
+	 * @author Dmitriy Onishchenko
+	 * Removes an inventory item from the auction.
+	 * @param theUser the non profit contac person
+	 * @param itemNumber the Item number
+	 * @param theAuctionDate the auction date
+	 * @param theCurrentDate the current date
+	 * @return true if removed fale otherwise
+	 */
+	public boolean removeItem(NonProfit theUser, int itemNumber, Date theAuctionDate, Date theCurrentDate) {
+		
+		boolean removed = Calendar.isMoreThanTwoDays(theAuctionDate, theCurrentDate);		
+		
+		// if valid date to remove and correct user
+		if(removed && checkContactPerson(theUser)) {			
+			
+			try{
+				((ArrayList)myInventory).remove(itemNumber);
+				removed = true;
+			}
+			catch (ArrayIndexOutOfBoundsException e) {					
+				removed = false;
+		
+			}		
+			
+			if(itemNumber >= 0) {			
+				// fix item numbers 
+				for(int i = itemNumber; i < myInventory.size(); i++) {			
+					((Item)((ArrayList)myInventory).get(i)).setItemNumber(i);			
+				}
+			}			
+		}
+		
+
+		
+		
+		
+		return removed;
+	}
+	
+	
+	
+	
+	/**
 	 * {@inheritDoc}.
 	 * A representation of the Auction.	
 	 */

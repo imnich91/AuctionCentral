@@ -30,17 +30,17 @@ public class CalendarTest {
 				"Bill", "1234 Mercer Island", "111-111-1111");
 	private Calendar c1;
 	private Calendar c2;
-	private Date d1 = new Date(8, "november", 2016);
+	private Date d1 = new Date(18, "december", 2016);
 	private Time t1 = new Time(2, 40, "pm");
-	private Date d2 = new Date(25, "november", 2016);
+	private Date d2 = new Date(25, "december", 2016);
 	private Time t2 = new Time(7, 40, "pm");
-	private Date d3 = new Date(35, "november", 2016);
+	private Date d3 = new Date(35, "december", 2016);
 	private Time t3 = new Time(7, 40, "pm");
-	private Date d4 = new Date(5, "december", 2015);
+	private Date d4 = new Date(15, "december", 2015);
 	private Time t4 = new Time(7, 40, "pm");
-	private Date d5 = new Date(1, "december", 2016);
+	private Date d5 = new Date(19, "december", 2016);
 	private Time t5 = new Time(7, 40, "pm");
-	private Date d6 = new Date(26, "november", 2016);
+	private Date d6 = new Date(26, "december", 2016);
 	private Time t6 = new Time(7, 40, "pm");
 	
 	private AuctionRequest myRequest = new AuctionRequest(d1, t1, "Non-profit-1");
@@ -167,12 +167,12 @@ public class CalendarTest {
 	
 	@Test
 	public void testCheckWeekOnOutsideOfSevenDays() {
-		assertTrue("test case check week true", c2.checkWeek(6));
+		assertTrue("test case check week true", c2.checkWeek(myLocalDate.plusDays(8).getDayOfMonth()));
 	}
 	
 	@Test
 	public void testCheckWeekOnInsideOfSevenDays() {
-		assertFalse("test case check week false", c2.checkWeek(25));
+		assertFalse("test case check week false", c2.checkWeek(myLocalDate.plusDays(3).getDayOfMonth()));
 	}
 	
 	@Test
@@ -185,18 +185,6 @@ public class CalendarTest {
 		assertFalse("test case add auction valid request", c2.addAuction(myRequestPast1));
 	}
 		
-	@Test
-	public void testGetAuctionOnOrganizationExist() {	
-		Calendar c = new Calendar();
-		AuctionRequest myRequest = new AuctionRequest(new Date(1, "december", 2016), new Time(2, 40, "PM"), "Bill");
-		
-		c.addAuction(myRequest);		
-
-		Auction testAuction = new Auction("Bill", new Date(1, "december", 2016), new Time(2, 40, "PM"));		
-		assertEquals(testAuction.getName(), c.getAuctionForOrganization(myNonProfit).getName());
-		
-	}
-	
 	
 	@Test 
 	public void testIsMoreThanTwoDaysOnLessThan2Days() {

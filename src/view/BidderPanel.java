@@ -10,11 +10,16 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
+import model.Auction;
+import model.Calendar;
+import model.User;
 
 /**
  * Used to build the bidder JPanel.
@@ -51,6 +56,11 @@ public class BidderPanel extends JPanel {
 	/**
 	 * Used to give button access to whole class.
 	 */
+	private JButton myLogout;
+	
+	/**
+	 * Used to give button access to whole class.
+	 */
 	private JButton myCancelBid;
 	
 	/**
@@ -59,18 +69,36 @@ public class BidderPanel extends JPanel {
 	private JButton myPlaceBid;
 	
 	/**
+	 * Gives access to calendar object to the rest of the class.
+	 */
+	private Calendar myCalendar;
+	
+	/**
+	 * Used to gave access to list of auctions.
+	 */
+	private ArrayList<Auction> myAuctions;
+	
+	/**
+	 * Used to give access of login user to other classes.
+	 */
+	private User myUser;
+	
+	/**
 	 * Used to build the JPanel.
 	 * 
 	 * @param theFrame the frame everything is loaded into
 	 */
-	public BidderPanel(final JFrame theFrame) {
+	public BidderPanel(final JFrame theFrame, final Calendar theCalendar) {
 		setLayout(new BorderLayout());
+		myCalendar = theCalendar;
+		myUser = null;
+		myAuctions = (ArrayList<Auction>)myCalendar.getAuctions();
 		myMiddle = new JPanel();
 		myButtons = new JPanel();
 		upDateInfoButton();
 		cancelBidButton();
 		placeBidButton();
-		makeTextPanel();
+		makeButtonLogout();
 		add(myMiddle, BorderLayout.CENTER);
 		add(myButtons, BorderLayout.PAGE_END);
 	}
@@ -90,6 +118,20 @@ public class BidderPanel extends JPanel {
 	}
 	
 	/**
+	 * Used to make logout button.
+	 */
+	private void makeButtonLogout() {
+		myLogout = new JButton("Logout");
+		myLogout.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent theEvent) {
+				firePropertyChange("LOGIN", "Bidder", "Login");
+			}
+		});
+		myButtons.add(myLogout);
+	}
+	
+	/**
 	 * Used to make a button.
 	 */
 	private void cancelBidButton() {
@@ -97,7 +139,6 @@ public class BidderPanel extends JPanel {
 		myCancelBid.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
-				//System.exit(1);
 			}
 		});
 		myButtons.add(myCancelBid);
@@ -122,8 +163,18 @@ public class BidderPanel extends JPanel {
 	 */
 	private void makeTextPanel() {
 		myTextPanel = new JPanel();
-		JLabel Jlabel = new JLabel("Login: ");
+		String name = myUser.getUserName();
+		JLabel Jlabel = new JLabel("Login as: "+ name);
 		myTextPanel.add(Jlabel);
 		add(myTextPanel, BorderLayout.PAGE_START);
+	}
+	
+	/**
+	 * Used to set who is currently login.
+	 * @param theUser the user
+	 */
+	public void setUser(User theUser) {
+		myUser = theUser;
+		makeTextPanel();
 	}
 }

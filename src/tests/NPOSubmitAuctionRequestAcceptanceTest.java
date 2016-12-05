@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.Assert.*;
 
+import java.time.LocalDate;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,6 +47,10 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 	
 	private Day testDay;
 	
+	private LocalDate today = LocalDate.now();
+	
+	private Time auctionTime = new Time(05, 00, "PM");
+	
 	
 	@Before
 	public void setUp() {
@@ -69,7 +74,7 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		dayAuction3 = new AuctionRequest(new Date(28, "December", 2016),
 							new Time(07, 00, "PM"), "Non Profit3");
 		dayAuction4 = new AuctionRequest(new Date(28, "December", 2016),
-							new Time(9, 00, "AM"), "Non Profit1");
+							new Time(9, 00, "AM"), "Non Profit4");
 
 		noDateRequest = new AuctionRequest(null, new Time(07, 00, "PM"), "WWF");
 		noTimeRequest = new AuctionRequest(new Date(28, "December", 2016), null, "WWF");
@@ -136,21 +141,49 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 	
 	@Test
 	public void testNoAuctionInPastYearOnLessThanYearInPast(){
-		
+	
+//		AuctionRequest auction = new AuctionRequest(new Date(19, "May", 2016), auctionTime, "RedRum");
+//		AuctionRequest request = new AuctionRequest(new Date(30, "December", 2016), auctionTime, "RedRum");
+//		
+//		c2.populateCalendar(auction);
+//		
+//		assertFalse(c2.canAddAuction(request));
 	}
 
 	@Test
 	public void testNoAuctionInPastYearOnOneYearMinusOneDayInPast(){
-	
+
+//		AuctionRequest auction = new AuctionRequest(new Date(today.minusDays(1).getDayOfMonth(),
+//				"December", 2015), auctionTime, "RedRum");
+//		AuctionRequest request = new AuctionRequest(new Date(30, "December", 2016), auctionTime, "RedRum");
+//		
+//		c2.populateCalendar(auction);
+//		
+//		assertFalse(c2.canAddAuction(request));
 	}
 	
 	@Test
 	public void testNoAuctionInPastYearOnMultipleAuctionsLessThanYearInPast(){
-				
+		
+//		AuctionRequest auction1 = new AuctionRequest(new Date(19, "May", 2016), auctionTime, "RedRum");
+//		AuctionRequest auction2 = new AuctionRequest(new Date(27, "August", 2016), auctionTime, "RedRum");
+//		AuctionRequest request = new AuctionRequest(new Date(30, "December", 2016), auctionTime, "RedRum");
+//		
+//		c2.populateCalendar(auction1);
+//		c2.populateCalendar(auction2);
+//		
+//		assertFalse(c2.canAddAuction(request));
 	}
 	
 	@Test
 	public void testNoAuctionInPastYearOnNoAuctionWithInPastYear(){
+		
+		AuctionRequest auction1 = new AuctionRequest(new Date(19, "June", 2015), auctionTime, "RedRum");
+		AuctionRequest request = new AuctionRequest(new Date(30, "December", 2016), auctionTime, "RedRum");
+		
+		c2.populateCalendar(auction1);
+		
+		assertTrue(c2.checkLastYear("RedRum"));
 		
 	}
 	
@@ -197,7 +230,7 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		testDay.addAuction(dayAuction1);
 		testDay.addAuction(dayAuction2);
 		
-		testDay.setMyNumAuctions(0);
+		testDay.setMyNumAuctions(0); 
 		testDay.addAuction(dayAuction3);
 		testDay.setMyNumAuctions(2);
 		
@@ -273,33 +306,38 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 	
 	@Test
 	public void testAtLeastOneWeekBeforeOnExactlyOneWeek(){
-		
-		
+				
+		assertTrue(c1.checkWeek(today.plusDays(7).getDayOfMonth()));
 	}
 	
 	@Test
 	public void testAtLeastOneWeekBeforeOnGreaterThanOneWeek(){
 		
+		assertTrue(c1.checkWeek(today.plusDays(10).getDayOfMonth()));
 	}
 	
 	@Test
 	public void testAtLeastOneWeekBeforeOnSixDays(){
 		
+		assertFalse(c1.checkWeek(today.plusDays(6).getDayOfMonth()));
 	}
 	
 	@Test
 	public void testAtLeastOneWeekBeforeOnLessThanSixDays(){
 		
+		assertFalse(c1.checkWeek(today.plusDays(3).getDayOfMonth()));
 	}
 	
 	@Test
 	public void testAtLeastOneWeekBeforeOnCurrentDate(){
 		
+		assertFalse(c1.checkWeek(today.getDayOfMonth()));
 	}
 	
 	@Test
 	public void testAtLeastOneWeekBeforeOnDateInPast(){
-		
+	
+		assertFalse(c1.checkWeek(today.minusDays(2).getDayOfMonth()));
 	}
 	
 }

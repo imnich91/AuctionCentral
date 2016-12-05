@@ -278,11 +278,12 @@ public class Calendar implements Serializable {
 	 */
 	public boolean checkWeek(int day) {
 		
-		if(day > myCurrentDay.getDay() && day - myCurrentDay.getDay() <= 7) {
+		if(day >= myCurrentDay.getDay() && day - myCurrentDay.getDay() < 7) {
 			return false;
-		} else if(day <= myCurrentDay.getDay() && LocalDate.now().plusDays(day).getDayOfMonth() < 7) {
+		} else if(day < myCurrentDay.getDay() && LocalDate.now().plusDays(day).getDayOfMonth() < 7) {
 			return false;
 		}
+		
 		return true;
 	}
    
@@ -341,7 +342,7 @@ public class Calendar implements Serializable {
 		
 		return theAuctionDate.getYear() <= theCurrentDate.getYear() && 
 				theAuctionDate.getMonthAsNumber() <= theCurrentDate.getMonthAsNumber() &&
-						theAuctionDate.getDay() <= theCurrentDate.getDay() - DAYS_BEFORE;
+						theCurrentDate.getDay() <= (theAuctionDate.getDay() - DAYS_BEFORE);
 	}
 	
 		
@@ -373,5 +374,20 @@ public class Calendar implements Serializable {
 			canceled = false;
 		}
 		return canceled;
+	}
+	
+
+	/**
+	 * @author Georgia Wade
+	 * This method is used for testing purposes only. Method adds the auction
+	 * request to the calendar.
+	 * @param theRequest an auction wanting to be added to the calendar
+	 */
+	public void populateCalendar(AuctionRequest theRequest)
+	{
+		Auction temp = new Auction(theRequest.getNonProfitName(), theRequest.getDate(), theRequest.getTime());
+		myCalendar.get(theRequest.getDate().getDay()-1).addAuction(theRequest);									
+//		myAuctions.add(temp);
+//		myAuctionsTotal++;	
 	}
 }

@@ -22,7 +22,13 @@ import org.junit.runners.Suite;
   TimeTest.class,
   DateTest.class,
   DayTest.class,
-  CalendarTest.class
+  CalendarTest.class,
+  
+  BidOnAnItemAcceptanceTest.class,
+  CancelAuctionRequestAcceptanceTests.class,
+  CancelBidOnAnItemAcceptanceTest.class,
+  NPOAddInventoryItemAcceptanceTest.class,
+  NPOSubmitAuctionRequestAcceptanceTest.class
   
 })
 
