@@ -17,7 +17,7 @@ public class CancelAuctionRequestAcceptanceTests {
 
 	private NonProfit myNonProfit = new NonProfit("Bill Gates", "bill", "1234",
 			"Bill", "1234 Mercer Island", "111-111-1111");
-	private Date d1 = new Date(8, "november", 2016);
+	private Date d1 = new Date(20, "december", 2016);
 	private Time t1 = new Time(2, 40, "pm");
 
 	private LocalDate myLocalDate;	
