@@ -226,10 +226,7 @@ public class AuctionTest {
 	@Test 
 	public void testRemoveItemOnItemExsistsInInventoryEqualToTwoDays() {		
 		
-		System.out.println(myAuction2.addItem(myNonProfit, myItemToRemove));
-		System.out.println(myItemToRemove.getItemNumber());
-		System.out.println(myDateEqualTo2Days);
-		System.out.println(myCurrDate);
+		myAuction2.addItem(myNonProfit, myItemToRemove);
 		
 		assertTrue(myAuction2.removeItem(myNonProfit, myItemToRemove.getItemNumber(), myDateEqualTo2Days, myCurrDate));
 	
