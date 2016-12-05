@@ -33,7 +33,7 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
     /**
      * Used to set min size of window.
      */
-    private static final Dimension MY_SIZE = new Dimension(600, 600);
+    private static final Dimension MY_SIZE = new Dimension(650, 600);
 	
     /**
      * Frame that all panels are put in.
@@ -153,6 +153,7 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
     private void setupListeners(){
     	myLoginPanel.addPropertyChangeListener(this);
     	myBidderPanel.addPropertyChangeListener(this);
+    	myNonProfitPanel.addPropertyChangeListener(this);
     }
 
 	@Override

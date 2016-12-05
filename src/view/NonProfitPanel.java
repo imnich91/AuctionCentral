@@ -52,6 +52,11 @@ public class NonProfitPanel extends JPanel {
 	private JButton myAddItem;
 	
 	/**
+	 * Used to give button access to whole class.
+	 */
+	private JButton myLogout;
+	
+	/**
 	 * Used to build the JPanel.
 	 * 
 	 * @param theFrame the frame everything is loaded into
@@ -65,6 +70,7 @@ public class NonProfitPanel extends JPanel {
 		makeButtonAddAuction();
 		makeButtonRemoveItem();
 		makeButtonAddItem();
+		makeButtonLogout();
 		
 		//Adds all buttons to button of JPanel
 		add(myButtons, BorderLayout.PAGE_END);
@@ -124,5 +130,19 @@ public class NonProfitPanel extends JPanel {
 			}
 		});
 		myButtons.add(myAddItem);
+	}
+	
+	/**
+	 * Used to make logout button.
+	 */
+	private void makeButtonLogout() {
+		myLogout = new JButton("Logout");
+		myLogout.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent theEvent) {
+				firePropertyChange("LOGIN", "Bidder", "Login");
+			}
+		});
+		myButtons.add(myLogout);
 	}
 }
