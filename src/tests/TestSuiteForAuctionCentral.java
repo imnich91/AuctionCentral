@@ -27,6 +27,7 @@ import org.junit.runners.Suite;
   BidOnAnItemAcceptanceTest.class,
   CancelAuctionRequestAcceptanceTests.class,
   CancelBidOnAnItemAcceptanceTest.class,
+  ChangeMaxNumberOfFutureAuctionsAcceptanceTest.class,
   NPOAddInventoryItemAcceptanceTest.class,
   NPOSubmitAuctionRequestAcceptanceTest.class,
   RemoveInventoryItemAcceptanceTest.class
