@@ -11,10 +11,13 @@ import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import model.Auction;
@@ -152,7 +155,20 @@ public class BidderPanel extends JPanel {
 		myPlaceBid.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
-				//System.exit(1);
+				//ask user for auction they want to bid on.
+				List<String> list = new ArrayList<String>();
+				List<Auction> auctions =(myCalendar.getAuctions());
+				for(Auction a : auctions) {
+					list.add(a.getName());
+				}
+				String[] choices = (list).toArray(new String[0]);
+			    String input = (String) JOptionPane.showInputDialog(null, "Choose now...",
+			        "Non-Profit List", JOptionPane.QUESTION_MESSAGE, null,
+			        choices, choices[0]);
+			    
+			    //ask user for item they want to bid on.
+			    
+			        
 			}
 		});
 		myButtons.add(myPlaceBid);

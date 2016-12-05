@@ -229,7 +229,4 @@ public class Auction implements Serializable{
 		
 		return str.toString();
 	}
-	
-	
-	
 }
