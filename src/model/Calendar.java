@@ -280,9 +280,12 @@ public class Calendar implements Serializable {
 		
 		if(day >= myCurrentDay.getDay() && day - myCurrentDay.getDay() < 7) {
 			return false;
-		} else if(day < myCurrentDay.getDay() && LocalDate.now().plusDays(day).getDayOfMonth() < 7) {
+		}
+		else if(day < myCurrentDay.getDay() && LocalDate.now().plusDays(day).getDayOfMonth() < 7) {
 			return false;
 		}
+		else if((day - myCurrentDay.getDay()) < 0 && (day - myCurrentDay.getDay()) > -7)
+			return false;
 		
 		return true;
 	}

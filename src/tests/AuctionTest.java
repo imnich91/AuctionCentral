@@ -88,9 +88,9 @@ public class AuctionTest {
 		myLocalDate = LocalDate.now();		
 		myCurrDate = new Date(myLocalDate.getDayOfMonth(), myLocalDate.getMonth().toString(), myLocalDate.getYear());
 		
-		myDateMoreThan2Days = new Date(myCurrDate.getDay() - 5, myCurrDate.getMonth(), myCurrDate.getYear());
-		myDateEqualTo2Days = new Date(myCurrDate.getDay() - 2, myCurrDate.getMonth(), myCurrDate.getYear());
-		myDateLessThan2Days = new Date(myCurrDate.getDay() - 1, myCurrDate.getMonth(), myCurrDate.getYear());
+		myDateMoreThan2Days = new Date(myCurrDate.getDay() + 5, myCurrDate.getMonth(), myCurrDate.getYear());
+		myDateEqualTo2Days = new Date(myCurrDate.getDay() + 2, myCurrDate.getMonth(), myCurrDate.getYear());
+		myDateLessThan2Days = new Date(myCurrDate.getDay() + 1, myCurrDate.getMonth(), myCurrDate.getYear());
 		
 		
 	}
@@ -226,7 +226,11 @@ public class AuctionTest {
 	@Test 
 	public void testRemoveItemOnItemExsistsInInventoryEqualToTwoDays() {		
 		
-		myAuction2.addItem(myNonProfit, myItemToRemove);				
+		System.out.println(myAuction2.addItem(myNonProfit, myItemToRemove));
+		System.out.println(myItemToRemove.getItemNumber());
+		System.out.println(myDateEqualTo2Days);
+		System.out.println(myCurrDate);
+		
 		assertTrue(myAuction2.removeItem(myNonProfit, myItemToRemove.getItemNumber(), myDateEqualTo2Days, myCurrDate));
 	
 	}

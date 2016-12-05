@@ -28,7 +28,8 @@ import org.junit.runners.Suite;
   CancelAuctionRequestAcceptanceTests.class,
   CancelBidOnAnItemAcceptanceTest.class,
   NPOAddInventoryItemAcceptanceTest.class,
-  NPOSubmitAuctionRequestAcceptanceTest.class
+  NPOSubmitAuctionRequestAcceptanceTest.class,
+  RemoveInventoryItemAcceptanceTest.class
   
 })
 

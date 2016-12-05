@@ -1,12 +1,19 @@
 package tests;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.time.LocalDate;
 
 import org.junit.Before;
+import org.junit.Test;
 
+import model.Auction;
 import model.Bidder;
 import model.Date;
 import model.Item;
+import model.NonProfit;
+import model.Time;
 
 /**
  * This test class runs the acceptance tests for the user story
@@ -19,13 +26,16 @@ public class RemoveInventoryItemAcceptanceTest {
 	
 	private Item myItem;
 	private Item myItem2;	
-	private Bidder myBidder1;
+
+	private NonProfit myNonProfit;
 	
 	private LocalDate myLocalDate;	
 	private Date myCurrDate;
 	private Date myDateMoreThan2Days;
 	private Date myDateEqualTo2Days;
 	private Date myDateLessThan2Days;
+	
+	private Auction myAuction;
 
 	@Before
 	public void setup() {
@@ -33,21 +43,43 @@ public class RemoveInventoryItemAcceptanceTest {
 		myCurrDate = new Date(myLocalDate.getDayOfMonth(), myLocalDate.getMonth().toString(),
 								myLocalDate.getYear());
 		
-		myDateMoreThan2Days = new Date(myCurrDate.getDay() - 5, myCurrDate.getMonth(), myCurrDate.getYear());
-		myDateEqualTo2Days = new Date(myCurrDate.getDay() - 2, myCurrDate.getMonth(), myCurrDate.getYear());
-		myDateLessThan2Days = new Date(myCurrDate.getDay() - 1, myCurrDate.getMonth(), myCurrDate.getYear());
-		
-	
-		myBidder1 = new Bidder("Dave Mathews", "dave", "3456", 
-				"d@gmail.com", "1111 11th st San Diego", "111-111-1111");
+		myDateMoreThan2Days = new Date(myCurrDate.getDay() + 5, myCurrDate.getMonth(), myCurrDate.getYear());
+		myDateEqualTo2Days = new Date(myCurrDate.getDay() + 2, myCurrDate.getMonth(), myCurrDate.getYear());
+		myDateLessThan2Days = new Date(myCurrDate.getDay() + 1, myCurrDate.getMonth(), myCurrDate.getYear());
 		
 		myItem = new Item("Autographed Sounders Jersey", "Good", "medium",
 				50, "Seattle Sounders", "Game worn jersy signed by Brad Evan.",
 				"CenturyLink Field front office has the jersey");
 		
 		myItem2 = new Item("Football", "good", "small", 100, "Bill and Melinda Gates", 
-						"Really cool football", "hello");		
-		myItem2.makeBid(myBidder1, 300);
-	}
+						"Really cool football", "hello");
+		
+		myNonProfit = new NonProfit("Amber Smith", "asmith", "9389", "World Vision",
+										"8372 Seattle", "8675309");
+		
+		myAuction = new Auction("World Vision", myCurrDate, new Time(02, 00, "PM"));
 
+		myAuction.addItem(myNonProfit, myItem);
+		
+	}
+	
+	@Test 
+	public void testRemoveItemOnMoreThanTwoDays() {
+		
+		assertTrue(myAuction.removeItem(myNonProfit, myItem.getItemNumber(), myDateMoreThan2Days, myCurrDate));
+	}
+	
+	@Test
+	public void testRemoveItemOnExactlyTwoDays(){
+		
+		assertTrue(myAuction.removeItem(myNonProfit, myItem.getItemNumber(), myDateEqualTo2Days, myCurrDate));
+	}
+	
+	@Test
+	public void testRemoveItemOnLessThanTwoDays(){
+		
+		assertFalse(myAuction.removeItem(myNonProfit, myItem.getItemNumber(), myDateLessThan2Days, myCurrDate));
+	}
+	
+	
 }
