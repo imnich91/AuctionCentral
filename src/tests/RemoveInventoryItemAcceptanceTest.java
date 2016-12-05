@@ -63,18 +63,27 @@ public class RemoveInventoryItemAcceptanceTest {
 		
 	}
 	
+	/**
+	 * Acceptance test for: removing an item after two or more days
+	 */
 	@Test 
 	public void testRemoveItemOnMoreThanTwoDays() {
 		
 		assertTrue(myAuction.removeItem(myNonProfit, myItem.getItemNumber(), myDateMoreThan2Days, myCurrDate));
 	}
 	
+	/**
+	 * Acceptance test for: removing an item after exactly two days
+	 */
 	@Test
 	public void testRemoveItemOnExactlyTwoDays(){
 		
 		assertTrue(myAuction.removeItem(myNonProfit, myItem.getItemNumber(), myDateEqualTo2Days, myCurrDate));
 	}
 	
+	/**
+	 * Acceptance test for: removing an item within two days
+	 */
 	@Test
 	public void testRemoveItemOnLessThanTwoDays(){
 		
