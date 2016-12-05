@@ -40,8 +40,4 @@ public class Staff extends AbstractUser implements Serializable {
 	public String toString() {		
 		return super.getName() + " logged in as Auction Central Staff Person";
 	}
-	
-	
-
-
 }
