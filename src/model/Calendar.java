@@ -342,7 +342,7 @@ public class Calendar implements Serializable {
 		
 		return theAuctionDate.getYear() <= theCurrentDate.getYear() && 
 				theAuctionDate.getMonthAsNumber() <= theCurrentDate.getMonthAsNumber() &&
-						theAuctionDate.getDay() <= theCurrentDate.getDay() - DAYS_BEFORE;
+						theCurrentDate.getDay() <= (theAuctionDate.getDay() - DAYS_BEFORE);
 	}
 	
 		

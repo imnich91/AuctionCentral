@@ -28,9 +28,9 @@ public class CancelBidOnAnItemAcceptanceTest {
 		myLocalDate = LocalDate.now();		
 		myCurrDate = new Date(myLocalDate.getDayOfMonth(), myLocalDate.getMonth().toString(), myLocalDate.getYear());
 		
-		myDateMoreThan2Days = new Date(myCurrDate.getDay() - 5, myCurrDate.getMonth(), myCurrDate.getYear());
-		myDateEqualTo2Days = new Date(myCurrDate.getDay() - 2, myCurrDate.getMonth(), myCurrDate.getYear());
-		myDateLessThan2Days = new Date(myCurrDate.getDay() - 1, myCurrDate.getMonth(), myCurrDate.getYear());
+		myDateMoreThan2Days = new Date(myCurrDate.getDay() + 5, myCurrDate.getMonth(), myCurrDate.getYear());
+		myDateEqualTo2Days = new Date(myCurrDate.getDay() + 2, myCurrDate.getMonth(), myCurrDate.getYear());
+		myDateLessThan2Days = new Date(myCurrDate.getDay() + 1, myCurrDate.getMonth(), myCurrDate.getYear());
 		
 	
 		myBidder1 = new Bidder("Dave Mathews", "dave", "3456", 
@@ -60,7 +60,7 @@ public class CancelBidOnAnItemAcceptanceTest {
 	 */
 	@Test
 	public void testCancelBidOnBidsThatIsExactlyAtTwoDaysBeforeAuction() {
-		
+				
 		assertTrue(myItem2.cancelBid(myBidder1, myDateEqualTo2Days, myCurrDate));		
 	}
 	
@@ -70,7 +70,7 @@ public class CancelBidOnAnItemAcceptanceTest {
 	@Test
 	public void testCancelBidOnBidsThatIsLessThanTwoDaysBeforeAuction() {
 		
-		assertFalse(myItem2.cancelBid(myBidder1, myDateLessThan2Days, myCurrDate));	
+		assertFalse(myItem2.cancelBid(myBidder1, myDateLessThan2Days, myCurrDate));
 	}
 	
 	/**
