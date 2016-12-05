@@ -19,6 +19,7 @@ import java.util.Observer;
 
 import javax.swing.JFrame;
 import model.Calendar;
+import model.NonProfit;
 import model.User;
 import javax.swing.JPanel;
 
@@ -131,8 +132,8 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
         //add frame to panel
         myLoginPanel = new Login(myFrame, myUsers, myUsersLogins);
         myFrame.add(myLoginPanel, BorderLayout.CENTER);
-        myStaffPanel = new StaffPanel(myFrame);
-        myNonProfitPanel = new NonProfitPanel(myFrame);
+        myStaffPanel = new StaffPanel(myFrame);        
+        myNonProfitPanel = new NonProfitPanel(myFrame, myCalendar);
         myBidderPanel = new BidderPanel(myFrame, myCalendar);
         //myFrame.add(myLoginPanel, BorderLayout.CENTER);
         setupListeners();
@@ -179,6 +180,8 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
 			c1.show(myCards, BIDDERPANEL);
 		}
 		if(theEvent.getPropertyName().equals("NonProfit")) {
+			myNonProfitPanel.setUser((NonProfit)myLoginPanel.getUser());
+			myNonProfitPanel.setUpNonProfitInfo();
 			CardLayout c1 = (CardLayout)(myCards.getLayout());
 			c1.show(myCards, NONPROFITPANEL);
 		}
