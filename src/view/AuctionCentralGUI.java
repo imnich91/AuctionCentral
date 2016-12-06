@@ -37,7 +37,7 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
     /**
      * Used to set min size of window.
      */
-    private static final Dimension MY_SIZE = new Dimension(650, 600);
+    private static final Dimension MY_SIZE = new Dimension(820, 600);
 	
     /**
      * Frame that all panels are put in.

@@ -178,7 +178,9 @@ public class BidderPanel extends JPanel {
 						for(Bid w : Bids) {
 							if(w.getBidder().equals(myUser.getName())) {
 							
-							   ListofBids += "Item = " +(b.getItemName()) + "\n";
+							   ListofBids += "Item = " +(b.getItemName())  + "\n"
+							   		+ "Min Bid: $" + b.getItemMinBid() + " "
+							   				+ "My Bid: $" + w.getBidPrice();
 							   
 							}
 						}
