@@ -196,7 +196,7 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 	@Test
 	public void testMaxTwoAuctionPerDayOnNoAuctionsScheduled(){
 		
-		assertTrue(testDay.canAddAuction(dayAuction1));
+		assertTrue(testDay.canAddAuction());
 	}
 	
 	@Test
@@ -204,7 +204,7 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 	
 		testDay.addAuction(dayAuction1);
 		
-		assertTrue(testDay.canAddAuction(dayAuction2));
+		assertTrue(testDay.canAddAuction());
 	}
 	
 	@Test
@@ -213,7 +213,7 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		testDay.addAuction(dayAuction1);
 		testDay.addAuction(dayAuction2);
 		
-		assertFalse(testDay.canAddAuction(dayAuction3));
+		assertFalse(testDay.canAddAuction());
 	}
 	
 	@Test
