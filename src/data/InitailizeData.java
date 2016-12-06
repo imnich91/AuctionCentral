@@ -90,7 +90,7 @@ public class InitailizeData {
 				100, "Seattle Sounders", "Game worn jersy signed by Brad Evan.",
 				"CenturyLink Field front office has the jersey"));
 		
-		billsAuction.addItem(myNonProfitBill, new Item("Surface Pro 3              ", "Good", "small",
+		billsAuction.addItem(myNonProfitBill, new Item("Surface Pro 3", "Good", "small",
 				900, "Steve Jobs", "Like new surface pro 3 computer.",
 				"Must sell"));	
 		
