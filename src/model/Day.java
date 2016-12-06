@@ -141,7 +141,7 @@ public class Day implements Serializable {
 	public void removeAuction() {
 		myAuction = null;
 		myNumAuctions--;
-	}
+	} 
 	
 	/**
 	 * Removes the second auction
