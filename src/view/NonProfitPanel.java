@@ -8,6 +8,7 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
@@ -17,13 +18,19 @@ import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import model.Auction;
+import model.AuctionRequest;
 import model.Calendar;
 import model.Date;
 import model.NonProfit;
+import model.Time;
 
 /**
  * Used to build the non-profit JPanel.
@@ -122,12 +129,13 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 		
 		//Makes all buttons
 		
+		makeAuctionInfoLabel();
 		makeButtonCancelAuction();
 		makeButtonAddAuction();
 		makeButtonRemoveItem();
 		makeButtonAddItem();
 		makeButtonLogout();
-		makeAuctionInfoLabel();
+		
 		
 		//Adds all buttons to button of JPanel
 		add(myButtons, BorderLayout.PAGE_END);
@@ -144,6 +152,19 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
 				
+				if (myAuction != null ){
+					int selected = JOptionPane.showConfirmDialog(myFrame, "Are you sure you want "
+							+ "to Cancel your Auction (All of your inventory will be removed)?");
+					
+					
+					if (selected == JOptionPane.YES_OPTION) {						
+						myCalendar.cancelAuction(myCurrNonProfit, myAuction.getDate(), myCurrDate);
+						remove(myInventory);
+						setAuctionInfo();
+						myAuction = null;
+					}					
+				}
+				
 				
 			}
 		});		
@@ -154,15 +175,101 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 	 * This method is used to add an auction request.
 	 */
 	private void makeButtonAddAuction() {
-		myAddAuction = new JButton("Auction Request");	
+		myAddAuction = new JButton("Auction Request");			
 		
 		myAddAuction.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
 				
+				if (myCalendar.getAuctionForOrganization(myCurrNonProfit) == null)  {
+					
+					makeAddAuctionDialog();
+					
+				}
+						
+			
 			}
 		});
 		myButtons.add(myAddAuction);		
+	}
+	
+	private void makeAddAuctionDialog() {
+		
+		//Make JPanels
+		JPanel holder = new JPanel(new BorderLayout(10, 10));
+		JPanel question = new JPanel(new GridLayout(0, 1, 2, 2));
+		//Fill questions
+		question.add(new JLabel("Date", SwingConstants.RIGHT));
+		question.add(new JLabel("Time", SwingConstants.RIGHT));
+		//Fill Holder
+		holder.add(question, BorderLayout.WEST);
+		//Make panel/textField
+		JPanel controls = new JPanel(new GridLayout(0, 1, 2, 2));
+		JTextField date = new JTextField("DD/MM/YYYY");
+		//Fill fields
+		controls.add(date);
+		JTextField time = new JTextField("HH AM/PM");
+		controls.add(time);
+		holder.add(controls, BorderLayout.CENTER);
+		
+		
+		//The pop up
+		JOptionPane.showMessageDialog(myFrame, holder, "Enter a date and time for Request", 
+				JOptionPane.QUESTION_MESSAGE);
+		
+		
+		final String theDate = date.getText();
+		final String theTime = new String(time.getText());
+		
+		parseRequestInfo(theDate, theTime);
+		
+	}
+	
+	
+	private void parseRequestInfo(String theDate, String theTime) {
+		
+		String orgName, month, period, requestTime;
+		int day, year, hour;		
+		Integer numToConvert; 
+			
+
+		String[] dayy = theDate.split("/");		
+		month = Date.convertMonthToEquivalentInt(dayy[1]);
+		
+		// convert the day
+		numToConvert = new Integer(dayy[0]);		
+		day = numToConvert.intValue();
+		
+		// convert the year 
+		numToConvert = new Integer(dayy[2]);		
+		year = numToConvert.intValue();		
+
+
+		dayy = theTime.split(" ");		
+		// convert the Hour
+		numToConvert = new Integer(dayy[0]);		
+		hour = numToConvert.intValue();	
+		
+		period = dayy[1];
+		
+		Date date = new Date(day, month, year);
+		Time time = new Time(hour, 0, period);	
+		
+		submitRequest(date, time);
+	}
+	
+	private void submitRequest(Date theDate, Time theTime) {
+		
+		boolean granted = myCalendar.addAuction(new AuctionRequest(theDate, theTime, myCurrNonProfit.getOrgName()));
+		
+		
+		System.out.println(granted);
+		if (granted) {			
+			setAuctionInfo();
+			
+		}
+		
+		
 	}
 	
 	/**
@@ -217,9 +324,12 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 		myLogout.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
-				remove(myInventory);
-				firePropertyChange("LOGIN", "Bidder", "Login");
 				
+				if (myInventory != null) {
+					remove(myInventory);				
+				}
+				
+				firePropertyChange("LOGIN", "Bidder", "Login");				
 			}
 		});
 		myButtons.add(myLogout);
@@ -239,15 +349,26 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 
 			myAuction = myCalendar.getAuctionForOrganization(myCurrNonProfit);
 			myAuctionInfo.setNonProfit(myCurrNonProfit);
-			myAuctionInfo.setTextHasAuction();			
-			myInventory = new ItemsPanel(myCurrNonProfit, myCalendar);
-			myInventory.addPropertyChangeListener(this);
-			this.add(myInventory, BorderLayout.CENTER);
-			myInventory.displayItems();
+			myAuctionInfo.setTextHasAuction();
+			myAddAuction.setEnabled(false);
+			updateInventory();		
 
 		} else {	
-			myAuctionInfo.setTextNoAuction();			
+			myAuctionInfo.setTextNoAuction();	
+			myAddAuction.setEnabled(true);
 		}		
+	}
+	
+	
+	/**
+	 * Updates current inventory
+	 */
+	private void updateInventory() {
+		
+		myInventory = new ItemsPanel(myCurrNonProfit, myCalendar);
+		myInventory.addPropertyChangeListener(this);
+		this.add(myInventory, BorderLayout.CENTER);
+		myInventory.displayItems();			
 	}
 	
 	
