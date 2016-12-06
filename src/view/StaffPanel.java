@@ -52,10 +52,13 @@ public class StaffPanel extends JPanel implements Observer {
 	
 	private static final int BORDER_WIDTH = 4;
 	
-	public StaffPanel(final JFrame theFrame) {
+	private int myNumAuctions;
+	
+	public StaffPanel(final JFrame theFrame, Calendar theCalendar) {
 		myFrame = theFrame;
 		setLayout(new BorderLayout());
-		myCalendar = new Calendar();
+		myCalendar = theCalendar;
+		myNumAuctions = myCalendar.getAuctionsTotal();
 		setupNorthPanel();
 		setupCenterPanel();
 		setupSouthPanel();
@@ -91,8 +94,10 @@ public class StaffPanel extends JPanel implements Observer {
 	
 	private void setupDaysOfWeek() {
 		JLabel label;
+		
 		for(String days: DAYNAMES) {
 			label = new JLabel(days);
+			label.setHorizontalAlignment(label.CENTER);
 			label.setBorder(BorderFactory.createMatteBorder(BORDER_WIDTH, BORDER_WIDTH, BORDER_WIDTH, BORDER_WIDTH, Color.BLACK));  
 			myCenterPanel.add(label);
 		}
@@ -126,7 +131,7 @@ public class StaffPanel extends JPanel implements Observer {
 	    }
 		myDays = new ArrayList<Integer>();
 		int count = 0;
-		for(int i = 1; i <= 30; i++) {
+		for(int i = 1; i <= 31; i++) {
 			if(i <= start) {
 				myDays.add(0);
 			} else if(LocalDate.now().getDayOfMonth() + count > LocalDate.now().getMonth().maxLength()) {
@@ -144,6 +149,7 @@ public class StaffPanel extends JPanel implements Observer {
 			} else {
 				label = new JLabel(Integer.toString(days) + ": " + myCalendar.getCalendar().get(days -1).getNumAuctions());
 			}
+			label.setHorizontalAlignment(label.CENTER);
 			label.setBorder(BorderFactory.createMatteBorder(BORDER_WIDTH, BORDER_WIDTH, BORDER_WIDTH, BORDER_WIDTH, Color.BLACK));  
 			myCenterPanel.add(label);
 		}
@@ -190,8 +196,13 @@ public class StaffPanel extends JPanel implements Observer {
 	
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
+
+		remove(myCenterPanel);
+		myCenterPanel =  new JPanel(new GridLayout(0, 7));
+		drawCalendar();
+		add(myCenterPanel, BorderLayout.CENTER);
 		
+	
 	}
 	
 	public void setUpStaffInfo() {
