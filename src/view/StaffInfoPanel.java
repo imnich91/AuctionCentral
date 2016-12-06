@@ -1,3 +1,8 @@
+/*
+ * TCSS 360 Software Development
+ * Auction Central Project
+ * Group 6 
+ */
 package view;
 
 	import java.awt.BorderLayout;
@@ -20,11 +25,20 @@ public class StaffInfoPanel extends JPanel{
 		 */
 		private static final long serialVersionUID = 1L;
 
+		/**
+		 * The calendar the has the current date
+		 */
 		private Calendar myCalendar;
 		
+		/**
+		 * A JLabel that stores displays all the auction info
+		 */
 		private JLabel myAuctionInfo;
 		
-		
+		/**
+		 * A constructor to setup the Staff Info panel for the GUI
+		 * @param theCalendar
+		 */
 		public StaffInfoPanel (Calendar theCalendar) {
 			
 			setLayout(new BorderLayout());
@@ -41,6 +55,10 @@ public class StaffInfoPanel extends JPanel{
 			add(myAuctionInfo, BorderLayout.NORTH);			
 		}
 		
+		/**
+		 * Set the header with the logged in staff info
+		 * @param theStaff the staff that is logged in
+		 */
 		public void setHeader(Staff theStaff) {
 			
 			myAuctionInfo.setText("");

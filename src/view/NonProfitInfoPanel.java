@@ -1,3 +1,8 @@
+/*
+ * TCSS 360 Software Development
+ * Auction Central Project
+ * Group 6 
+ */
 package view;
 
 import java.awt.BorderLayout;

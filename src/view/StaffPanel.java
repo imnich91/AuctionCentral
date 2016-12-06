@@ -68,12 +68,24 @@ public class StaffPanel extends JPanel implements Observer {
 	 */
 	private final JFrame myFrame;
 	
+	/**
+	 * An array with the names of the each day
+	 */
 	private static final String[] DAYNAMES = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
-		
+	
+	/**
+	 * The font size for the title
+	 */
 	private static final int TITLE_FONT_SIZE = 24;
 	
+	/**
+	 * A list with all the days
+	 */
 	private List<Integer> myDays;
 	
+	/**
+	 * The width of the panel.
+	 */
 	private static final int BORDER_WIDTH = 4;
 	
 	public StaffPanel(final JFrame theFrame) {
