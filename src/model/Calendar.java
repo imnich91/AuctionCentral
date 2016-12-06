@@ -121,7 +121,7 @@ public class Calendar extends Observable implements Serializable {
 	public void setAuctionsTotal(int theTotal) {
 		myAuctionsTotal = theTotal;
 		setChanged();
-		notifyObservers(myAuctionsTotal);
+		notifyObservers();
 	}
 	
 	/**
@@ -135,7 +135,7 @@ public class Calendar extends Observable implements Serializable {
  		
  		myAuctionsAllowed = theNum;
  		setChanged();
- 		notifyObservers(myAuctionsAllowed);
+ 		notifyObservers();
  		return true;
  	}
  	
@@ -411,6 +411,10 @@ public class Calendar extends Observable implements Serializable {
 			
 		} else {
 			canceled = false;
+		}
+		if(canceled) {
+			setChanged();
+			notifyObservers();
 		}
 		return canceled;
 	}

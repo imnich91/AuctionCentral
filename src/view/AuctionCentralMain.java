@@ -30,9 +30,19 @@ public class AuctionCentralMain {
         throw new IllegalStateException();
     }
 
-    
+    /**
+     * A collection of all the users
+     */
     private static List<User> myUsers;
+    
+    /**
+     * A hashmap collection of all the usernames and their corresponding passwords.
+     */
     private static HashMap<String, String> myUsersLogins;
+    
+    /**
+     * A calendar with the current date
+     */
 	private static Calendar myCalendar;
     
     
