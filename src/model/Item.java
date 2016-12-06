@@ -196,7 +196,7 @@ public class Item implements Serializable{
 	 * @return returns true if user is a registered bidder otherwise returns false.
 	 */
 	public boolean isValidBidder(User theUser) {
-		
+		System.out.println(theUser);
 		return !(theUser.getUserName().equals("") || theUser.getPassword().equals("") ||
 				theUser instanceof Staff || theUser instanceof NonProfit);			
 	}

@@ -101,12 +101,24 @@ public class BidderPanel extends JPanel {
 	 */
 	private Auction myNonProfit;
 	
+	/**
+	 * Used to show bidder what items they have bid on.
+	 */
 	private JPanel myCenterPanel;
 	
+	/**
+	 * Used to show information about the user.
+	 */
 	private BidderInfoPanel myBidderInfo;
 	
+	/**
+	 * User to have access to Bidder class.
+	 */
 	private Bidder myBidder;
 	
+	/**
+	 * Change front size to 20.
+	 */
 	private static final int FONT_SIZE = 20;
 	
 	/**
@@ -209,7 +221,7 @@ public class BidderPanel extends JPanel {
 				String[] choices = (list).toArray(new String[0]);
 			    String input = (String) JOptionPane.showInputDialog(null, "Choose now...",
 			        "Past Bid List", JOptionPane.QUESTION_MESSAGE, null,
-			        choices, choices[0]);
+			        choices, choices);
 				
 				if (list.size() < 0) {
 					popUpCancelBid(5);
@@ -227,6 +239,14 @@ public class BidderPanel extends JPanel {
 		myButtons.add(myCancelBid);
 	}
 	
+	/**
+	 * Used to check if the bid can be removed by on
+	 * date.
+	 * @param theInput item  name
+	 * @param theBidList all of the items
+	 * @param theAuction all of the auctions
+	 * @return if it worked
+	 */
 	private boolean checkDate(final String theInput, Collection<Item> theBidList,
 						  List<Auction> theAuction) {
 		boolean flag = false;
@@ -240,9 +260,6 @@ public class BidderPanel extends JPanel {
 		LocalDate theDate = LocalDate.now();
 		Date current = new Date(theDate.getDayOfMonth(), theDate.getMonth().toString().toLowerCase(), 
 								theDate.getYear());
-		//System.out.println("day = " +theDate.getDayOfMonth()+ " month = " +
-		//						theDate.getMonth().toString().toLowerCase()+ 
-		//						" year = " + theDate.getYear());
 		if(!item.equals(null)) {
 		flag = item.cancelBid(myUser, 
 				theAuction.get(0).getDate(),
@@ -269,12 +286,14 @@ public class BidderPanel extends JPanel {
 				String input ="";
 			    input = (String) JOptionPane.showInputDialog(null, "Choose now...",
 			        "Non-Profit List", JOptionPane.QUESTION_MESSAGE, null,
-			        choices, choices[0]);
+			        choices, choices);
+			    System.out.println("true");
 			    
 			    String item ="";
 			    item = askForItem(input);
 			    findItem(item);
 			    if(alreadyBid()) {
+			    	System.out.println("true");
 			    	askForBid();
 			    } else {
 			    	popUpBidTwice();
