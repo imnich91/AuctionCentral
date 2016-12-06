@@ -132,6 +132,11 @@ public class BidderPanel extends JPanel {
 	private Collection<Bid> myBids;
 	
 	/**
+	 * Used to keep track of current bids.
+	 */
+	private JButton myBidList;
+	
+	/**
 	 * Used to build the JPanel.
 	 * @param theFrame the frame everything is loaded into
 	 */
@@ -150,8 +155,40 @@ public class BidderPanel extends JPanel {
 		cancelBidButton();
 		placeBidButton();
 		makeButtonLogout();
+		makeBidList();
 		add(myCenterPanel, BorderLayout.CENTER);
 		add(myButtons, BorderLayout.PAGE_END);
+	}
+	
+	/**
+	 * Used to maked a list of all item the person has
+	 * bid on.
+	 */
+	private void makeBidList() {
+		myBidList = new JButton("Bid List");
+		myBidList.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent theEvent) {
+				String ListofBids = "";
+				List<Auction> Auctions = myCalendar.getAuctions();
+				for (Auction a : Auctions) {
+					Collection<Item> items = a.getInventory();
+					for(Item b : items) {
+						Collection<Bid> Bids = b.getBunchObids();
+						for(Bid w : Bids) {
+							if(w.getBidder().equals(myUser.getName())) {
+							
+							   ListofBids += "Item = " +(b.getItemName()) + "\n";
+							   
+							}
+						}
+					}
+				}
+				JOptionPane.showMessageDialog(myFrame, ListofBids);
+				
+			}
+		});
+		myButtons.add(myBidList);
 	}
 	
 	/**
@@ -294,13 +331,13 @@ public class BidderPanel extends JPanel {
 			    input = (String) JOptionPane.showInputDialog(null, "Choose now...",
 			        "Non-Profit List", JOptionPane.QUESTION_MESSAGE, null,
 			        choices, choices);
-			    System.out.println("true");
+			    //System.out.println("true");
 			    
 			    String item ="";
 			    item = askForItem(input);
 			    findItem(item);
 			    if(alreadyBid()) {
-			    	System.out.println("true");
+			    	//System.out.println("true");
 			    	askForBid();
 			    } else {
 			    	popUpBidTwice();
@@ -443,7 +480,7 @@ public class BidderPanel extends JPanel {
 			String[] items = (item).toArray(new String[0]);
 			biddingItem = (String) JOptionPane.showInputDialog(null, "Choose now...",
 					"Item List", JOptionPane.QUESTION_MESSAGE, null,
-					items, items[0]);
+					items, items);
 		}
 		return biddingItem;
 		
