@@ -17,6 +17,13 @@ import model.Item;
 import model.NonProfit;
 import model.Staff;
 import model.Time;
+/**
+ * This test class runs the acceptance tests for the user story
+ * "As a contact person for a non-profit organization, I want to
+ * add an inventory item from an auction".
+ * @author Kyaw Si Thu
+ *
+ */
 public class NPOAddInventoryItemAcceptanceTest {
 
 	private static final String NONPROFITNAME = "Bill and Melinda Gates";

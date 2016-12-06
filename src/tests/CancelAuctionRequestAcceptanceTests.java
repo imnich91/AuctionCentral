@@ -18,6 +18,13 @@ import model.Date;
 import model.NonProfit;
 import model.Time;
 
+/**
+ * This test class runs the acceptance tests for the user story
+ * "As a contact person for a non-profit organization, I want to
+ * cancel an auction request".
+ * @author Kyaw Si Thu
+ *
+ */
 public class CancelAuctionRequestAcceptanceTests {
 
 	private NonProfit myNonProfit = new NonProfit("Bill Gates", "bill", "1234",

@@ -16,6 +16,13 @@ import model.Bidder;
 import model.Date;
 import model.Item;
 
+/**
+ * This test class runs the acceptance tests for the user story
+ * "As a bidder, I want to
+ * cancel my bid on the item".
+ * @author Kyaw Si Thu
+ *
+ */
 public class CancelBidOnAnItemAcceptanceTest {
 
 	private Item myItem;
