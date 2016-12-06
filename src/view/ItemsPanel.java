@@ -182,7 +182,6 @@ public class ItemsPanel extends JPanel implements Observer {
 			return myItem.getItemNumber();		
 					
 		}			
-				
 	}
 
 }

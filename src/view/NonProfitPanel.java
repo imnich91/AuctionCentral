@@ -39,7 +39,7 @@ import model.Time;
  * Colin Casey (set up Skeleton)
  * 
  */
-public class NonProfitPanel extends JPanel implements Observer, PropertyChangeListener{
+public class NonProfitPanel extends JPanel implements PropertyChangeListener{
 	
 	/**
 	 * Used to save data.
@@ -553,13 +553,8 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 	public void setUser(NonProfit theNonProfit) {
 		
 		myCurrNonProfit = theNonProfit;
-	}
-	
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
-	}
+	}	
+
 
 	@Override
 	public void propertyChange(PropertyChangeEvent theEvent) {
