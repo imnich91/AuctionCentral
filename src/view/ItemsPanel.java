@@ -30,7 +30,7 @@ import model.NonProfit;
 
 
 /** 
- * 
+ * Displays all item available for a particular auction.
  * @author Dmitriy Onishchenko
  *
  */

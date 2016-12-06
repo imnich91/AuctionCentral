@@ -18,6 +18,11 @@ package view;
 	import model.NonProfit;
 import model.Staff;
 	
+/**
+ * Displays the staffs information at login.
+ * @author Ian Nicholas
+ *
+ */
 public class StaffInfoPanel extends JPanel{
 	
 		/**
