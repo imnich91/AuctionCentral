@@ -154,6 +154,7 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
     	myLoginPanel.addPropertyChangeListener(this);
     	myBidderPanel.addPropertyChangeListener(this);
     	myNonProfitPanel.addPropertyChangeListener(this);
+    	myStaffPanel.addPropertyChangeListener(this);
     }
 
 	@Override
