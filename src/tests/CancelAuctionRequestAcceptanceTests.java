@@ -22,9 +22,10 @@ public class CancelAuctionRequestAcceptanceTests {
 
 	private LocalDate myLocalDate;	
 	private Date myCurrDate;
-	private Date myDateMoreThan2Days;
-	private Date myDateEqualTo2Days;
-	private Date myDateLessThan2Days;
+	private Date myAuctDateMoreThan2Days;
+	private Date myAuctDateEqualTo2Days;
+	private Date myAuctDateLessThan2Days;
+	private Date myAuctDateAfterAuctionDate;
 	
 	@Before
 	public void setup() {
@@ -32,10 +33,10 @@ public class CancelAuctionRequestAcceptanceTests {
 		myLocalDate = LocalDate.now();		
 		myCurrDate = new Date(myLocalDate.getDayOfMonth(), myLocalDate.getMonth().toString(), myLocalDate.getYear());
 		
-		myDateMoreThan2Days = new Date(myCurrDate.getDay() + 5, myCurrDate.getMonth(), myCurrDate.getYear());
-		myDateEqualTo2Days = new Date(myCurrDate.getDay() + 2, myCurrDate.getMonth(), myCurrDate.getYear());
-		myDateLessThan2Days = new Date(myCurrDate.getDay() + 1, myCurrDate.getMonth(), myCurrDate.getYear());
-		
+		myAuctDateMoreThan2Days = new Date(myCurrDate.getDay() + 5, myCurrDate.getMonth(), myCurrDate.getYear());
+		myAuctDateEqualTo2Days = new Date(myCurrDate.getDay() + 2, myCurrDate.getMonth(), myCurrDate.getYear());
+		myAuctDateLessThan2Days = new Date(myCurrDate.getDay() + 1, myCurrDate.getMonth(), myCurrDate.getYear());
+		myAuctDateAfterAuctionDate  = new Date(myCurrDate.getDay() - 1, myCurrDate.getMonth(), myCurrDate.getYear());
 	}
 
 	/**
@@ -46,7 +47,7 @@ public class CancelAuctionRequestAcceptanceTests {
 		
 		Calendar c = new Calendar();		
 		c.addAuction(new AuctionRequest(d1, t1, myNonProfit.getOrgName()));		
-		assertTrue(c.cancelAuction(myNonProfit, myDateMoreThan2Days, myCurrDate));
+		assertTrue(c.cancelAuction(myNonProfit, myAuctDateMoreThan2Days, myCurrDate));
 		
 	}
 	
@@ -58,7 +59,7 @@ public class CancelAuctionRequestAcceptanceTests {
 		
 		Calendar c = new Calendar();		
 		c.addAuction(new AuctionRequest(d1, t1, myNonProfit.getOrgName()));		
-		assertFalse(c.cancelAuction(myNonProfit, myDateLessThan2Days, myCurrDate));
+		assertFalse(c.cancelAuction(myNonProfit, myAuctDateLessThan2Days, myCurrDate));
 		
 	}
 	
@@ -70,10 +71,33 @@ public class CancelAuctionRequestAcceptanceTests {
 		
 		Calendar c = new Calendar();		
 		c.addAuction(new AuctionRequest(d1, t1, myNonProfit.getOrgName()));		
-		assertTrue(c.cancelAuction(myNonProfit, myDateEqualTo2Days, myCurrDate));
+		assertTrue(c.cancelAuction(myNonProfit, myAuctDateEqualTo2Days, myCurrDate));
 		
 	}
 	
+	/**
+	 * Acceptance Test for : Cancelling an auction that exists for exactly 2 days
+	 */
+	@Test
+	public void testCancelAuctionOnAuctionExsistsForNonProfitEqualAuctionDate(){
+		
+		Calendar c = new Calendar();		
+		c.addAuction(new AuctionRequest(d1, t1, myNonProfit.getOrgName()));		
+		assertFalse(c.cancelAuction(myNonProfit, myCurrDate, myCurrDate));
+		
+	}
+	
+	/**
+	 * Acceptance Test for : Cancelling an auction that exists for exactly 2 days
+	 */
+	@Test
+	public void testCancelAuctionOnAuctionExsistsForNonProfitPastAuctionDate(){
+		
+		Calendar c = new Calendar();		
+		c.addAuction(new AuctionRequest(d1, t1, myNonProfit.getOrgName()));		
+		assertFalse(c.cancelAuction(myNonProfit, myAuctDateAfterAuctionDate, myCurrDate));
+		
+	}
 	
 	/**
 	 * Acceptance Test for : Cancelling an auction that does not exist
@@ -81,9 +105,6 @@ public class CancelAuctionRequestAcceptanceTests {
 	@Test
 	public void testCancelAuctionOnAuctionDoesntExistForNonProfit(){
 		Calendar c = new Calendar();	
-		assertFalse(c.cancelAuction(myNonProfit, myDateMoreThan2Days, myCurrDate));		
+		assertFalse(c.cancelAuction(myNonProfit, myAuctDateMoreThan2Days, myCurrDate));		
 	}
-	
-	
-
 }
