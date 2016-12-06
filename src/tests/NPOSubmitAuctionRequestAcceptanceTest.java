@@ -128,7 +128,7 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 	public void testMaxOneFutureAuctionOnMoreThanOneFutureAuction(){
 		
 		c1.addAuction(myAuctionRequest1);
-		//FIX IT
+													
 		c1.addAuction(myAuctionRequest2);
 		
 		assertFalse(c1.canAddAuction(myAuctionRequest3));
@@ -139,61 +139,53 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 	 * for this NPO
 	 */
 	
-	@Test
-	public void testNoAuctionInPastYearOnLessThanYearInPast(){
-	
-//		AuctionRequest auction = new AuctionRequest(new Date(19, "May", 2016), auctionTime, "RedRum");
-//		AuctionRequest request = new AuctionRequest(new Date(30, "December", 2016), auctionTime, "RedRum");
-//		
-//		c2.populateCalendar(auction);
-//		
-//		assertFalse(c2.canAddAuction(request));
-	}
 
 	@Test
 	public void testNoAuctionInPastYearOnOneYearMinusOneDayInPast(){
 
-//		AuctionRequest auction = new AuctionRequest(new Date(today.minusDays(1).getDayOfMonth(),
-//				"December", 2015), auctionTime, "RedRum");
-//		AuctionRequest request = new AuctionRequest(new Date(30, "December", 2016), auctionTime, "RedRum");
-//		
-//		c2.populateCalendar(auction);
-//		
-//		assertFalse(c2.canAddAuction(request));
+		AuctionRequest auction = new AuctionRequest(new Date(today.minusDays(1).getDayOfMonth(),
+				"December", 2015), auctionTime, "RedRum");
+		AuctionRequest request = new AuctionRequest(new Date(30, "December", 2016), auctionTime, "RedRum");
+		c2.getCalendar().get(365).addAuction(auction);
+		assertFalse(c2.canAddAuction(request));
 	}
 	
 	@Test
 	public void testNoAuctionInPastYearOnMultipleAuctionsLessThanYearInPast(){
 		
-//		AuctionRequest auction1 = new AuctionRequest(new Date(19, "May", 2016), auctionTime, "RedRum");
-//		AuctionRequest auction2 = new AuctionRequest(new Date(27, "August", 2016), auctionTime, "RedRum");
-//		AuctionRequest request = new AuctionRequest(new Date(30, "December", 2016), auctionTime, "RedRum");
-//		
-//		c2.populateCalendar(auction1);
-//		c2.populateCalendar(auction2);
-//		
-//		assertFalse(c2.canAddAuction(request));
+		AuctionRequest auction1 = new AuctionRequest(new Date(19, "May", 2016), auctionTime, "RedRum");
+		AuctionRequest auction2 = new AuctionRequest(new Date(27, "August", 2016), auctionTime, "RedRum");
+		AuctionRequest request = new AuctionRequest(new Date(30, "December", 2016), auctionTime, "RedRum");
+		
+		c2.getCalendar().get(60).addAuction(auction1);
+		c2.getCalendar().get(180).addAuction(auction2);
+		
+		assertFalse(c2.canAddAuction(request));
 	}
 	
 	@Test
 	public void testNoAuctionInPastYearOnNoAuctionWithInPastYear(){
 		
-		AuctionRequest auction1 = new AuctionRequest(new Date(19, "June", 2015), auctionTime, "RedRum");
+		AuctionRequest auction1 = new AuctionRequest(new Date(19, "December", 2015), auctionTime, "RedRum");
 		AuctionRequest request = new AuctionRequest(new Date(30, "December", 2016), auctionTime, "RedRum");
-		
-		c2.populateCalendar(auction1);
-		
-		assertTrue(c2.checkLastYear("RedRum"));
-		
+		c2.getCalendar().get(5).addAuction(auction1);
+
+		assertFalse(c2.canAddAuction(request));
 	}
 	
 	@Test
 	public void testNoAuctionInPastYearOnHadAuctionExactlyOneYearInPast(){
-	
+		AuctionRequest auction1 = new AuctionRequest(new Date(today.getDayOfMonth(), "December", 2015), auctionTime, "RedRum");
+		AuctionRequest request = new AuctionRequest(new Date(30, "December", 2016), auctionTime, "RedRum");
+		c2.getCalendar().get(0).addAuction(auction1);
+		assertFalse(c2.canAddAuction(request));
 	}
 	
 	@Test
 	public void testNoAuctionInPastYearOnNoAuctionsInPast(){
+		AuctionRequest request = new AuctionRequest(new Date(30, "December", 2016), auctionTime, "RedRum");
+		
+		assertTrue(c2.addAuction(request));
 		
 	}
 	
