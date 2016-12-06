@@ -1,9 +1,4 @@
-/model/
-<<<<<<< HEAD
-=======
-/tests/
-/userInterface/
 /view/
-/gui/
->>>>>>> 53999daeacdd086c88285972892e66e3c6724b93
 /data/
+/model/
+/tests/
