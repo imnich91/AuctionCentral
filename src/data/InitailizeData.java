@@ -71,7 +71,7 @@ public class InitailizeData {
 		
 		
 		// populate calendar with Auctions and items.
-		myCalendar.addAuction(new AuctionRequest(new Date(12, "November", 2016), 
+		myCalendar.addAuction(new AuctionRequest(new Date(15, "December", 2016), 
 				new Time(2, 00, "PM"), myNonProfitBill.getOrgName()));	
 		
 
