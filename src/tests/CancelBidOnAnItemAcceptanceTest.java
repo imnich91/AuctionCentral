@@ -50,7 +50,7 @@ public class CancelBidOnAnItemAcceptanceTest {
 	 */
 	
 	@Test
-	public void testCancelBidOnBidsThatIsMoreThanTwoDaysBeforeAuciton() {		
+	public void testCancelBidOnMoreThanTwoDaysBeforeAuciton() {		
 		
 		assertTrue(myItem2.cancelBid(myBidder1, myDateMoreThan2Days, myCurrDate));		
 	}
@@ -59,7 +59,7 @@ public class CancelBidOnAnItemAcceptanceTest {
 	 * Acceptance Test for : Cancelling a bid that is exactly at 2 days before the auction
 	 */
 	@Test
-	public void testCancelBidOnBidsThatIsExactlyAtTwoDaysBeforeAuction() {
+	public void testCancelBidOnExactlyTwoDaysBeforeAuction() {
 				
 		assertTrue(myItem2.cancelBid(myBidder1, myDateEqualTo2Days, myCurrDate));		
 	}
@@ -68,7 +68,7 @@ public class CancelBidOnAnItemAcceptanceTest {
 	 * Acceptance Test for : Cancelling a bid that is less than 2 days before the auction
 	 */
 	@Test
-	public void testCancelBidOnBidsThatIsLessThanTwoDaysBeforeAuction() {
+	public void testCancelBidOnLessThanTwoDaysBeforeAuction() {
 		
 		assertFalse(myItem2.cancelBid(myBidder1, myDateLessThan2Days, myCurrDate));
 	}

@@ -336,7 +336,7 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 	
 	@Test
 	public void testAtLeastOneWeekBeforeOnDateInPast(){
-	
+
 		assertFalse(c1.checkWeek(today.minusDays(2).getDayOfMonth()));
 	}
 	

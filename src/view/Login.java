@@ -225,7 +225,7 @@ public class Login extends JPanel {
 		}
 		
 		
-		JOptionPane.showMessageDialog(myFrame, "You are now login");
+		JOptionPane.showMessageDialog(myFrame, "You are now logged in");
 	}
 	
 	/**

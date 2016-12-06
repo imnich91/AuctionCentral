@@ -43,7 +43,7 @@ public class InitailizeData {
 		final HashMap<String, String> myUsersLogins = new HashMap<String, String>();
 		
 		final NonProfit myNonProfitBill = new NonProfit("Bill Gates", "bill", "1234",
-				"Bill", "1234 Mercer Island", "111-111-1111");
+				"Bill and Melinda Gates Foundation", "1234 Mercer Island", "111-111-1111");
 		
 		final NonProfit myNonProfitAnn = new NonProfit("Ann Hopkins", "ann", "1111",
 				"Hopkins", "2222 st", "222-222-2222");
@@ -90,7 +90,7 @@ public class InitailizeData {
 				100, "Seattle Sounders", "Game worn jersy signed by Brad Evan.",
 				"CenturyLink Field front office has the jersey"));
 		
-		billsAuction.addItem(myNonProfitBill, new Item("Surface Pro 3              ", "Good", "small",
+		billsAuction.addItem(myNonProfitBill, new Item("Surface Pro 3", "Good", "small",
 				900, "Steve Jobs", "Like new surface pro 3 computer.",
 				"Must sell"));	
 		

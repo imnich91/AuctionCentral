@@ -195,7 +195,6 @@ public class Auction implements Serializable{
 			}
 			catch (ArrayIndexOutOfBoundsException e) {					
 				removed = false;
-		
 			}		
 			
 			if(itemNumber >= 0) {			
@@ -205,10 +204,6 @@ public class Auction implements Serializable{
 				}
 			}			
 		}
-		
-
-		
-		
 		
 		return removed;
 	}
@@ -229,7 +224,4 @@ public class Auction implements Serializable{
 		
 		return str.toString();
 	}
-	
-	
-	
 }

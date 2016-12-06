@@ -122,10 +122,16 @@ public class Calendar implements Serializable {
 	}
 	
 	/**
-	 * @param theNum of auctions allowed to set. 
+	 * @param theNum of auctions allowed to set.
+	 * @return true if myAuctionsAllowed is changed to theNum else returns false
 	 */
- 	public void setAuctionsAllowed(final int theNum) {
+ 	public boolean setAuctionsAllowed(final int theNum) {
+ 		
+ 		if(theNum <= 0)
+ 			return false;
+ 		
  		myAuctionsAllowed = theNum;
+ 		return true;
  	}
  	
  	/**
@@ -280,9 +286,12 @@ public class Calendar implements Serializable {
 		
 		if(day >= myCurrentDay.getDay() && day - myCurrentDay.getDay() < 7) {
 			return false;
-		} else if(day < myCurrentDay.getDay() && LocalDate.now().plusDays(day).getDayOfMonth() < 7) {
+		}
+		else if(day < myCurrentDay.getDay() && LocalDate.now().plusDays(day).getDayOfMonth() < 7) {
 			return false;
 		}
+		else if((day - myCurrentDay.getDay()) < 0 && (day - myCurrentDay.getDay()) > -7)
+			return false;
 		
 		return true;
 	}
