@@ -135,6 +135,10 @@ public class ItemsPanel extends JPanel {
 		 */
 		private Item myItem;
 		
+		/**
+		 * creates and positions the item button
+		 * @param theItem
+		 */
 		public ItemsButton (Item theItem) {			
 			
 			myItem = theItem;
@@ -157,7 +161,10 @@ public class ItemsPanel extends JPanel {
 			
 		}
 		
-		
+		/**
+		 * creates a string of all the items and min bid prices for display purposes
+		 * @return a string builder of all the items
+		 */
 		private String setItemText() {
 			
 			StringBuilder str = new StringBuilder();
@@ -167,7 +174,11 @@ public class ItemsPanel extends JPanel {
 			return str.toString();
 			
 		}
-				
+		
+		/**
+		 * gets the item number
+		 * @return the item number
+		 */
 		public int getItemNumber() {
 			
 			return myItem.getItemNumber();		
