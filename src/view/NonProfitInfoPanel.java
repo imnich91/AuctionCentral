@@ -12,6 +12,12 @@ import javax.swing.SwingConstants;
 import model.Calendar;
 import model.NonProfit;
 
+
+/**
+ * 
+ * @author Dmitriy Onishchenko
+ *
+ */
 public class NonProfitInfoPanel extends JPanel {
 	
 	
@@ -26,6 +32,8 @@ public class NonProfitInfoPanel extends JPanel {
 	
 	private JLabel myAuctionInfo;
 	
+	private JLabel myUser;
+	
 	
 	private JLabel myInventory;
 	
@@ -37,6 +45,7 @@ public class NonProfitInfoPanel extends JPanel {
 		myCalendar = theCalendar;	
 		myAuctionInfo = new JLabel();
 		myInventory = new JLabel();
+		myUser = new JLabel();
 		
 		
 		myAuctionInfo.setFont(new Font("Sans Serif", Font.BOLD, 18));		
@@ -46,8 +55,13 @@ public class NonProfitInfoPanel extends JPanel {
 		myInventory.setFont(new Font("Sans Serif", Font.BOLD, 18));			
 		myInventory.setHorizontalAlignment(SwingConstants.LEFT);
 		
-		add(myAuctionInfo, BorderLayout.NORTH);
-		add(myInventory, BorderLayout.CENTER);
+		myUser.setFont(new Font("Sans Serif", Font.BOLD, 18));
+		myUser.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		
+		add(myUser, BorderLayout.NORTH);
+		add(myAuctionInfo, BorderLayout.CENTER);
+		add(myInventory, BorderLayout.SOUTH);
 		
 	}
 	
@@ -59,15 +73,20 @@ public class NonProfitInfoPanel extends JPanel {
 	
 	public void setTextHasAuction() {
 		
+		myUser.setText("");
 		myAuctionInfo.setText("");
 		myInventory.setText("");
+		
+		myUser.setText("Logged in as: " + myNonProfit.getName() + " (Non Profit)");
 		
 		String text = "<html><div style='text-align: center;'>Your Auction Details......<br></div><html>";
 
 		String item = "<html><br><div style = 'text-align:left'>Inventory<br>Item # &nbsp Item Name&nbsp&nbsp"
 				+ "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"
 				+ "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"
-				+ "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Min bid</div><html>";
+				+ "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"
+				+ "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp"
+				+ "&nbsp&nbsp&nbsp&nbsp Min bid</div><html>";
 		
 		
 		myAuctionInfo.setText(text + (myCalendar.getAuctionForOrganization(myNonProfit).toString() + "<html><hr></html>"));
@@ -78,9 +97,12 @@ public class NonProfitInfoPanel extends JPanel {
 	
 	public void setTextNoAuction() {
 		
+		myUser.setText("");
 		myAuctionInfo.setText("");
 		myInventory.setText("");
 		
+		
+		myUser.setText("Logged in as: " + myNonProfit.getName());
 		String text = "<html><div style='text-align: center;'>Your Auction Details......<br></div><html>";
 
 		myInventory.setText(text + "<html>You currently do not have a sheduled Auction, "

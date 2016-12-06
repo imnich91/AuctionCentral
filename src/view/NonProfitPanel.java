@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.util.Observable;
 import java.util.Observer;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -30,13 +31,16 @@ import model.Auction;
 import model.AuctionRequest;
 import model.Calendar;
 import model.Date;
+import model.Item;
 import model.NonProfit;
 import model.Time;
 
 /**
  * Used to build the non-profit JPanel.
  * 
- * @author Colin Casey
+ * @author Dmitriy Onishchenko,
+ * Colin Casey (set up Skeleton)
+ * 
  */
 public class NonProfitPanel extends JPanel implements Observer, PropertyChangeListener{
 	
@@ -44,6 +48,8 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 	 * Used to save data.
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	
 	
     /**
      * Used to set min size of window.
@@ -89,6 +95,9 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 	
 	private LocalDate myLocalDate;	
 	private Date myCurrDate;
+	
+	private String myCondition;
+	private String mySize;
 	
 	
 //	/**
@@ -207,16 +216,18 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 		holder.add(controls, BorderLayout.CENTER);
 		
 		
-		//The pop up
-		JOptionPane.showMessageDialog(myFrame, holder, "Enter a date and time for Request", 
-				JOptionPane.QUESTION_MESSAGE);
-		
-		
+		Object[] options = { "OK", "CANCEL" };
+		int selected = JOptionPane.showOptionDialog(myFrame, holder, "Enter a date and time for Request",
+		JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+		null, options, options[0]);
+
+		// get information
 		final String theDate = date.getText();
-		final String theTime = new String(time.getText());
-		
-		parseRequestInfo(theDate, theTime);
-		
+		final String theTime = new String(time.getText());		
+	
+		if (selected == JOptionPane.OK_OPTION) {
+			parseRequestInfo(theDate, theTime);			
+		}			
 	}
 	
 	
@@ -313,9 +324,6 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 	}
 	
 	private void makeAddItemDialog() {
-//		String theName,  String theCond, String theSize, int theMinBid,
-//		String theDonor, String theDescript, String theAddCom
-		
 		
 		//Make JPanels
 		JPanel holder = new JPanel(new BorderLayout(10, 10));
@@ -333,8 +341,41 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 		//Make panel/textField
 		JPanel controls = new JPanel(new GridLayout(0, 1, 2, 2));
 		JTextField name = new JTextField();
-		JTextField condition = new JTextField();
-		JTextField size = new JTextField();
+		
+		
+		String[] conditions = { "Acceptable", "Good", "Very Good", "Like New", "New" };		
+		myCondition = conditions[2];		
+
+		//Create the combo box, select item at index 4.
+		//Indices start at 0, so 4 specifies the pig.
+		JComboBox condList = new JComboBox(conditions);
+		condList.setSelectedIndex(2);
+		condList.addActionListener(new ActionListener() {
+									
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				  JComboBox cb = (JComboBox)e.getSource();
+			      myCondition = (String)cb.getSelectedItem();			       		
+			}
+		});
+		
+		String[] sizes = { "Small", "Medium", "Large"};
+		mySize = sizes[0];
+
+		//Create the combo box, select item at index 4.
+		//Indices start at 0, so 4 specifies the pig.
+		JComboBox<String> sizeList = new JComboBox<String>(sizes);
+		sizeList.setSelectedIndex(0);
+		sizeList.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				  JComboBox<String> cb = (JComboBox)e.getSource();
+			      mySize = (String)cb.getSelectedItem();			       		
+			}
+		});
+		
+
 		JTextField minBid = new JTextField();
 		JTextField donor = new JTextField();
 		JTextField desc = new JTextField(10);
@@ -342,33 +383,76 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 		
 		//Fill fields
 		controls.add(name);		
-		controls.add(condition);
-		controls.add(size);	
+		controls.add(condList);
+		controls.add(sizeList);	
 		controls.add(minBid);
 		controls.add(donor);
 		controls.add(desc);
 		controls.add(comments);
 		
-	
-		
 		
 		holder.add(controls, BorderLayout.CENTER);
 		
 		
-		//The pop up
-		JOptionPane.showMessageDialog(myFrame, holder, "Enter Item Information", 
-				JOptionPane.QUESTION_MESSAGE);
+		Object[] options = { "OK", "CANCEL" };
+		int selected = JOptionPane.showOptionDialog(myFrame, holder, "Enter Item Information",
+		JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE,
+		null, options, options[0]);
 		
 		
-//		final String theDate = date.getText();
-//		final String theTime = new String(time.getText());
+		if (selected == JOptionPane.OK_OPTION) {
+			
+			confirmAddItem(name.getText(), myCondition, mySize, 
+					minBid.getText(), donor.getText(), desc.getText(), comments.getText());
+			
+		}
+	}
+	
+	
+	public void confirmAddItem (String theName, String theCondition, String theSize,
+								String minBid, String theDonor, String theDescription,
+								String theComments){
 		
-//		parseRequestInfo(theDate, theTime);
+		
+		StringBuilder str = new StringBuilder("Are you sure you Want to add this Item?\n");
+		
+		str.append("Name: " + theName);
+		str.append("\nThe Condition: ");
+		str.append(theCondition);
+		str.append("\nTheSize: ");
+		str.append(theSize);
+		str.append("\nMin Bid: ");
+		str.append("$" + minBid);
+		str.append("\nDonor: ");
+		str.append(theDonor);
+		str.append("\nDescription: ");
+		str.append(theDescription);
+		str.append("\nAdditional Comments: ");
+		str.append(theComments);		
+		
+		JLabel confirm = new JLabel(str.toString());
+		
+		int selected = JOptionPane.showConfirmDialog(myFrame, str.toString(), "Add Item?", 
+				JOptionPane.YES_NO_OPTION);	
+		
+		Integer bid = new Integer(minBid);
+		
+		if (selected == JOptionPane.YES_OPTION) {
+			
+			Item item = new Item(theName, theCondition, theSize, bid.intValue(), 
+					theDonor, theDescription, theComments);					
+			myAuction.addItem(myCurrNonProfit, item);
+			remove(myInventory);
+			setAuctionInfo();
+			
+		}
 		
 		
 		
 		
 	}
+								
+								
 	
 	/**
 	 * Used to make logout button.
