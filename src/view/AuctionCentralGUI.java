@@ -18,6 +18,8 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.swing.JFrame;
+
+import model.Bidder;
 import model.Calendar;
 import model.NonProfit;
 import model.Staff;
@@ -85,6 +87,8 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
     /**
      * Auction Central Bidder Panel.
      */
+
+    
     private BidderPanel myBidderPanel;
     
     /**
@@ -179,7 +183,8 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
 			c1.show(myCards, STAFFPANEL);
 		}
 		if(theEvent.getPropertyName().equals("Bidder")) {
-			myBidderPanel.setUser(myLoginPanel.getUser());
+			myBidderPanel.setUser((Bidder)myLoginPanel.getUser());
+			myBidderPanel.setUpBidderInfo();
 			CardLayout c1 = (CardLayout)(myCards.getLayout());
 			c1.show(myCards, BIDDERPANEL);
 		}

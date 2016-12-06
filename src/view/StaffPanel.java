@@ -47,7 +47,6 @@ public class StaffPanel extends JPanel implements Observer {
 	 */
 	private Calendar myCalendar;
 	
-	
 	/**
 	 * The panel that contains all the buttons for Staff
 	 */
@@ -88,13 +87,15 @@ public class StaffPanel extends JPanel implements Observer {
 	 */
 	private static final int BORDER_WIDTH = 4;
 	
-	private int myNumAuctions;
-	
+	/**
+	 * Panel for displaying the Staff view
+	 * @param theFrame AuctionCentralGui
+	 * @param theCalendar holding auctions. 
+	 */
 	public StaffPanel(final JFrame theFrame, Calendar theCalendar) {
 		myFrame = theFrame;
 		setLayout(new BorderLayout());
 		myCalendar = theCalendar;
-		myNumAuctions = myCalendar.getAuctionsTotal();
 		setupNorthPanel();
 		setupCenterPanel();
 		setupSouthPanel();
@@ -102,23 +103,35 @@ public class StaffPanel extends JPanel implements Observer {
 		
 	}
 	
+	/**
+	 * helper method to setup north panel. 
+	 */
 	private void setupNorthPanel() {
 		myStaffInfo = new StaffInfoPanel(myCalendar);
 		add(myStaffInfo, BorderLayout.NORTH);
 	}
 	
+	/**
+	 * helper method to setup center panel. 
+	 */
 	private void setupCenterPanel() {
 		myCenterPanel = new JPanel(new GridLayout(0, 7));
 		drawCalendar();
 		add(myCenterPanel, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Creates and displays the calendar. 
+	 */
 	private void drawCalendar() {
 		setupBorderCalendar();
 		setupDaysOfWeek();
 		setupCalendar();
 	}
 	
+	/**
+	 * 
+	 */
 	private void setupBorderCalendar() {
 		TitledBorder title = BorderFactory.createTitledBorder(myCalendar.getCurrentDay().getMonth().toUpperCase());
 		title.setTitleColor(Color.BLACK);

@@ -10,6 +10,7 @@ package view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.time.LocalDate;
@@ -27,6 +28,7 @@ import javax.swing.SwingConstants;
 
 import model.Auction;
 import model.Bid;
+import model.Bidder;
 import model.Calendar;
 import model.Date;
 import model.Item;
@@ -99,6 +101,14 @@ public class BidderPanel extends JPanel {
 	 */
 	private Auction myNonProfit;
 	
+	private JPanel myCenterPanel;
+	
+	private BidderInfoPanel myBidderInfo;
+	
+	private Bidder myBidder;
+	
+	private static final int FONT_SIZE = 20;
+	
 	/**
 	 * Used to keep track of item getting bid on.
 	 */
@@ -122,13 +132,38 @@ public class BidderPanel extends JPanel {
 		myCalendar = theCalendar;
 		myUser = null;
 		myAuctions = (ArrayList<Auction>)myCalendar.getAuctions();
-		myMiddle = new JPanel();
+		setupNorthPanel();
+		setupCenterPanel();
 		myButtons = new JPanel();
 		cancelBidButton();
 		placeBidButton();
 		makeButtonLogout();
-		add(myMiddle, BorderLayout.CENTER);
+		add(myCenterPanel, BorderLayout.CENTER);
 		add(myButtons, BorderLayout.PAGE_END);
+	}
+	
+	private void setupNorthPanel() {
+		myBidderInfo = new BidderInfoPanel(myCalendar);
+		add(myBidderInfo, BorderLayout.NORTH);
+	}
+	
+	private void setupCenterPanel() {
+		myCenterPanel = new JPanel();
+		myCenterPanel.setLayout(new GridLayout(0,1));
+		
+		JLabel jt;
+		for(int i = 0; i < myAuctions.size(); i++) {		
+			jt = new JLabel();
+			jt.setText("Auction for: " + myAuctions.get(i).getName()  + 
+					"    Date: " + myAuctions.get(i).getDate().toString() +
+			        "    Time: " + myAuctions.get(i).getTime().toString());
+		    jt.setHorizontalAlignment(jt.CENTER);
+		    jt.setBorder(BorderFactory.createLineBorder(Color.WHITE));
+		    jt.setFont(new Font(Font.SERIF, Font.BOLD, FONT_SIZE));
+		    jt.setBackground(Color.LIGHT_GRAY);
+			myCenterPanel.add(jt);
+		}
+		add(myCenterPanel, BorderLayout.CENTER);
 	}
 	
 	/**
@@ -390,26 +425,17 @@ public class BidderPanel extends JPanel {
 	}
 	
 	/**
-	 * Used to name current bidder.
+	 * Setup the header for the staff page with staff information
 	 */
-	private void makeTextPanel() {
-		myTextPanel = new JPanel();
-		String name = myUser.getUserName();
-		JLabel Jlabel = new JLabel("Login as: "+ name);
-		Jlabel.setFont(new Font("Sans Serif", Font.BOLD, 18));
-		Jlabel.setHorizontalAlignment(SwingConstants.LEFT);
-		myTextPanel.add(Jlabel);
-		myTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		add(myTextPanel, BorderLayout.PAGE_START);
-		
+	public void setUpBidderInfo() {
+		myBidderInfo.setHeader(myBidder);
 	}
 	
 	/**
 	 * Used to set who is currently log in.
 	 * @param theUser the user
 	 */
-	public void setUser(User theUser) {
-		myUser = theUser;
-		makeTextPanel();
+	public void setUser(Bidder theUser) {
+		myBidder = theUser;
 	}
 }
