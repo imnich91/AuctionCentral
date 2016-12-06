@@ -36,7 +36,7 @@ import model.Time;
  * Used to build the non-profit JPanel.
  * 
  * @author Dmitriy Onishchenko 
- * 
+ * @author Colin Casey lots of java doc
  */
 public class NonProfitPanel extends JPanel implements PropertyChangeListener{
 	
@@ -206,6 +206,9 @@ public class NonProfitPanel extends JPanel implements PropertyChangeListener{
 		myButtons.add(myAddAuction);		
 	}
 	
+	/**
+	 * Used to ask user at what time they want their auction.
+	 */
 	private void makeAddAuctionDialog() {
 		
 		//Make JPanels
@@ -240,7 +243,13 @@ public class NonProfitPanel extends JPanel implements PropertyChangeListener{
 		}			
 	}
 	
-	
+	/**
+	 * Used to break down date and time into
+	 * useful information.
+	 * 
+	 * @param theDate user auction date
+	 * @param theTime user auction time
+	 */
 	private void parseRequestInfo(String theDate, String theTime) {
 		
 		String month, period;
@@ -273,6 +282,11 @@ public class NonProfitPanel extends JPanel implements PropertyChangeListener{
 		submitRequest(date, time);
 	}
 	
+	/**
+	 * Used to ask user to submit an auction request from.
+	 * @param theDate user date
+	 * @param theTime user time
+	 */
 	private void submitRequest(Date theDate, Time theTime) {
 		
 		boolean granted = false;
@@ -341,6 +355,10 @@ public class NonProfitPanel extends JPanel implements PropertyChangeListener{
 		myButtons.add(myAddItem);
 	}
 	
+	/**
+	 * This is used to ask user to add an
+	 * item to their auction.
+	 */
 	private void makeAddItemDialog() {
 		
 		//Make JPanels
@@ -492,12 +510,18 @@ public class NonProfitPanel extends JPanel implements PropertyChangeListener{
 		myButtons.add(myLogout);
 	}
 	
+	/**
+	 * Used to set auctioninfo label to calendar panel.
+	 */
 	private void makeAuctionInfoLabel() {
 		myAuctionInfo = new NonProfitInfoPanel(myCalendar);
 		this.add(myAuctionInfo, BorderLayout.NORTH);	
 	}
 
 	
+	/**
+	 * Used to set info in auction class.
+	 */
 	private void setAuctionInfo() {		
 				
 		if (myCalendar.getAuctionForOrganization(myCurrNonProfit) != null) {			
@@ -546,7 +570,9 @@ public class NonProfitPanel extends JPanel implements PropertyChangeListener{
 		myCurrNonProfit = theNonProfit;
 	}	
 
-
+	/**
+	 * USed to keep track of changes.
+	 */
 	@Override
 	public void propertyChange(PropertyChangeEvent theEvent) {
 

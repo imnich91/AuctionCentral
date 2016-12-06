@@ -34,7 +34,7 @@ import model.User;
 /**
  *  A staff panel GUI that displays the user stories that a staff can do.
  * @author imnic
- *
+ * @author Colin Casey java doc
  */
 public class StaffPanel extends JPanel implements Observer {
 	/**
@@ -130,7 +130,7 @@ public class StaffPanel extends JPanel implements Observer {
 	}
 	
 	/**
-	 * 
+	 * Used to set up a border around the calendar.
 	 */
 	private void setupBorderCalendar() {
 		TitledBorder title = BorderFactory.createTitledBorder(myCalendar.getCurrentDay().getMonth().toUpperCase());
@@ -141,6 +141,9 @@ public class StaffPanel extends JPanel implements Observer {
 		myCenterPanel.setBorder(title);
 	}
 	
+	/**
+	 * USed to set up the days of the week.
+	 */
 	private void setupDaysOfWeek() {
 		JLabel label;
 		
@@ -152,6 +155,9 @@ public class StaffPanel extends JPanel implements Observer {
 		}
 	}                     
 	
+	/**
+	 * Used to set up the calendar.
+	 */
 	private void setupCalendar() {
 		myDays = myCalendar.createMonth();
 		
@@ -169,6 +175,10 @@ public class StaffPanel extends JPanel implements Observer {
 		}
 	}
 	
+	/**
+	 * Used to set up south panel which holds
+	 * all of the buttons.
+	 */
 	private void setupSouthPanel() {
 		myButtonPanel = new JPanel();
 		makeButtonLogout();
@@ -211,6 +221,10 @@ public class StaffPanel extends JPanel implements Observer {
 	}
 	
 	
+	/**
+	 * Used to keep center panel up to date at all
+	 * times.
+	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
 

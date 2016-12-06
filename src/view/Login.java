@@ -109,6 +109,10 @@ public class Login extends JPanel {
 		add(myButtons, BorderLayout.SOUTH);
 	}
 
+	/**
+	 * Used to make a button panel all buttons are stored
+	 * in.
+	 */
 	private void makeButtonPanel() {
 		myButtons = new JPanel();
 		myButtons.add(myExit);

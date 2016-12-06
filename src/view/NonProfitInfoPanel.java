@@ -88,7 +88,10 @@ public class NonProfitInfoPanel extends JPanel {
 		
 	}
 	
-	
+	/**
+	 * Used to set current non-Profit.
+	 * @param theNonProfit current user
+	 */
 	public void setNonProfit(NonProfit theNonProfit) {
 		
 		myNonProfit = theNonProfit;
