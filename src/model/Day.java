@@ -40,9 +40,6 @@ public class Day implements Serializable {
 
 	private Auction myAuction;
 	
-	
-	
-	
 	/**
 	 * This is for the second auction made.
 	 */
