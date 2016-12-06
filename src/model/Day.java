@@ -78,10 +78,18 @@ public class Day implements Serializable {
 		return myMonth;
 	}
 	
+	/**
+	 * Used to get an auction scheduled this day
+	 * @return the first auction scheduled
+	 */
 	public Auction getAuction() {
 		return myAuction;
 	}
-	
+
+	/**
+	 * Used to get an auction scheduled this day
+	 * @return the second auction scheduled
+	 */
 	public Auction getAuction2() {
 		return myAuction2;
 	}
@@ -105,8 +113,12 @@ public class Day implements Serializable {
 		return myNumAuctions;
 	}
 	
-	public boolean canAddAuction(AuctionRequest theRequest) {
-		if(myNumAuctions == 2) {
+	/**
+	 * Determines if an auction can be added to the specific day
+	 * @return true if an auction can be added else false
+	 */
+	public boolean canAddAuction() {
+		if(myNumAuctions >= 2) {
 			return false;
 		} else {
 			return true;

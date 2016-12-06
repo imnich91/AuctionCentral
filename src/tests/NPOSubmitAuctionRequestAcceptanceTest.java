@@ -234,7 +234,7 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		testDay.addAuction(dayAuction3);
 		testDay.setMyNumAuctions(2);
 		
-		assertFalse(testDay.canAddAuction(dayAuction4));
+		assertFalse(testDay.canAddAuction());
 	}
 	
 	/**

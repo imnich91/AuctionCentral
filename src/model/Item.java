@@ -280,6 +280,4 @@ public class Item implements Serializable{
 	public Collection<Bid> getBunchObids(){
 		return myBunchObids;
 	}
-	
-
 }
