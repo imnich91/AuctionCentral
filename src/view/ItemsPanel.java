@@ -1,3 +1,9 @@
+/*
+ * TCSS 360 Software Development
+ * Auction Central Project
+ * Group 6 
+ */
+
 package view;
 
 import java.awt.BorderLayout;
@@ -36,18 +42,36 @@ public class ItemsPanel extends JPanel implements Observer {
 	private static final long serialVersionUID = 1L;
 	
 
+	/**
+	 * The constant string that is used to display when a new item has been selected.
+	 */
 	public static final String NEW_ITEM_SELECTED = "New Item has been selected";
 
+	/**
+	 * A calendar with the current date.
+	 */
 	private Calendar myCalendar;
 	
+	/**
+	 * The non profit that has an auction with items
+	 */
 	private NonProfit myNonProfit;
 	
-	
+	/**
+	 * A button group for the items in an inventory
+	 */
 	private ButtonGroup myItemsGroup;
 	
+	/**
+	 * A JPanel that display all the items
+	 */
 	private JPanel myItems;
 	
-	
+	/**
+	 * The constructor used to setup the items panel for the non profit
+	 * @param theNonProfit the non profit who has an auction containing items in it
+	 * @param theCalendar the calendar with the current day
+	 */
 	public ItemsPanel(NonProfit theNonProfit, Calendar theCalendar) {
 		
 		myItems = new JPanel(new GridLayout(0, 1));
@@ -60,6 +84,9 @@ public class ItemsPanel extends JPanel implements Observer {
 		
 	}
 
+	/**
+	 * A method that display all the items in an auction
+	 */
 	public void displayItems () {	
 				
 		try {

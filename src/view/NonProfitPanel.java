@@ -91,20 +91,27 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 	 */
 	private Calendar myCalendar; 
 	
+	/**
+	 * The Frame that holds all the panels.
+	 */
 	private JFrame myFrame;
 	
 	private LocalDate myLocalDate;	
 	private Date myCurrDate;
 	
+	/**
+	 * The Condition of the item
+	 */
 	private String myCondition;
+	
+	/**
+	 * The size of the item
+	 */
 	private String mySize;
 	
-	
-//	/**
-//	 * Label used to display the the current non profit information.
-//	 */
-//	private JPanel myAuctionInfo;
-	
+	/**
+	 * The panel for non profit info
+	 */
 	private NonProfitInfoPanel myAuctionInfo;
 
 	/**
@@ -112,10 +119,19 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 	 */
 	private NonProfit myCurrNonProfit;
 	
+	/**
+	 * The item panel that display all the item in the inventory
+	 */
 	private ItemsPanel myInventory;
 	
+	/**
+	 * The item number
+	 */
 	private int myItemNumber;
 	
+	/**
+	 * The auction that the non profit has.
+	 */
 	private Auction myAuction;
 
 
@@ -124,6 +140,7 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 	 * Used to build the JPanel.
 	 * 
 	 * @param theFrame the frame everything is loaded into
+	 * @param theCalendar the calendar with the current date
 	 */
 	public NonProfitPanel(final JFrame theFrame, final Calendar theCalendar) {
 		myFrame = theFrame;
@@ -408,7 +425,16 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 		}
 	}
 	
-	
+	/**
+	 *  A method that displays the confirmation message after adding an item.
+	 * @param theName the name of the item
+	 * @param theCondition the condition of the item
+	 * @param theSize the size of the item
+	 * @param minBid the minimum bid of the item
+	 * @param theDonor the donor of the item
+	 * @param theDescription the description of the item
+	 * @param theComments additional comments for the item
+	 */
 	public void confirmAddItem (String theName, String theCondition, String theSize,
 								String minBid, String theDonor, String theDescription,
 								String theComments){
@@ -512,11 +538,17 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 	}
 	
 	
-	
+	/**
+	 * Setup the Non profit page with its information.
+	 */
 	public void setUpNonProfitInfo() {
 		setAuctionInfo();
 	}
 	
+	/**
+	 * Used to set the NonProfit
+	 * @param theNonProfit the NonProfit to be set to
+	 */
 	public void setUser(NonProfit theNonProfit) {
 		
 		myCurrNonProfit = theNonProfit;

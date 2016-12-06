@@ -1,3 +1,8 @@
+/*
+ * TCSS 360 Software Development
+ * Auction Central Project
+ * Group 6 
+ */
 package tests;
 
 import static org.junit.Assert.assertFalse;
@@ -31,11 +36,13 @@ public class RemoveInventoryItemAcceptanceTest {
 	
 	private LocalDate myLocalDate;	
 	private Date myCurrDate;
-	private Date myDateMoreThan2Days;
-	private Date myDateEqualTo2Days;
-	private Date myDateLessThan2Days;
+	private Date myAuctDateMoreThan2Days;
+	private Date myAuctDateEqualTo2Days;
+	private Date myAuctDateLessThan2Days;
+	private Date myAuctDateAfterAuctionDate;
 	
 	private Auction myAuction;
+
 
 	@Before
 	public void setup() {
@@ -43,9 +50,10 @@ public class RemoveInventoryItemAcceptanceTest {
 		myCurrDate = new Date(myLocalDate.getDayOfMonth(), myLocalDate.getMonth().toString(),
 								myLocalDate.getYear());
 		
-		myDateMoreThan2Days = new Date(myCurrDate.getDay() + 5, myCurrDate.getMonth(), myCurrDate.getYear());
-		myDateEqualTo2Days = new Date(myCurrDate.getDay() + 2, myCurrDate.getMonth(), myCurrDate.getYear());
-		myDateLessThan2Days = new Date(myCurrDate.getDay() + 1, myCurrDate.getMonth(), myCurrDate.getYear());
+		myAuctDateMoreThan2Days = new Date(myCurrDate.getDay() + 5, myCurrDate.getMonth(), myCurrDate.getYear());
+		myAuctDateEqualTo2Days = new Date(myCurrDate.getDay() + 2, myCurrDate.getMonth(), myCurrDate.getYear());
+		myAuctDateLessThan2Days = new Date(myCurrDate.getDay() + 1, myCurrDate.getMonth(), myCurrDate.getYear());
+		myAuctDateAfterAuctionDate  = new Date(myCurrDate.getDay() - 1, myCurrDate.getMonth(), myCurrDate.getYear());
 		
 		myItem = new Item("Autographed Sounders Jersey", "Good", "medium",
 				50, "Seattle Sounders", "Game worn jersy signed by Brad Evan.",
@@ -69,7 +77,7 @@ public class RemoveInventoryItemAcceptanceTest {
 	@Test 
 	public void testRemoveItemOnMoreThanTwoDays() {
 		
-		assertTrue(myAuction.removeItem(myNonProfit, myItem.getItemNumber(), myDateMoreThan2Days, myCurrDate));
+		assertTrue(myAuction.removeItem(myNonProfit, myItem.getItemNumber(), myAuctDateMoreThan2Days, myCurrDate));
 	}
 	
 	/**
@@ -78,7 +86,7 @@ public class RemoveInventoryItemAcceptanceTest {
 	@Test
 	public void testRemoveItemOnExactlyTwoDays(){
 		
-		assertTrue(myAuction.removeItem(myNonProfit, myItem.getItemNumber(), myDateEqualTo2Days, myCurrDate));
+		assertTrue(myAuction.removeItem(myNonProfit, myItem.getItemNumber(), myAuctDateEqualTo2Days, myCurrDate));
 	}
 	
 	/**
@@ -87,8 +95,25 @@ public class RemoveInventoryItemAcceptanceTest {
 	@Test
 	public void testRemoveItemOnLessThanTwoDays(){
 		
-		assertFalse(myAuction.removeItem(myNonProfit, myItem.getItemNumber(), myDateLessThan2Days, myCurrDate));
+		assertFalse(myAuction.removeItem(myNonProfit, myItem.getItemNumber(), myAuctDateLessThan2Days, myCurrDate));
 	}
 	
+	/**
+	 * Acceptance test for: removing an item within two days
+	 */
+	@Test
+	public void testRemoveItemOnDayOfAuction(){
+		
+		assertFalse(myAuction.removeItem(myNonProfit, myItem.getItemNumber(), myCurrDate, myCurrDate));
+	}
+	
+	/**
+	 * Acceptance test for: removing an item within two days
+	 */
+	@Test
+	public void testRemoveItemOnDatePastAuction(){
+		
+		assertFalse(myAuction.removeItem(myNonProfit, myItem.getItemNumber(), myAuctDateAfterAuctionDate, myCurrDate));
+	}
 	
 }
