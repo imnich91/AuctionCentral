@@ -72,12 +72,12 @@ public class BidOnAnItemAcceptanceTest {
 		
 		myItem2.makeBid(myBidder1, 300);
 		
-		myAuction1 = new Auction("WWF", new Date(5, "January", 2017), new Time(11, 00, "AM"));
+		myAuction1 = new Auction("Bill and Melinda Gates", new Date(12, "December", 2017), new Time(11, 00, "AM"));
 				
-		myAuction2 = new Auction("Woodland Park Zoo", new Date(6, "December", 2016), 
+		myAuction2 = new Auction("Bill and Melinda Gates", new Date(1, "December", 2016), 
 							new Time(01, 00, "PM"));
 		
-		myAuction3 = new Auction("Point Defiance Zoo", today, new Time(05, 00, "PM"));
+		myAuction3 = new Auction("Bill and Melinda Gates", today, new Time(05, 00, "PM"));
 	}
 
 	/**
@@ -174,19 +174,26 @@ public class BidOnAnItemAcceptanceTest {
 	@Test
 	public void testAuctionDateOnAuctionScheduledToday(){
 		
-
+		myAuction3.addItem(myNonProfit1, myItem1);
+		
+		assertFalse(myItem1.canMakeBid(myAuction3.getDate()));
 	}
 	
 	@Test
 	public void testAuctionDateOnAuctionScheduledInPast(){
 		
+		myAuction2.addItem(myNonProfit1, myItem1);
+		
+		assertFalse(myItem1.canMakeBid(myAuction2.getDate()));
 		
 	}
 	
 	@Test
 	public void testAuctionDateOnAuctionScheduledInFuture(){
 		
-		assertFalse(today == myAuction1.getDate());
+		myAuction1.addItem(myNonProfit1, myItem1);
+		
+		assertTrue(myItem1.canMakeBid(myAuction1.getDate()));
 	}
 	
 }

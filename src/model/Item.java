@@ -7,6 +7,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -198,6 +199,17 @@ public class Item implements Serializable{
 		
 		return !(theUser.getUserName().equals("") || theUser.getPassword().equals("") ||
 				theUser instanceof Staff || theUser instanceof NonProfit);			
+	}
+	
+	
+	public boolean canMakeBid(Date theAuctionDate){
+		
+		LocalDate today = LocalDate.now();
+		
+		if(theAuctionDate.getDay() <= today.getDayOfMonth())
+			return false;
+		else
+			return true;
 	}
 	
 		
