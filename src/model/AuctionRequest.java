@@ -14,7 +14,6 @@ import java.io.Serializable;
  * @author Kyaw Si Thu, Ian Nicholas
  */
 public class AuctionRequest implements Serializable {
-	/*Hi*/
 	/**
 	 * 
 	 */
