@@ -50,6 +50,7 @@ public class ItemsPanel extends JPanel implements Observer {
 		myNonProfit = theNonProfit;
 		myCalendar = theCalendar;
 		myItemsGroup = new ButtonGroup();		
+	
 		
 	}
 

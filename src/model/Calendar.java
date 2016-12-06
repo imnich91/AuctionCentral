@@ -193,7 +193,7 @@ public class Calendar extends Observable implements Serializable {
 
 		//Checks if the auction date is at least one week from the day
 		canAdd = canAdd && checkWeek(day);
-		
+			
 		return canAdd;
 	}
 	
@@ -251,12 +251,13 @@ public class Calendar extends Observable implements Serializable {
 	 */
 	public boolean checkLastYear(String name) {
 		for(int i = 0; i < myCalendar.size()-30; i++) {
+						
 			if(myCalendar.get(i).getNumAuctions() == 1) {
-				if(myCalendar.get(i).getAuction().getName().equals(name)) {
+				if(myCalendar.get(i).getAuction().getName().equals(name)) {					
 					return false;
 				}
 			} else if (myCalendar.get(i).getNumAuctions() == 2) {
-				if(myCalendar.get(i).getAuction().getName().equals(name)) {
+				if(myCalendar.get(i).getAuction().getName().equals(name)) {			
 					return false;
 				}
 				if(myCalendar.get(i).getAuction2().getName().equals(name)) {
@@ -383,9 +384,30 @@ public class Calendar extends Observable implements Serializable {
 				if (currAuction.getName().equals(((NonProfit)theUser).getOrgName())) {
 					myAuctions.remove(currAuction);
 					found = true;
+					myAuctionsTotal--;
 				}							
 			}			
-			canceled = found;				
+			canceled = found;
+			
+			// remove from history
+			if (canceled) {			
+			
+				for(int i = 0; i < myCalendar.size()-30; i++) {
+					
+					if(myCalendar.get(i).getNumAuctions() == 1) {
+						if(myCalendar.get(i).getAuction().getName().equals(((NonProfit)theUser).getOrgName())) {
+							myCalendar.get(i).removeAuction();	
+							break;						
+						}					
+					}else if (myCalendar.get(i).getNumAuctions() == 2) {
+						if(myCalendar.get(i).getAuction2().getName().equals(((NonProfit)theUser).getOrgName())) {
+							myCalendar.get(i).removeAuction2();	
+							break;						
+						}							
+					}				
+				}				
+			}
+			
 		} else {
 			canceled = false;
 		}

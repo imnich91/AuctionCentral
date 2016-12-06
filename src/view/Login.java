@@ -9,12 +9,14 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -103,7 +105,7 @@ public class Login extends JPanel {
 		makeTextPanel();
 		makeButtonPanel();
 		setLayout(new BorderLayout());
-		add(myTextPanel, BorderLayout.CENTER);
+		add(myTextPanel, BorderLayout.NORTH);
 		add(myButtons, BorderLayout.SOUTH);
 	}
 
@@ -119,6 +121,9 @@ public class Login extends JPanel {
 	private void makeTextPanel() {
 		myTextPanel = new JPanel();
 		JLabel Jlabel = new JLabel("Welcome to Auction Central");
+		Jlabel.setFont(new Font("Sans Serif", Font.BOLD, 18));
+		Jlabel.setHorizontalAlignment(SwingConstants.LEFT);
+		myTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		myTextPanel.add(Jlabel);
 	}
 

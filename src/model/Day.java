@@ -134,6 +134,23 @@ public class Day implements Serializable {
 		
 	}
 	
+	
+	/**
+	 * Removes the first auction
+	 */
+	public void removeAuction() {
+		myAuction = null;
+		myNumAuctions--;
+	}
+	
+	/**
+	 * Removes the second auction
+	 */
+	public void removeAuction2() {
+		myAuction = null;
+		myNumAuctions--;
+	}
+	
 	/**
 	 * @author Georgia Wade
 	 * added for acceptance test purposes
