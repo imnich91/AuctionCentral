@@ -32,6 +32,7 @@ public class StaffInfoPanel extends JPanel{
 			
 			myCalendar = theCalendar;	
 			myAuctionInfo = new JLabel();
+			
 						
 			myAuctionInfo.setFont(new Font("Sans Serif", Font.BOLD, 18));		
 			myAuctionInfo.setHorizontalAlignment(SwingConstants.CENTER);
@@ -44,9 +45,9 @@ public class StaffInfoPanel extends JPanel{
 			
 			myAuctionInfo.setText("");
 			
-			String text = "Currently logged in as: ";
+			String text = "<html>Auction Central Staff<br> Logged in: ";
 
-			myAuctionInfo.setText(text + theStaff.getName());
+			myAuctionInfo.setText(text + theStaff.getName() +"</html>");
 			
 			
 		}

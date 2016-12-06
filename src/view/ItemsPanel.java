@@ -22,6 +22,12 @@ import model.Calendar;
 import model.Item;
 import model.NonProfit;
 
+
+/** 
+ * 
+ * @author Dmitriy Onishchenko
+ *
+ */
 public class ItemsPanel extends JPanel implements Observer {
 	
 	/**
@@ -106,7 +112,7 @@ public class ItemsPanel extends JPanel implements Observer {
 			myItem = theItem;
 			
 			setText(setItemText());	
-			setFont(new Font("Sans Serif", Font.PLAIN, 18));
+			setFont(new Font( Font.MONOSPACED, Font.PLAIN, 18));
 			
 			setHorizontalAlignment(SwingConstants.LEFT);			
 			
@@ -128,30 +134,28 @@ public class ItemsPanel extends JPanel implements Observer {
 		private String setItemText() {
 			
 			StringBuilder str = new StringBuilder();
-			str.append("<html><div style = 'text-align:left'>");
+//			str.append("<html><div style = 'text-align:left'>");
 					
 			Integer i = myItem.getItemNumber();			
 			int numLen = i.toString().length();
 			
 			
-			str.append(myItem.getItemNumber());
+			str.append(String.format("%-5s", myItem.getItemNumber()));
 			
-			while (numLen < 5) {
-				str.append(" &nbsp ");
-				numLen++;
-			}
+//			str.append(myItem.getItemNumber());
 			
-			str.append(myItem.getItemName());		
-			numLen = myItem.getItemName().length();
+//			while (numLen < 5) {
+//				str.append(" &nbsp ");
+//				numLen++;
+//			}
+						
+//			str.append(String.format("%40s", myItem.getItemName()));
 			
-			while (numLen < 30) {
-							
-				str.append(" &nbsp ");
-				numLen++;
-			}		
-			
-			str.append("$" + myItem.getItemMinBid());	
-			str.append("</div></html>");
+//			System.out.println(String.format("%-30s %s" , myItem.getItemName(), "$" + myItem.getItemMinBid()));
+			str.append(String.format("%-30s %s" , myItem.getItemName(), "$" + myItem.getItemMinBid()));	
+	
+//			str.append("$" + myItem.getItemMinBid());	
+//			str.append("</div></html>");
 			
 			return str.toString();
 			

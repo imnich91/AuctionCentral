@@ -2,17 +2,24 @@ package view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 import model.Calendar;
 import model.Staff;
@@ -36,7 +43,15 @@ public class StaffPanel extends JPanel implements Observer {
 	private Staff myStaff;
 	
 	private final JFrame myFrame;
+	
+	private static final String[] DAYNAMES = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
 		
+	private static final int TITLE_FONT_SIZE = 24;
+	
+	private List<Integer> myDays;
+	
+	private static final int BORDER_WIDTH = 4;
+	
 	public StaffPanel(final JFrame theFrame) {
 		myFrame = theFrame;
 		setLayout(new BorderLayout());
@@ -54,8 +69,84 @@ public class StaffPanel extends JPanel implements Observer {
 	}
 	
 	private void setupCenterPanel() {
-		myCenterPanel = new JPanel();
+		myCenterPanel = new JPanel(new GridLayout(0, 7));
+		drawCalendar();
 		add(myCenterPanel, BorderLayout.CENTER);
+	}
+	
+	private void drawCalendar() {
+		setupBorderCalendar();
+		setupDaysOfWeek();
+		setupCalendar();
+	}
+	
+	private void setupBorderCalendar() {
+		TitledBorder title = BorderFactory.createTitledBorder(myCalendar.getCurrentDay().getMonth().toUpperCase());
+		title.setTitleColor(Color.BLACK);
+		title.setTitleJustification(TitledBorder.CENTER);
+		title.setBorder(BorderFactory.createLineBorder(Color.BLACK, 0, true));
+		title.setTitleFont(new Font(Font.SERIF, Font.BOLD, TITLE_FONT_SIZE));
+		myCenterPanel.setBorder(title);
+	}
+	
+	private void setupDaysOfWeek() {
+		JLabel label;
+		for(String days: DAYNAMES) {
+			label = new JLabel(days);
+			label.setBorder(BorderFactory.createMatteBorder(BORDER_WIDTH, BORDER_WIDTH, BORDER_WIDTH, BORDER_WIDTH, Color.BLACK));  
+			myCenterPanel.add(label);
+		}
+	}                     
+	
+	private void setupCalendar() {
+		int start;
+		switch(LocalDate.now().getDayOfWeek().getValue()){
+	        
+	    	case(1):
+	    		start = 1;
+	    	    break;
+	    	case(2):
+	    		start = 2;
+	    	    break;
+	    	case(3):
+	    		start = 3;
+	    	    break;
+	    	case(4):
+	    		start = 4;
+	    	    break;
+	    	case(5):
+	    		start = 5;
+	    	    break;
+	    	case(6):
+	    		start = 6;
+	    	    break;
+	    	default:
+	    		start = 0;
+	    		break;
+	    }
+		myDays = new ArrayList<Integer>();
+		int count = 0;
+		for(int i = 1; i <= 30; i++) {
+			if(i <= start) {
+				myDays.add(0);
+			} else if(LocalDate.now().getDayOfMonth() + count > LocalDate.now().getMonth().maxLength()) {
+				myDays.add(LocalDate.now().getDayOfMonth() + count - 31);
+				count++;
+			}
+			else {
+				myDays.add(LocalDate.now().getDayOfMonth() + count++);
+			}
+		}
+		JLabel label;
+		for(int days: myDays) {
+			if(days == 0) {
+				label = new JLabel(" ");
+			} else {
+				label = new JLabel(Integer.toString(days) + ": " + myCalendar.getCalendar().get(days -1).getNumAuctions());
+			}
+			label.setBorder(BorderFactory.createMatteBorder(BORDER_WIDTH, BORDER_WIDTH, BORDER_WIDTH, BORDER_WIDTH, Color.BLACK));  
+			myCenterPanel.add(label);
+		}
 	}
 	
 	private void setupSouthPanel() {
@@ -90,7 +181,6 @@ public class StaffPanel extends JPanel implements Observer {
 			public void actionPerformed(final ActionEvent theEvent) {
 				myCalendar.setAuctionsAllowed(Integer.parseInt(JOptionPane.showInputDialog(myFrame, "How many auctions per month?"
 						, "Update Max Auctions", JOptionPane.QUESTION_MESSAGE)));
-				System.out.println("auctions:" + myCalendar.getAuctionsAllowed());
 			}
 		});
 		
