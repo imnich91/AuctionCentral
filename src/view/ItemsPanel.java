@@ -88,7 +88,7 @@ public class ItemsPanel extends JPanel implements Observer {
 				
 		try {
 			Auction ourAuction = myCalendar.getAuctionForOrganization(myNonProfit);		
-			ArrayList<Item> items = (ArrayList)ourAuction.getInventory();
+			ArrayList<Item> items = (ArrayList<Item>)ourAuction.getInventory();
 			
 			
 			for (int i = 0; i < items.size(); i++) {
@@ -133,8 +133,15 @@ public class ItemsPanel extends JPanel implements Observer {
 	 */
 	private class ItemsButton extends JToggleButton {
 
-		private Item myItem;		
-		private int myItemNumber;		
+		/**
+		 *  serializable id
+		 */
+		private static final long serialVersionUID = 1L;
+		
+		/**
+		 * the item.
+		 */
+		private Item myItem;
 		
 		public ItemsButton (Item theItem) {			
 			
