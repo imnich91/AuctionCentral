@@ -180,7 +180,7 @@ public class BidderPanel extends JPanel {
 							
 							   ListofBids += "Item = " +(b.getItemName())  + "\n"
 							   		+ "Min Bid: $" + b.getItemMinBid() + " "
-							   				+ "My Bid: $" + w.getBidPrice();
+							   				+ "My Bid: $" + w.getBidPrice() +"\n";
 							   
 							}
 						}
