@@ -22,6 +22,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -123,12 +124,9 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 		myItemNumber = -1;
 		
 		myLocalDate = LocalDate.now();		
-		myCurrDate = new Date(myLocalDate.getDayOfMonth(), myLocalDate.getMonth().toString(), myLocalDate.getYear());
+		myCurrDate = new Date(myLocalDate.getDayOfMonth(), myLocalDate.getMonth().toString(), myLocalDate.getYear());		
 		
-		
-		
-		//Makes all buttons
-		
+		//Makes all buttons		
 		makeAuctionInfoLabel();
 		makeButtonCancelAuction();
 		makeButtonAddAuction();
@@ -181,13 +179,9 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
 				
-				if (myCalendar.getAuctionForOrganization(myCurrNonProfit) == null)  {
-					
-					makeAddAuctionDialog();
-					
-				}
-						
-			
+				if (myCalendar.getAuctionForOrganization(myCurrNonProfit) == null)  {					
+					makeAddAuctionDialog();					
+				}			
 			}
 		});
 		myButtons.add(myAddAuction);		
@@ -261,14 +255,10 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 	private void submitRequest(Date theDate, Time theTime) {
 		
 		boolean granted = myCalendar.addAuction(new AuctionRequest(theDate, theTime, myCurrNonProfit.getOrgName()));
-		
-		
-		System.out.println(granted);
+					
 		if (granted) {			
-			setAuctionInfo();
-			
+			setAuctionInfo();			
 		}
-		
 		
 	}
 	
@@ -282,9 +272,13 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 			public void actionPerformed(final ActionEvent theEvent) {
 				
 				if (myItemNumber != -1) {
-					
-					int selected = JOptionPane.showConfirmDialog(myFrame, "Are you sure you want "
-							+ "to delete the selected item (item# " + myItemNumber + ")?");
+						
+					int selected = JOptionPane.showConfirmDialog(
+							myFrame, 
+							"Are you sure you want to delete the selected "
+							+ "item (item# " + myItemNumber + ")?",
+							"Remove Item",
+							JOptionPane.YES_NO_OPTION);
 					
 					if (selected == JOptionPane.YES_OPTION) {						
 						boolean r = myAuction.removeItem(myCurrNonProfit, myItemNumber, myAuction.getDate(), myCurrDate);
@@ -309,11 +303,71 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
 				
-							
+				if (myCalendar.getAuctionForOrganization(myCurrNonProfit) != null)  {					
+					makeAddItemDialog();					
+				}							
 				
 			}
 		});
 		myButtons.add(myAddItem);
+	}
+	
+	private void makeAddItemDialog() {
+//		String theName,  String theCond, String theSize, int theMinBid,
+//		String theDonor, String theDescript, String theAddCom
+		
+		
+		//Make JPanels
+		JPanel holder = new JPanel(new BorderLayout(10, 10));
+		JPanel question = new JPanel(new GridLayout(0, 1, 2, 2));
+		//Fill questions
+		question.add(new JLabel("Item Name", SwingConstants.RIGHT));
+		question.add(new JLabel("Condition", SwingConstants.RIGHT));
+		question.add(new JLabel("Size", SwingConstants.RIGHT));
+		question.add(new JLabel("Minimum Bid", SwingConstants.RIGHT));
+		question.add(new JLabel("Donor", SwingConstants.RIGHT));
+		question.add(new JLabel("Description", SwingConstants.RIGHT));
+		question.add(new JLabel("Additional Comments", SwingConstants.RIGHT));
+		//Fill Holder
+		holder.add(question, BorderLayout.WEST);
+		//Make panel/textField
+		JPanel controls = new JPanel(new GridLayout(0, 1, 2, 2));
+		JTextField name = new JTextField();
+		JTextField condition = new JTextField();
+		JTextField size = new JTextField();
+		JTextField minBid = new JTextField();
+		JTextField donor = new JTextField();
+		JTextField desc = new JTextField(10);
+		JTextField comments = new JTextField();		
+		
+		//Fill fields
+		controls.add(name);		
+		controls.add(condition);
+		controls.add(size);	
+		controls.add(minBid);
+		controls.add(donor);
+		controls.add(desc);
+		controls.add(comments);
+		
+	
+		
+		
+		holder.add(controls, BorderLayout.CENTER);
+		
+		
+		//The pop up
+		JOptionPane.showMessageDialog(myFrame, holder, "Enter Item Information", 
+				JOptionPane.QUESTION_MESSAGE);
+		
+		
+//		final String theDate = date.getText();
+//		final String theTime = new String(time.getText());
+		
+//		parseRequestInfo(theDate, theTime);
+		
+		
+		
+		
 	}
 	
 	/**
@@ -351,11 +405,13 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 			myAuctionInfo.setNonProfit(myCurrNonProfit);
 			myAuctionInfo.setTextHasAuction();
 			myAddAuction.setEnabled(false);
+			myAddItem.setEnabled(true);
 			updateInventory();		
 
 		} else {	
 			myAuctionInfo.setTextNoAuction();	
 			myAddAuction.setEnabled(true);
+			myAddItem.setEnabled(false);
 		}		
 	}
 	
