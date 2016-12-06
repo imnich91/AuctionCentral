@@ -140,44 +140,9 @@ public class StaffPanel extends JPanel implements Observer {
 	}                     
 	
 	private void setupCalendar() {
-		int start;
-		switch(LocalDate.now().getDayOfWeek().getValue()){
-	        
-	    	case(1):
-	    		start = 1;
-	    	    break;
-	    	case(2):
-	    		start = 2;
-	    	    break;
-	    	case(3):
-	    		start = 3;
-	    	    break;
-	    	case(4):
-	    		start = 4;
-	    	    break;
-	    	case(5):
-	    		start = 5;
-	    	    break;
-	    	case(6):
-	    		start = 6;
-	    	    break;
-	    	default:
-	    		start = 0;
-	    		break;
-	    }
-		myDays = new ArrayList<Integer>();
-		int count = 0;
-		for(int i = 1; i <= 31; i++) {
-			if(i <= start) {
-				myDays.add(0);
-			} else if(LocalDate.now().getDayOfMonth() + count > LocalDate.now().getMonth().maxLength()) {
-				myDays.add(LocalDate.now().getDayOfMonth() + count - 31);
-				count++;
-			}
-			else {
-				myDays.add(LocalDate.now().getDayOfMonth() + count++);
-			}
-		}
+		myDays = myCalendar.createMonth();
+		
+		
 		JLabel label;
 		for(int days: myDays) {
 			if(days == 0) {
@@ -221,8 +186,11 @@ public class StaffPanel extends JPanel implements Observer {
 		maxAuctions.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
-				myCalendar.setAuctionsAllowed(Integer.parseInt(JOptionPane.showInputDialog(myFrame, "How many auctions per month?"
-						, "Update Max Auctions", JOptionPane.QUESTION_MESSAGE)));
+				String result = JOptionPane.showInputDialog(myFrame, "How many auctions per month?"
+						, "Update Max Auctions", JOptionPane.QUESTION_MESSAGE);
+				if(result != null) {
+					myCalendar.setAuctionsAllowed(Integer.parseInt(result));
+				}
 			}
 		});
 		

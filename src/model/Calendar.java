@@ -66,6 +66,8 @@ public class Calendar extends Observable implements Serializable {
 	 * The number of registered auctions allowed.  
 	 */
 	private int myAuctionsAllowed;
+	
+	private List<Integer> myDays;
 		
 	/**
 	 * Constructs the calendar. 
@@ -416,6 +418,55 @@ public class Calendar extends Observable implements Serializable {
 			notifyObservers();
 		}
 		return canceled;
+	}
+	
+	/**
+	 * Creates the list of days for drawing the calendar. 
+	 * @return list of days to draw calendar.
+	 */
+	public List<Integer> createMonth() {
+		int start;
+		switch(LocalDate.now().getDayOfWeek().getValue()){
+	        
+	    	case(1):
+	    		start = 1;
+	    	    break;
+	    	case(2):
+	    		start = 2;
+	    	    break;
+	    	case(3):
+	    		start = 3;
+	    	    break;
+	    	case(4):
+	    		start = 4;
+	    	    break;
+	    	case(5):
+	    		start = 5;
+	    	    break;
+	    	case(6):
+	    		start = 6;
+	    	    break;
+	    	default:
+	    		start = 0;
+	    		break;
+	    }
+		myDays = new ArrayList<Integer>();
+		int count = 0;
+		for(int i = 1; i <= start; i++) {
+			if(i <= start) {
+				myDays.add(0);
+			} 
+		} 
+		for(int i = 1; i <= 31; i++) {
+			if(LocalDate.now().getDayOfMonth() + count > LocalDate.now().getMonth().maxLength()) {
+				myDays.add(LocalDate.now().getDayOfMonth() + count - 31);
+				count++;
+			}
+			else {
+				myDays.add(LocalDate.now().getDayOfMonth() + count++);
+			}
+		}
+		return myDays;
 	}
 	
 }

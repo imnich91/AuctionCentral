@@ -63,9 +63,11 @@ public class StaffInfoPanel extends JPanel{
 			
 			myAuctionInfo.setText("");
 			
-			String text = "<html>Auction Central Staff<br> Logged in: ";
+			String text = "<html>Auction Central Staff<br> Logged in: " + theStaff.getName() 
+							+ "<br>" + "Number of auctions in the system: " + myCalendar.getAuctionsTotal() + "</html>";
+			
 
-			myAuctionInfo.setText(text + theStaff.getName() +"</html>");
+			myAuctionInfo.setText(text);
 			
 			
 		}
