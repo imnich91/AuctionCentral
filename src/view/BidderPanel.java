@@ -351,7 +351,6 @@ public class BidderPanel extends JPanel {
 		Jlabel.setHorizontalAlignment(SwingConstants.LEFT);
 		myTextPanel.add(Jlabel);
 		myTextPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		//myTextPanel.add(Jlabel);
 		add(myTextPanel, BorderLayout.PAGE_START);
 		
 	}
