@@ -86,7 +86,7 @@ public class BidOnAnItemAcceptanceTest {
 	}
 
 	/**
-	 * Acceptance test for: user must be register
+	 * Acceptance test for: unregistered bidder
 	 */
 	@Test
 	public void testBidderMustBeRegisteredOnUnregisteredBidder(){
@@ -94,6 +94,9 @@ public class BidOnAnItemAcceptanceTest {
 		assertFalse(myItem2.makeBid(myUnregisterBidder, 200));
 	}
 	
+	/**
+	 * Acceptance test for: user must be registered as a bidder
+	 */
 	@Test
 	public void testBidderMustBeRegisteredOnRegisteredBidder(){
 		
@@ -101,8 +104,7 @@ public class BidOnAnItemAcceptanceTest {
 	}
 	
 	/**
-	 * Acceptance test for: no AC staff or NPO contact for auction
-	 * may make a bid
+	 * Acceptance test for: bidder can make bid
 	 */
 	
 	@Test
@@ -111,12 +113,20 @@ public class BidOnAnItemAcceptanceTest {
 		assertTrue(myItem2.isValidBidder(myBidder1));
 	}
 	
+	/**
+	 * Acceptance test for: no AC staff or NPO contact for auction
+	 * may make a bid
+	 */
 	@Test
 	public void testNoACStaffOrNPOContactCanBidOnACStaff(){
 		
 		assertFalse(myItem2.isValidBidder(myStaff1));
 	}
 	
+	/**
+	 * Acceptance test for: no AC staff or NPO contact for auction
+	 * may make a bid
+	 */
 	@Test
 	public void testNoACStaffOrNPOContactCanBidOnNPOContact(){
 	
@@ -133,6 +143,9 @@ public class BidOnAnItemAcceptanceTest {
 		assertFalse(myItem2.makeBid(myBidder1, 200));
 	}
 	
+	/**
+	 * Acceptance test for: previous bids for this bidder with no previous bids
+	 */
 	@Test
 	public void testPreviousBidOnBidderWithNoPreviousBid(){
 		
@@ -148,24 +161,36 @@ public class BidOnAnItemAcceptanceTest {
 		assertFalse(myItem1.isValidBidPrice(0));
 	}
 	
+	/**
+	 * Acceptance test for: bids with negative bids
+	 */
 	@Test
 	public void testValidPriceOnNegativBidAmount(){
 		
 		assertFalse(myItem1.isValidBidPrice(-1));
 	}
 	
+	/**
+	 * Acceptance test for: bids greater than minimum bid
+	 */
 	@Test
 	public void testValidPriceOnGreaterThanMinimumBidAmount(){
 		
 		assertTrue(myItem1.isValidBidPrice(75));
 	}
 	
+	/**
+	 * Acceptance test for: bids equal to minimum bid
+	 */
 	@Test
 	public void testValidPriceOnEqualToMinimumBidAmount(){
 		
 		assertTrue(myItem1.isValidBidPrice(50));
 	}
 	
+	/**
+	 * Acceptance test for: bids less than minimum bids
+	 */
 	@Test
 	public void testValidPriceOnPostiveLessThanMinimumBidAmount(){
 		
@@ -184,6 +209,9 @@ public class BidOnAnItemAcceptanceTest {
 		assertFalse(myItem1.canMakeBid(myAuction3.getDate()));
 	}
 	
+	/**
+	 * Acceptance test for: auction date scheduled in past
+	 */
 	@Test
 	public void testAuctionDateOnAuctionScheduledInPast(){
 		
@@ -193,6 +221,9 @@ public class BidOnAnItemAcceptanceTest {
 		
 	}
 	
+	/**
+	 * Acceptance test for: auction date scheduled in future
+	 */
 	@Test
 	public void testAuctionDateOnAuctionScheduledInFuture(){
 		
