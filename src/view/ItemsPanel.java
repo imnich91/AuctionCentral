@@ -109,7 +109,11 @@ public class ItemsPanel extends JPanel {
 		}
 	}
 
-	
+	/**
+	 * tells program that a change happened.
+	 * @param oldValue current value
+	 * @param newValue new value
+	 */
 	private void fireChange(int oldValue, int newValue) {
 		
 		firePropertyChange(NEW_ITEM_SELECTED, oldValue, newValue);	
