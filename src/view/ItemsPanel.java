@@ -12,8 +12,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Observable;
-import java.util.Observer;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
@@ -31,7 +29,7 @@ import model.NonProfit;
  * @author Dmitriy Onishchenko
  *
  */
-public class ItemsPanel extends JPanel implements Observer {
+public class ItemsPanel extends JPanel {
 	
 	/**
 	 * Serializable Id.
@@ -88,7 +86,7 @@ public class ItemsPanel extends JPanel implements Observer {
 				
 		try {
 			Auction ourAuction = myCalendar.getAuctionForOrganization(myNonProfit);		
-			ArrayList<Item> items = (ArrayList)ourAuction.getInventory();
+			ArrayList<Item> items = (ArrayList<Item>)ourAuction.getInventory();
 			
 			
 			for (int i = 0; i < items.size(); i++) {
@@ -111,12 +109,6 @@ public class ItemsPanel extends JPanel implements Observer {
 		}
 	}
 
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		repaint();
-		
-	}
 	
 	private void fireChange(int oldValue, int newValue) {
 		
@@ -133,8 +125,15 @@ public class ItemsPanel extends JPanel implements Observer {
 	 */
 	private class ItemsButton extends JToggleButton {
 
-		private Item myItem;		
-		private int myItemNumber;		
+		/**
+		 *  serializable id
+		 */
+		private static final long serialVersionUID = 1L;
+		
+		/**
+		 * the item.
+		 */
+		private Item myItem;
 		
 		public ItemsButton (Item theItem) {			
 			
@@ -150,8 +149,7 @@ public class ItemsPanel extends JPanel implements Observer {
 				@Override
 				public void actionPerformed(ActionEvent e) {				
 					
-					int num = ((ItemsButton)e.getSource()).getItemNumber();
-					
+					int num = ((ItemsButton)e.getSource()).getItemNumber();					
 					fireChange(-1, num);					
 					
 				}
@@ -175,7 +173,6 @@ public class ItemsPanel extends JPanel implements Observer {
 			return myItem.getItemNumber();		
 					
 		}			
-				
 	}
 
 }

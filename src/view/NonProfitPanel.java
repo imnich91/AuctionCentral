@@ -7,7 +7,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -22,8 +21,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
@@ -38,11 +35,10 @@ import model.Time;
 /**
  * Used to build the non-profit JPanel.
  * 
- * @author Dmitriy Onishchenko,
- * Colin Casey (set up Skeleton)
+ * @author Dmitriy Onishchenko 
  * 
  */
-public class NonProfitPanel extends JPanel implements Observer, PropertyChangeListener{
+public class NonProfitPanel extends JPanel implements PropertyChangeListener{
 	
 	/**
 	 * Used to save data.
@@ -50,12 +46,6 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 	private static final long serialVersionUID = 1L;
 	
 	
-	
-    /**
-     * Used to set min size of window.
-     */
-    private static final Dimension MY_SIZE = new Dimension(650, 600);
-
 	/**
 	 * Used to hold all Buttons.
 	 */
@@ -96,7 +86,14 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 	 */
 	private JFrame myFrame;
 	
+	/**
+	 * the local date
+	 */
 	private LocalDate myLocalDate;	
+	
+	/**
+	 * the current data
+	 */
 	private Date myCurrDate;
 	
 	/**
@@ -133,8 +130,6 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 	 * The auction that the non profit has.
 	 */
 	private Auction myAuction;
-
-
 	
 	/**
 	 * Used to build the JPanel.
@@ -187,9 +182,7 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 						setAuctionInfo();
 						myAuction = null;
 					}					
-				}
-				
-				
+				}				
 			}
 		});		
 		myButtons.add(myCancelAuction);
@@ -250,7 +243,7 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 	
 	private void parseRequestInfo(String theDate, String theTime) {
 		
-		String orgName, month, period, requestTime;
+		String month, period;
 		int day, year, hour;		
 		Integer numToConvert; 
 			
@@ -289,16 +282,13 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 		
 		} catch (UnsupportedOperationException e) {
 			
-			JOptionPane.showMessageDialog(myFrame, e.getMessage());
-			
+			JOptionPane.showMessageDialog(myFrame, e.getMessage());			
 		}
-		
 		
 					
 		if (granted) {			
 			setAuctionInfo();			
-		}
-		
+		}	
 	}
 	
 	/**
@@ -320,7 +310,7 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 							JOptionPane.YES_NO_OPTION);
 					
 					if (selected == JOptionPane.YES_OPTION) {						
-						boolean r = myAuction.removeItem(myCurrNonProfit, myItemNumber, myAuction.getDate(), myCurrDate);
+						myAuction.removeItem(myCurrNonProfit, myItemNumber, myAuction.getDate(), myCurrDate);
 						myItemNumber = -1;								
 												
 						remove(myInventory);
@@ -465,9 +455,7 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 		str.append("\nDescription: ");
 		str.append(theDescription);
 		str.append("\nAdditional Comments: ");
-		str.append(theComments);		
-		
-		JLabel confirm = new JLabel(str.toString());
+		str.append(theComments);
 		
 		int selected = JOptionPane.showConfirmDialog(myFrame, str.toString(), "Add Item?", 
 				JOptionPane.YES_NO_OPTION);	
@@ -480,15 +468,9 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 					theDonor, theDescription, theComments);					
 			myAuction.addItem(myCurrNonProfit, item);
 			remove(myInventory);
-			setAuctionInfo();
-			
-		}
-		
-		
-		
-		
-	}
-								
+			setAuctionInfo();			
+		}		
+	}								
 								
 	
 	/**
@@ -512,9 +494,7 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 	
 	private void makeAuctionInfoLabel() {
 		myAuctionInfo = new NonProfitInfoPanel(myCalendar);
-		this.add(myAuctionInfo, BorderLayout.NORTH);
-		
-		
+		this.add(myAuctionInfo, BorderLayout.NORTH);	
 	}
 
 	
@@ -564,13 +544,8 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 	public void setUser(NonProfit theNonProfit) {
 		
 		myCurrNonProfit = theNonProfit;
-	}
-	
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		// TODO Auto-generated method stub
-		
-	}
+	}	
+
 
 	@Override
 	public void propertyChange(PropertyChangeEvent theEvent) {
