@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -27,6 +28,7 @@ import javax.swing.SwingConstants;
 import model.Auction;
 import model.Bid;
 import model.Calendar;
+import model.Date;
 import model.Item;
 import model.User;
 
@@ -61,11 +63,6 @@ public class BidderPanel extends JPanel {
 	 * Used for formatting.
 	 */
 	private JPanel myMiddle;
-	
-	/**
-	 * Used to give button access to whole class.
-	 */
-	private JButton myUpDateInfo;
 	
 	/**
 	 * Used to give button access to whole class.
@@ -127,26 +124,11 @@ public class BidderPanel extends JPanel {
 		myAuctions = (ArrayList<Auction>)myCalendar.getAuctions();
 		myMiddle = new JPanel();
 		myButtons = new JPanel();
-		upDateInfoButton();
 		cancelBidButton();
 		placeBidButton();
 		makeButtonLogout();
 		add(myMiddle, BorderLayout.CENTER);
 		add(myButtons, BorderLayout.PAGE_END);
-	}
-	
-	/**
-	 * Used to make a button.
-	 */
-	private void upDateInfoButton() {
-		myUpDateInfo = new JButton("Update Information");
-		myUpDateInfo.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(final ActionEvent theEvent) {
-				//System.exit(1);
-			}
-		});
-		myButtons.add(myUpDateInfo);
 	}
 	
 	/**
@@ -171,9 +153,67 @@ public class BidderPanel extends JPanel {
 		myCancelBid.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
+				Collection<Item> BidList = new ArrayList<Item>();
+				List<String> list = new ArrayList<String>();
+				List<Auction> AuctionBid = new ArrayList<Auction>();
+				List<Auction> Auctions = myCalendar.getAuctions();
+				for (Auction a : Auctions) {
+					Collection<Item> items = a.getInventory();
+					for(Item b : items) {
+						Collection<Bid> Bids = b.getBunchObids();
+						for(Bid w : Bids) {
+							if(w.getBidder().equals(myUser.getName())) {
+								BidList.add(b);
+								AuctionBid.add(a);
+								list.add(b.getItemName());
+							}
+						}
+					}
+				}
+				
+				String[] choices = (list).toArray(new String[0]);
+			    String input = (String) JOptionPane.showInputDialog(null, "Choose now...",
+			        "Past Bid List", JOptionPane.QUESTION_MESSAGE, null,
+			        choices, choices[0]);
+				
+				if (list.size() < 0) {
+					popUpCancelBid(5);
+				} else {
+					if(checkDate(input, BidList, AuctionBid)) {
+						popUpCancelBid(1);
+					} else {
+						popUpCancelBid(0);
+					}
+					
+				}
+				
 			}
 		});
 		myButtons.add(myCancelBid);
+	}
+	
+	private boolean checkDate(final String theInput, Collection<Item> theBidList,
+						  List<Auction> theAuction) {
+		boolean flag = false;
+		Item item = null;
+		for(Item a : theBidList) {
+			if ((a.getItemName()).equals(theInput)){
+				item = a;
+			}
+		}
+		
+		LocalDate theDate = LocalDate.now();
+		Date current = new Date(theDate.getDayOfMonth(), theDate.getMonth().toString().toLowerCase(), 
+								theDate.getYear());
+		//System.out.println("day = " +theDate.getDayOfMonth()+ " month = " +
+		//						theDate.getMonth().toString().toLowerCase()+ 
+		//						" year = " + theDate.getYear());
+		if(!item.equals(null)) {
+		flag = item.cancelBid(myUser, 
+				theAuction.get(0).getDate(),
+				current);
+		}
+		return flag;
 	}
 	
 	/**
@@ -234,9 +274,24 @@ public class BidderPanel extends JPanel {
 	}
 	
 	/**
+	 * Used to tell user if their bid was cancel
+	 * @param theflag 0 = fail / 1 = pass/ any other num = fail
+	 */
+	private void popUpCancelBid(final int theflag){
+		if(theflag == 0) {
+			JOptionPane.showMessageDialog(myFrame, "In order to cancel this bid,"
+					+ " it has to be a least two days before the date of the auction."
+					, "Cancel Bid Error", JOptionPane.ERROR_MESSAGE);
+		} else if (theflag == 1) {
+			JOptionPane.showMessageDialog(myFrame, "Bid was Cancel");
+		} else {
+			JOptionPane.showMessageDialog(myFrame, "No Current Bids");
+		}
+	}
+	
+	/**
 	 * Makes a pop up telling the user that they
 	 * already have a bid on this item.
-	 * 
 	 * @return if user is trying to make two bids
 	 */
 	private boolean alreadyBid() {
@@ -268,7 +323,6 @@ public class BidderPanel extends JPanel {
 	
 	/**
 	 * Used to place bid
-	 * 
 	 * @param theBid the bid amount
 	 */
 	private void placeBid(final int theBid) {
@@ -280,7 +334,6 @@ public class BidderPanel extends JPanel {
 	/**
 	 * A method that turns all of the
 	 * useful information into a string.
-	 * 
 	 * @return Item info
 	 */
 	public String itemToString() {
@@ -293,9 +346,7 @@ public class BidderPanel extends JPanel {
 	}
 	
 	/**
-	 * Used to find item person wants to bid
-	 * on.
-	 * 
+	 * Used to find item person wants to bid on.
 	 * @param theItem the name of the item
 	 */
 	private void findItem(String theItem) {
@@ -312,7 +363,6 @@ public class BidderPanel extends JPanel {
 	/**
 	 * Used to make a pop up that will
 	 * ask the user what item the want to bid on.
-	 * 
 	 * @param theNonProfit Non-profit name
 	 * @return item to bid on
 	 */
@@ -344,7 +394,6 @@ public class BidderPanel extends JPanel {
 	 */
 	private void makeTextPanel() {
 		myTextPanel = new JPanel();
-			
 		String name = myUser.getUserName();
 		JLabel Jlabel = new JLabel("Login as: "+ name);
 		Jlabel.setFont(new Font("Sans Serif", Font.BOLD, 18));
@@ -356,7 +405,7 @@ public class BidderPanel extends JPanel {
 	}
 	
 	/**
-	 * Used to set who is currently login.
+	 * Used to set who is currently log in.
 	 * @param theUser the user
 	 */
 	public void setUser(User theUser) {
