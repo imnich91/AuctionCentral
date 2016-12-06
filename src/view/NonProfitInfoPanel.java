@@ -77,7 +77,7 @@ public class NonProfitInfoPanel extends JPanel {
 		myAuctionInfo.setText("");
 		myInventory.setText("");
 		
-		myUser.setText("Logged in as: " + myNonProfit.getName() + " (Non Profit)");
+//		myUser.setText("Logged in as: " + myNonProfit.getName() + " (Non Profit)");
 		
 		String text = "<html><div style='text-align: center;'>Your Auction Details......<br></div><html>";
 
