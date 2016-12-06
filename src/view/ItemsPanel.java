@@ -31,7 +31,7 @@ import model.NonProfit;
  * @author Dmitriy Onishchenko
  *
  */
-public class ItemsPanel extends JPanel implements Observer {
+public class ItemsPanel extends JPanel {
 	
 	/**
 	 * Serializable Id.
@@ -111,12 +111,6 @@ public class ItemsPanel extends JPanel implements Observer {
 		}
 	}
 
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		repaint();
-		
-	}
 	
 	private void fireChange(int oldValue, int newValue) {
 		
