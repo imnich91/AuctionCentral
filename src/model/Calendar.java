@@ -376,6 +376,7 @@ public class Calendar implements Serializable {
 				if (currAuction.getName().equals(((NonProfit)theUser).getOrgName())) {
 					myAuctions.remove(currAuction);
 					found = true;
+					myAuctionsTotal--;
 				}							
 			}			
 			canceled = found;				
