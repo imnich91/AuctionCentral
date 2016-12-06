@@ -461,6 +461,7 @@ public class BidderPanel extends JPanel {
 	 * @param theUser the user
 	 */
 	public void setUser(Bidder theUser) {
+		myUser = theUser;
 		myBidder = theUser;
 	}
 }
