@@ -94,7 +94,7 @@ public class BidderPanel extends JPanel {
 	private User myUser;
 	
 	/**
-	 * USed to keep track of non-profit
+	 * Used to keep track of non-profit
 	 */
 	private Auction myNonProfit;
 	

@@ -27,47 +27,47 @@ public class Item implements Serializable{
 	/**
 	 * Used to tell items apart.
 	 */
-	private int theItemNumber = -1;
+	private int myItemNumber = -1;
 	
 	/**
 	 * Name of the item.
 	 */
-	private String theItemName;
+	private String myItemName;
 	
 	/**
 	 * Used to keep track of Condition of the item.
 	 */
-	private String theItemCondition;
+	private String myItemCondition;
 	
 	/**
 	 * Used to keep track of item size.
 	 */
-	private String theItemSize;
+	private String myItemSize;
 	
 	/**
 	 * The lowest bid a bidder can place on an item.
 	 */
-	private int theItemMinBid;
+	private int myItemMinBid;
 	
 	/**
 	 * The donor for the item.
 	 */
-	private String theItemDonor;
+	private String myItemDonor;
 	
 	/**
 	 * Short description of the item.
 	 */
-	private String theItemDescript;
+	private String myItemDescript;
 	
 	/**
 	 * Used for addition comment.
 	 */
-	private String theItemAdditComment;	
+	private String myItemAdditComment;	
 	
 	/**
 	 * Used to keep track of all bids placed on an item.
 	 */
-	private Collection <Bid> theBunchObids;
+	private Collection <Bid> myBunchObids;
 	
 	/**
 	 * Used to create an item.
@@ -83,15 +83,15 @@ public class Item implements Serializable{
 	public Item (String theName,  String theCond, String theSize, int theMinBid,
 			String theDonor, String theDescript, String theAddCom) {
 		
-		theItemName = theName;
-		theItemCondition = theCond;
-		theItemSize = theSize;
-		theItemMinBid = theMinBid;
-		theItemDonor = theDonor;
-		theItemDescript = theDescript;
-		theItemAdditComment = theAddCom;
+		myItemName = theName;
+		myItemCondition = theCond;
+		myItemSize = theSize;
+		myItemMinBid = theMinBid;
+		myItemDonor = theDonor;
+		myItemDescript = theDescript;
+		myItemAdditComment = theAddCom;
 		
-		theBunchObids = new ArrayList<Bid>();
+		myBunchObids = new ArrayList<Bid>();
 	}
 	
 	/**
@@ -101,7 +101,7 @@ public class Item implements Serializable{
 	 */
 	public void setItemNumber(int theNumber)
 	{
-		theItemNumber = theNumber;
+		myItemNumber = theNumber;
 	}
 	
 	/**
@@ -111,7 +111,7 @@ public class Item implements Serializable{
 	 * @return true bid is valid/false bid is invalid
 	 */
 	public boolean isValidBidPrice(int theBidPrice){
-		if(theBidPrice < theItemMinBid){
+		if(theBidPrice < myItemMinBid){
 			return false;
 		}
 		else{
@@ -133,9 +133,9 @@ public class Item implements Serializable{
 	
 		if (isValidBidder(theUser)) {		
 			
-			for(int i=0; i < theBunchObids.size(); i++) {
+			for(int i=0; i < myBunchObids.size(); i++) {
 				
-				Bid currBid = ((ArrayList<Bid>)theBunchObids).get(i);
+				Bid currBid = ((ArrayList<Bid>)myBunchObids).get(i);
 				
 				// check to see if bidder already has a bid on the item
 				if (currBid.getBidder().equals(theUser.getName())){				
@@ -144,7 +144,7 @@ public class Item implements Serializable{
 			}
 			
 			if(validBid){
-				theBunchObids.add(new Bid(theUser.getName(), theBidPrice));
+				myBunchObids.add(new Bid(theUser.getName(), theBidPrice));
 			}			
 		} else 
 			validBid = false;
@@ -171,11 +171,11 @@ public class Item implements Serializable{
 		if (canceled && isValidBidder(theUser)) {			
 			
 			boolean found = false;
-			for(int i=0; i < theBunchObids.size(); i++) {
-				Bid currBid = ((ArrayList<Bid>)theBunchObids).get(i);
+			for(int i=0; i < myBunchObids.size(); i++) {
+				Bid currBid = ((ArrayList<Bid>)myBunchObids).get(i);
 				
 				if (currBid.getBidder().equals(theUser.getName())) {
-					theBunchObids.remove(currBid);
+					myBunchObids.remove(currBid);
 					found = true;
 				}							
 			}			
@@ -205,63 +205,63 @@ public class Item implements Serializable{
 	 * @return item's auction inventory number
 	 */
 	public int getItemNumber(){
-		return theItemNumber;
+		return myItemNumber;
 	}
 	
 	/**
 	 * @return item's official title
 	 */
 	public String getItemName(){
-		return theItemName;
+		return myItemName;
 	}
 	
 	/**
 	 * @return the condition of the item
 	 */
 	public String getItemCondition(){
-		return theItemCondition;
+		return myItemCondition;
 	}
 	
 	/**
 	 * @return the condition of the item
 	 */
 	public String getItemSize(){
-		return theItemSize;
+		return myItemSize;
 	}
 	
 	/**
 	 * @return item's initial bidding price
 	 */
 	public int getItemMinBid(){
-		return theItemMinBid;
+		return myItemMinBid;
 	}
 	
 	/**
 	 * @return the name of the person who donated the item
 	 */
 	public String getItemDonor(){
-		return theItemDonor;
+		return myItemDonor;
 	}
 	
 	/**
 	 * @return the storage location of the item
 	 */
 	public String getItemDescrpit(){
-		return theItemDescript;
+		return myItemDescript;
 	}
 	
 	/**
 	 * @return description/addition comments about the item
 	 */
 	public String getItemComments(){
-		return theItemAdditComment;
+		return myItemAdditComment;
 	}
 	
 	/**
 	 * @return collection of bids for the item
 	 */
 	public Collection<Bid> getBunchObids(){
-		return theBunchObids;
+		return myBunchObids;
 	}
 	
 
