@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
 
 /**
  * This class is used to keep track of
@@ -20,7 +21,7 @@ import java.util.List;
  * @version 1
  *
  */
-public class Calendar implements Serializable {
+public class Calendar extends Observable implements Serializable {
 	
 	/**
 	 * Serializable Id.
@@ -119,6 +120,8 @@ public class Calendar implements Serializable {
 	 */
 	public void setAuctionsTotal(int theTotal) {
 		myAuctionsTotal = theTotal;
+		setChanged();
+		notifyObservers(myAuctionsTotal);
 	}
 	
 	/**
@@ -131,6 +134,8 @@ public class Calendar implements Serializable {
  			return false;
  		
  		myAuctionsAllowed = theNum;
+ 		setChanged();
+ 		notifyObservers(myAuctionsAllowed);
  		return true;
  	}
  	
@@ -311,7 +316,9 @@ public class Calendar implements Serializable {
 			myCalendar.get(theRequest.getDate().getDay()-1).addAuction(theRequest);									
 			myAuctions.add(temp);
 			added = true;
-			myAuctionsTotal++;					
+			setAuctionsTotal(++myAuctionsTotal);
+			setChanged();
+			notifyObservers();
 		}		
 				
 		return added;

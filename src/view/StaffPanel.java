@@ -11,8 +11,11 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import model.Calendar;
+import model.Staff;
 import model.User;
 
 /**
@@ -24,28 +27,30 @@ public class StaffPanel extends JPanel implements Observer {
 	
 	private JPanel myCenterPanel;
 	
+	private Calendar myCalendar;
+	
 	private JPanel myButtonPanel;
 	
-	/**
-	 * Used to give button access to whole class.
-	 */
-	private JButton myLogout;
+	private StaffInfoPanel myStaffInfo;
 	
-	/**
-	 * Used to tell users information.
-	 */
-	private JPanel myTextPanel;
+	private Staff myStaff;
 	
-	/**
-	 * Used to give access of login user to other classes.
-	 */
-	private User myUser;
+	private final JFrame myFrame;
 		
 	public StaffPanel(final JFrame theFrame) {
+		myFrame = theFrame;
 		setLayout(new BorderLayout());
+		myCalendar = new Calendar();
+		setupNorthPanel();
 		setupCenterPanel();
 		setupSouthPanel();
+		myCalendar.addObserver(this);
 		
+	}
+	
+	private void setupNorthPanel() {
+		myStaffInfo = new StaffInfoPanel(myCalendar);
+		add(myStaffInfo, BorderLayout.NORTH);
 	}
 	
 	private void setupCenterPanel() {
@@ -56,6 +61,7 @@ public class StaffPanel extends JPanel implements Observer {
 	private void setupSouthPanel() {
 		myButtonPanel = new JPanel();
 		makeButtonLogout();
+		makeMaxAuctionButton();
 		add(myButtonPanel, BorderLayout.SOUTH);
 	}
 	
@@ -63,39 +69,50 @@ public class StaffPanel extends JPanel implements Observer {
 	 * Used to make logout button.
 	 */
 	private void makeButtonLogout() {
-		myLogout = new JButton("Logout");
-		myLogout.addActionListener(new ActionListener() {
+		final JButton logout = new JButton("Logout");
+		logout.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent theEvent) {
 				firePropertyChange("LOGIN", "Bidder", "Login");
 			}
 		});
-		myButtonPanel.add(myLogout);
+		myButtonPanel.add(logout);
 	}
 	
 	/**
-	 * Used to name current bidder.
+	 * Used to change max auctions allowed.
 	 */
-	private void makeTextPanel() {
-		myTextPanel = new JPanel();
-		String name = myUser.getUserName();
-		JLabel Jlabel = new JLabel("Login as: "+ name);
-		myTextPanel.add(Jlabel);
-		add(myTextPanel, BorderLayout.PAGE_START);
+	private void makeMaxAuctionButton() {
+		final JButton maxAuctions= new JButton("Update Auctions Allowed");
+		
+		maxAuctions.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(final ActionEvent theEvent) {
+				myCalendar.setAuctionsAllowed(Integer.parseInt(JOptionPane.showInputDialog(myFrame, "How many auctions per month?"
+						, "Update Max Auctions", JOptionPane.QUESTION_MESSAGE)));
+				System.out.println("auctions:" + myCalendar.getAuctionsAllowed());
+			}
+		});
+		
+		myButtonPanel.add(maxAuctions);
 	}
+	
 	
 	@Override
 	public void update(Observable arg0, Object arg1) {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void setUpStaffInfo() {
+		myStaffInfo.setHeader(myStaff);
+	}
     
 	/**
 	 * Used to set who is currently login.
 	 * @param theUser the user
 	 */
-	public void setUser(User theUser) {
-		myUser = theUser;
-		makeTextPanel();
+	public void setUser(Staff theUser) {
+		myStaff = theUser;
 	}
 }

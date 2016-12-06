@@ -20,6 +20,7 @@ import java.util.Observer;
 import javax.swing.JFrame;
 import model.Calendar;
 import model.NonProfit;
+import model.Staff;
 import model.User;
 import javax.swing.JPanel;
 
@@ -172,6 +173,8 @@ public class AuctionCentralGUI implements Observer, PropertyChangeListener{
 	@Override
 	public void propertyChange(PropertyChangeEvent theEvent) {
 		if(theEvent.getPropertyName().equals("Staff")) {
+			myStaffPanel.setUser((Staff)myLoginPanel.getUser());
+			myStaffPanel.setUpStaffInfo();
 			CardLayout c1 = (CardLayout)(myCards.getLayout());
 			c1.show(myCards, STAFFPANEL);
 		}
