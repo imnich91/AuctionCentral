@@ -201,7 +201,12 @@ public class Item implements Serializable{
 				theUser instanceof Staff || theUser instanceof NonProfit);			
 	}
 	
-	
+	/**
+	 * Method determines if a bidder can make a bid on an item in the
+	 * auction on the provided date.
+	 * @param theAuctionDate date of the auction to bid in
+	 * @return true if a bid can be made else false
+	 */
 	public boolean canMakeBid(Date theAuctionDate){
 		
 		LocalDate today = LocalDate.now();
