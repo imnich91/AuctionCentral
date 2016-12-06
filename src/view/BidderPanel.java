@@ -328,7 +328,7 @@ public class BidderPanel extends JPanel {
 	private void placeBid(final int theBid) {
 		boolean flag = myItem.makeBid(myUser, theBid);
 		myBids = myItem.getBunchObids();
-		System.out.println(flag);
+		//System.out.println(flag);
 	}
 	
 	/**
@@ -341,7 +341,7 @@ public class BidderPanel extends JPanel {
 		flag += "Item Name: " + myItem.getItemName()+ "\n";
 		flag += "Item Min Bid: " + myItem.getItemMinBid() + "\n";
 		flag += "Item Descrpit: " + myItem.getItemDescrpit()+ "\n";
-		flag += "\n Enter Your Bid";
+		flag += "\n Enter Your Bid     Example: 500";
 		return flag;
 	}
 	
