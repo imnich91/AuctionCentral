@@ -104,6 +104,9 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		assertTrue(myAuction1.checkContactPerson(myNonProfit1));
 	}
 	
+	/**
+	 * Acceptance test for: Not NPO users trying to submit request
+	 */
 	@Test
 	public void testOnlyNPOContactSubmitRequestOnNotNPOContact(){
 		
@@ -121,6 +124,10 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		assertTrue(c1.canAddAuction(myAuctionRequest1));
 	}
 	
+	/**
+	 * Acceptance test for: maximum of one future auction for 
+	 * this NPO who has one future auction
+	 */
 	@Test
 	public void testMaxOneFutureAuctionOnOneFutureAuction(){
 	
@@ -129,6 +136,10 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		assertFalse(c1.canAddAuction(myAuctionRequest2));
 	}
 	
+	/**
+	 * Acceptance test for: maximum of one future auction for 
+	 * this NPO who has more than one future auction
+	 */
 	@Test
 	public void testMaxOneFutureAuctionOnMoreThanOneFutureAuction(){
 		
@@ -155,6 +166,10 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		assertFalse(c2.canAddAuction(request));
 	}
 	
+	/**
+	 * Acceptance test for: no auctions within the past year 
+	 * for this NPO who has multiple auctions less than year in past
+	 */
 	@Test
 	public void testNoAuctionInPastYearOnMultipleAuctionsLessThanYearInPast(){
 		
@@ -168,6 +183,10 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		assertFalse(c2.canAddAuction(request));
 	}
 	
+	/**
+	 * Acceptance test for: no auctions within the past year 
+	 * for this NPO on auction within past year
+	 */
 	@Test
 	public void testNoAuctionInPastYearOnNoAuctionWithInPastYear(){
 		
@@ -178,6 +197,10 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		assertFalse(c2.canAddAuction(request));
 	}
 	
+	/**
+	 * Acceptance test for: no auctions within the past year 
+	 * for this NPO who had an auction exactly one year in the past
+	 */
 	@Test
 	public void testNoAuctionInPastYearOnHadAuctionExactlyOneYearInPast(){
 		AuctionRequest auction1 = new AuctionRequest(new Date(today.getDayOfMonth(), "December", 2015), auctionTime, "RedRum");
@@ -186,6 +209,10 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		assertFalse(c2.canAddAuction(request));
 	}
 	
+	/**
+	 * Acceptance test for: no auctions within the past year 
+	 * for this NPO who had no auction in the past
+	 */
 	@Test
 	public void testNoAuctionInPastYearOnNoAuctionsInPast(){
 		AuctionRequest request = new AuctionRequest(new Date(30, "December", 2016), auctionTime, "RedRum");
@@ -195,7 +222,7 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 	}
 	
 	/**
-	 * Acceptance test for: maximum of two auctions per day
+	 * Acceptance test for: maximum of two auctions per day on no auctions
 	 */
 	
 	@Test
@@ -204,6 +231,9 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		assertTrue(testDay.canAddAuction());
 	}
 	
+	/**
+	 * Acceptance test for: maximum of two auctions per day with one auction scheduled
+	 */
 	@Test
 	public void testMaxTwoAuctionPerDayOnOneAuctionScheduled(){
 	
@@ -212,6 +242,9 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		assertTrue(testDay.canAddAuction());
 	}
 	
+	/**
+	 * Acceptance test for: maximum of two auctions per day with two auctions scheduled
+	 */
 	@Test
 	public void testMaxTwoAuctionPerDayOnTwoAuctionsScheduled(){
 		
@@ -221,6 +254,10 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		assertFalse(testDay.canAddAuction());
 	}
 	
+	
+	/**
+	 * Acceptance test for: maximum of two auctions per day with more than two auctions scheduled
+	 */
 	@Test
 	public void testMaxTwoAuctionPerDayOnMoreThanTwoAuctionsScheduled(){
 		
@@ -246,6 +283,10 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		assertTrue(c2.addAuction(myAuctionRequest1));
 	}
 	
+	/**
+	 * Acceptance test for: maximum of 25 upcoming auctions with 24 scheduled
+	 */
+	
 	@Test
 	public void testMaxTwentyFiveAuctionsOnTwentyFourScheduled(){
 		
@@ -254,6 +295,10 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		assertTrue(c2.addAuction(myAuctionRequest1));
 	}
 	
+	/**
+	 * Acceptance test for: maximum of 25 upcoming auctions with 25 scheduled
+	 */
+	
 	@Test
 	public void testMaxTwentyFiveAuctionsOnTwentyFiveScheduled(){
 		
@@ -261,6 +306,11 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		
 		assertFalse(c2.addAuction(myAuctionRequest1));
 	}
+	
+	/**
+	 * Acceptance test for: maximum of 25 upcoming auctions with more than 25 scheduled
+	 */
+	
 	
 	@Test
 	public void testMaxTwentyFiveAuctionsOnMoreThanTwentyFiveScheduled(){
@@ -278,18 +328,27 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 	 * auction time [HH AM] or [HH PM]
 	 */
 	
+	/**
+	 * Acceptance test for: checking date field 
+	 */
 	@Test
 	public void testAllRequiredFieldsToSubmitRequestOnOneFieldMissingDate(){
 	
 		assertFalse(noDateRequest.checkRequiredField());
 	}
-
+	
+	/**
+	 *  Acceptance test for: checking time field
+	 */
 	@Test
 	public void testAllRequiredFieldsToSubmitRequestOnOneFieldMissingTime(){
 		
 		assertFalse(noTimeRequest.checkRequiredField());
 	}
 	
+	/**
+	 *  Acceptance test for: checking all the required fields
+	 */
 	@Test
 	public void testAllRequiredFieldsToSubmitRequestOnAllFieldsFilled(){
 		
@@ -307,30 +366,45 @@ public class NPOSubmitAuctionRequestAcceptanceTest {
 		assertTrue(c1.checkWeek(today.plusDays(7).getDayOfMonth()));
 	}
 	
+	/**
+	 * Acceptance test for: auction date is greater than one week
+	 */
 	@Test
 	public void testAtLeastOneWeekBeforeOnGreaterThanOneWeek(){
 		
 		assertTrue(c1.checkWeek(today.plusDays(10).getDayOfMonth()));
 	}
 	
+	/**
+	 * Acceptance test for: auction date is at least 6 days before
+	 */
 	@Test
 	public void testAtLeastOneWeekBeforeOnSixDays(){
 		
 		assertFalse(c1.checkWeek(today.plusDays(6).getDayOfMonth()));
 	}
 	
+	/**
+	 * Acceptance test for: auction date is less than six days
+	 */
 	@Test
 	public void testAtLeastOneWeekBeforeOnLessThanSixDays(){
 		
 		assertFalse(c1.checkWeek(today.plusDays(3).getDayOfMonth()));
 	}
 	
+	/**
+	 * Acceptance test for: auction date is at current date
+	 */
 	@Test
 	public void testAtLeastOneWeekBeforeOnCurrentDate(){
 		
 		assertFalse(c1.checkWeek(today.getDayOfMonth()));
 	}
 	
+	/**
+	 * Acceptance test for: auction date is one day in past.
+	 */
 	@Test
 	public void testAtLeastOneWeekBeforeOnDateInPast(){
 

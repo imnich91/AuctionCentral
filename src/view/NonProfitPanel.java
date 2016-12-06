@@ -282,7 +282,18 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 	
 	private void submitRequest(Date theDate, Time theTime) {
 		
-		boolean granted = myCalendar.addAuction(new AuctionRequest(theDate, theTime, myCurrNonProfit.getOrgName()));
+		boolean granted = false;
+		
+		try {	
+			 granted = myCalendar.addAuction(new AuctionRequest(theDate, theTime, myCurrNonProfit.getOrgName()));
+		
+		} catch (UnsupportedOperationException e) {
+			
+			JOptionPane.showMessageDialog(myFrame, e.getMessage());
+			
+		}
+		
+		
 					
 		if (granted) {			
 			setAuctionInfo();			
@@ -519,6 +530,7 @@ public class NonProfitPanel extends JPanel implements Observer, PropertyChangeLi
 			updateInventory();		
 
 		} else {	
+			myAuctionInfo.setNonProfit(myCurrNonProfit);
 			myAuctionInfo.setTextNoAuction();	
 			myAddAuction.setEnabled(true);
 			myAddItem.setEnabled(false);

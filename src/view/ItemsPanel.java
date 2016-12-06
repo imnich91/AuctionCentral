@@ -7,9 +7,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.CardLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
@@ -30,7 +27,7 @@ import model.NonProfit;
 
 
 /** 
- * 
+ * Displays all item available for a particular auction.
  * @author Dmitriy Onishchenko
  *
  */
@@ -129,6 +126,11 @@ public class ItemsPanel extends JPanel implements Observer {
 	
 	
 	
+	/**
+	 * Inner class for making item buttons
+	 * @author Dmitriy Onishchenko
+	 *
+	 */
 	private class ItemsButton extends JToggleButton {
 
 		private Item myItem;		
@@ -161,29 +163,9 @@ public class ItemsPanel extends JPanel implements Observer {
 		private String setItemText() {
 			
 			StringBuilder str = new StringBuilder();
-//			str.append("<html><div style = 'text-align:left'>");
-					
-			Integer i = myItem.getItemNumber();			
-			int numLen = i.toString().length();
-			
-			
 			str.append(String.format("%-5s", myItem.getItemNumber()));
-			
-//			str.append(myItem.getItemNumber());
-			
-//			while (numLen < 5) {
-//				str.append(" &nbsp ");
-//				numLen++;
-//			}
-						
-//			str.append(String.format("%40s", myItem.getItemName()));
-			
-//			System.out.println(String.format("%-30s %s" , myItem.getItemName(), "$" + myItem.getItemMinBid()));
 			str.append(String.format("%-30s %s" , myItem.getItemName(), "$" + myItem.getItemMinBid()));	
 	
-//			str.append("$" + myItem.getItemMinBid());	
-//			str.append("</div></html>");
-			
 			return str.toString();
 			
 		}

@@ -275,9 +275,10 @@ public class Calendar extends Observable implements Serializable {
 	 * 
 	 * @return true if the calendar has no more than the max auctions allowed.
 	 */
-	public boolean checkTotalAuctions() {
+	public boolean checkTotalAuctions() throws UnsupportedOperationException {
 		if(myAuctionsTotal >= myAuctionsAllowed) {
-			return false;
+			throw new UnsupportedOperationException("There are currently a max amount of Auctions");
+			
 		} else {
 			return true;		
 		}

@@ -71,7 +71,7 @@ public class AuctionCentralMain {
 	         usersLoginFile.close();	     
 	         
 	         // read in the users user names file
-	         FileInputStream calendarFile = new FileInputStream("./usersData/calendar.ser");
+	         FileInputStream calendarFile = new FileInputStream("./usersData/calendar24.ser");
 	         in = new ObjectInputStream(calendarFile);	         
 	         myCalendar = (Calendar) in.readObject();
 	         in.close();
