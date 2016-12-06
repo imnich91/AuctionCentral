@@ -1,3 +1,9 @@
+/*
+ * TCSS 360 Software Development
+ * Auction Central Project
+ * Group 6 
+ */
+
 package view;
 
 import java.awt.BorderLayout;
@@ -19,22 +25,40 @@ import model.Staff;
 import model.User;
 
 /**
- * 
+ *  A staff panel GUI that displays the user stories that a staff can do.
  * @author imnic
  *
  */
 public class StaffPanel extends JPanel implements Observer {
-	
+	/**
+	 * The Center Panel for the staff
+	 */
 	private JPanel myCenterPanel;
 	
+	/**
+	 * The calendar with today's date.
+	 */
 	private Calendar myCalendar;
 	
+	
+	/**
+	 * The panel that contains all the buttons for Staff
+	 */
 	private JPanel myButtonPanel;
 	
+	/**
+	 * The information panel about the staff
+	 */
 	private StaffInfoPanel myStaffInfo;
 	
+	/**
+	 * The logged in staff user.
+	 */
 	private Staff myStaff;
 	
+	/**
+	 * The Frame that holds all the panels.
+	 */
 	private final JFrame myFrame;
 		
 	public StaffPanel(final JFrame theFrame) {
@@ -103,7 +127,9 @@ public class StaffPanel extends JPanel implements Observer {
 		// TODO Auto-generated method stub
 		
 	}
-	
+	/**
+	 * Setup the header for the staff page with staff information
+	 */
 	public void setUpStaffInfo() {
 		myStaffInfo.setHeader(myStaff);
 	}

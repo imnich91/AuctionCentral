@@ -14,7 +14,7 @@ import model.NonProfit;
 
 
 /**
- * 
+ * A non profit information panel that display all the information for the non profit.
  * @author Dmitriy Onishchenko
  *
  */
@@ -26,17 +26,35 @@ public class NonProfitInfoPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * The calendar that starts with the current date.
+	 */
 	private Calendar myCalendar;
 	
+	/**
+	 * The logged in non profit.
+	 */
 	private NonProfit myNonProfit;
 	
+	/**
+	 * A JLabel that display all the auction information that the non profit has.
+	 */
 	private JLabel myAuctionInfo;
 	
+	/**
+	 * The JLabel for the non profit user.
+	 */
 	private JLabel myUser;
 	
-	
+	/**
+	 * The JLabel that displays the inventory of an auction
+	 */
 	private JLabel myInventory;
 	
+	/**
+	 * A constructor for the non profit user info panel
+	 * @param theCalendar 
+	 */
 	public NonProfitInfoPanel (Calendar theCalendar) {
 		
 		setLayout(new BorderLayout());
@@ -71,6 +89,9 @@ public class NonProfitInfoPanel extends JPanel {
 		myNonProfit = theNonProfit;
 	}
 	
+	/**
+	 * A method that changes the text for the non profit if he has an auction
+	 */
 	public void setTextHasAuction() {
 		
 		myUser.setText("");
@@ -95,6 +116,9 @@ public class NonProfitInfoPanel extends JPanel {
 		
 	}
 	
+	/**
+	 * A method that changes the text for the non profit if he does not have an auction
+	 */
 	public void setTextNoAuction() {
 		
 		myUser.setText("");
