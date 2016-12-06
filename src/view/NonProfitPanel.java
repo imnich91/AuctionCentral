@@ -35,8 +35,7 @@ import model.Time;
 /**
  * Used to build the non-profit JPanel.
  * 
- * @author Dmitriy Onishchenko,
- * Colin Casey (set up Skeleton)
+ * @author Dmitriy Onishchenko 
  * 
  */
 public class NonProfitPanel extends JPanel implements PropertyChangeListener{
@@ -87,7 +86,14 @@ public class NonProfitPanel extends JPanel implements PropertyChangeListener{
 	 */
 	private JFrame myFrame;
 	
+	/**
+	 * the local date
+	 */
 	private LocalDate myLocalDate;	
+	
+	/**
+	 * the current data
+	 */
 	private Date myCurrDate;
 	
 	/**
@@ -124,8 +130,6 @@ public class NonProfitPanel extends JPanel implements PropertyChangeListener{
 	 * The auction that the non profit has.
 	 */
 	private Auction myAuction;
-
-
 	
 	/**
 	 * Used to build the JPanel.
@@ -178,9 +182,7 @@ public class NonProfitPanel extends JPanel implements PropertyChangeListener{
 						setAuctionInfo();
 						myAuction = null;
 					}					
-				}
-				
-				
+				}				
 			}
 		});		
 		myButtons.add(myCancelAuction);
@@ -280,16 +282,13 @@ public class NonProfitPanel extends JPanel implements PropertyChangeListener{
 		
 		} catch (UnsupportedOperationException e) {
 			
-			JOptionPane.showMessageDialog(myFrame, e.getMessage());
-			
+			JOptionPane.showMessageDialog(myFrame, e.getMessage());			
 		}
-		
 		
 					
 		if (granted) {			
 			setAuctionInfo();			
-		}
-		
+		}	
 	}
 	
 	/**
@@ -469,15 +468,9 @@ public class NonProfitPanel extends JPanel implements PropertyChangeListener{
 					theDonor, theDescription, theComments);					
 			myAuction.addItem(myCurrNonProfit, item);
 			remove(myInventory);
-			setAuctionInfo();
-			
-		}
-		
-		
-		
-		
-	}
-								
+			setAuctionInfo();			
+		}		
+	}								
 								
 	
 	/**
@@ -501,9 +494,7 @@ public class NonProfitPanel extends JPanel implements PropertyChangeListener{
 	
 	private void makeAuctionInfoLabel() {
 		myAuctionInfo = new NonProfitInfoPanel(myCalendar);
-		this.add(myAuctionInfo, BorderLayout.NORTH);
-		
-		
+		this.add(myAuctionInfo, BorderLayout.NORTH);	
 	}
 
 	

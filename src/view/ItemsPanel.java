@@ -149,8 +149,7 @@ public class ItemsPanel extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {				
 					
-					int num = ((ItemsButton)e.getSource()).getItemNumber();
-					
+					int num = ((ItemsButton)e.getSource()).getItemNumber();					
 					fireChange(-1, num);					
 					
 				}
