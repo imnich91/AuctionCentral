@@ -154,11 +154,17 @@ public class BidderPanel extends JPanel {
 		add(myButtons, BorderLayout.PAGE_END);
 	}
 	
+	/**
+	 * Used to set up north panel.
+	 */
 	private void setupNorthPanel() {
 		myBidderInfo = new BidderInfoPanel(myCalendar);
 		add(myBidderInfo, BorderLayout.NORTH);
 	}
 	
+	/**
+	 * Used to set up centerPanel
+	 */
 	private void setupCenterPanel() {
 		myCenterPanel = new JPanel();
 		myCenterPanel.setLayout(new GridLayout(0,1));
@@ -260,6 +266,7 @@ public class BidderPanel extends JPanel {
 		LocalDate theDate = LocalDate.now();
 		Date current = new Date(theDate.getDayOfMonth(), theDate.getMonth().toString().toLowerCase(), 
 								theDate.getYear());
+		//System.out.println(myUser);
 		if(!item.equals(null)) {
 		flag = item.cancelBid(myUser, 
 				theAuction.get(0).getDate(),
@@ -382,7 +389,6 @@ public class BidderPanel extends JPanel {
 	private void placeBid(final int theBid) {
 		boolean flag = myItem.makeBid(myUser, theBid);
 		myBids = myItem.getBunchObids();
-		//System.out.println(flag);
 	}
 	
 	/**
