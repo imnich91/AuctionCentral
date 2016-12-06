@@ -42,7 +42,7 @@ public class DayTest {
 		d.addAuction(myRequest3);
 		
 		//already at 2 auctions trying to add another
-		assertFalse("test can add a third auction", d.canAddAuction(myRequest4));
+		assertFalse("test can add a third auction", d.canAddAuction());
 	}
 
 	@Test
