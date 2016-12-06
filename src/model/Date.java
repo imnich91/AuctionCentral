@@ -117,7 +117,7 @@ public class Date  implements Serializable{
 	}
 	
 	/**
-	 * Converts a month from a string to an int.
+	 * Converts a month from an int to an String.
 	 * @param theMonth the month to convert
 	 * @return the month as an int.
 	 */
@@ -155,7 +155,11 @@ public class Date  implements Serializable{
 	}
 	
 	
-	
+	/**
+	 * Converts a month from a string to an int.
+	 * @param theMonth the month to convert
+	 * @return the month as an int.
+	 */
 	public int getMonthAsNumber() {
 		
 		switch(this.myMonth.toLowerCase()) {
@@ -186,9 +190,7 @@ public class Date  implements Serializable{
 		default:
 			return 0;
 			
-	}		
-		
-		
+		}		
 	}
 	
 	/**

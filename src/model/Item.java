@@ -7,6 +7,7 @@
 package model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -200,6 +201,22 @@ public class Item implements Serializable{
 				theUser instanceof Staff || theUser instanceof NonProfit);			
 	}
 	
+	/**
+	 * Method determines if a bidder can make a bid on an item in the
+	 * auction on the provided date.
+	 * @param theAuctionDate date of the auction to bid in
+	 * @return true if a bid can be made else false
+	 */
+	public boolean canMakeBid(Date theAuctionDate){
+		
+		LocalDate today = LocalDate.now();
+		
+		if(theAuctionDate.getDay() <= today.getDayOfMonth())
+			return false;
+		else
+			return true;
+	}
+	
 		
 	/**
 	 * @return item's auction inventory number
@@ -263,6 +280,4 @@ public class Item implements Serializable{
 	public Collection<Bid> getBunchObids(){
 		return myBunchObids;
 	}
-	
-
 }

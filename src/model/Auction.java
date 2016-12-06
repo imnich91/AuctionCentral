@@ -209,13 +209,6 @@ public class Auction implements Serializable{
 	}
 	
 	
-	public void setDate(Date theDate) {
-		myDate = theDate;
-	}
-	
-	
-	
-	
 	/**
 	 * {@inheritDoc}.
 	 * A representation of the Auction.	

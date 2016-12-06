@@ -418,18 +418,4 @@ public class Calendar extends Observable implements Serializable {
 		return canceled;
 	}
 	
-
-	/**
-	 * @author Georgia Wade
-	 * This method is used for testing purposes only. Method adds the auction
-	 * request to the calendar.
-	 * @param theRequest an auction wanting to be added to the calendar
-	 */
-	public void populateCalendar(AuctionRequest theRequest)
-	{
-		Auction temp = new Auction(theRequest.getNonProfitName(), theRequest.getDate(), theRequest.getTime());
-		myCalendar.get(theRequest.getDate().getDay()-1).addAuction(theRequest);									
-//		myAuctions.add(temp);
-//		myAuctionsTotal++;	
-	}
 }
